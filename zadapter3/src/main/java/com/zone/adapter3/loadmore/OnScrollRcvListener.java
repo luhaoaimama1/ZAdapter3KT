@@ -83,6 +83,7 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
     //移除
     public void loadMoreComplete() {
         mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates);
+        mQuickRcvAdapter.notifyDataSetChanged();
         loadMoreDelegates.complete();
     }
 

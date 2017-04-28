@@ -16,6 +16,7 @@ import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
 import com.zone.adapter3.helper.Helper;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -292,7 +293,6 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     protected int getItemViewType2(int dataPosition) {
         return Wrapper.DEFAULT_VALUE;
     }
-
 
     @Override
     public IAdapter addEmptyHold(ViewDelegates emptyView) {

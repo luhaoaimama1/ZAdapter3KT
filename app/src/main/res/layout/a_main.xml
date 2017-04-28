@@ -6,11 +6,25 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/bt_rv"
+        android:id="@+id/bt_Linear"
         android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="多布局Recycler" />
+        android:text="Linear" />
+    <Button
+        android:id="@+id/bt_Grid"
+        android:onClick="onClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Grid" />
+    <Button
+        android:id="@+id/bt_Staggered"
+        android:onClick="onClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Staggered" />
 
 </LinearLayout>

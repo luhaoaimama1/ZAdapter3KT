@@ -55,17 +55,19 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
             rv.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         }
         rv.setItemAnimator(new DefaultItemAnimator());
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        muliAdapter = new QuickRcvAdapter(this, mDatas) {
+
+        muliAdapter = new QuickRcvAdapter(this, mDatas){
             @Override
             protected int getItemViewType2(int dataPosition) {
                 return dataPosition % 2;
             }
         };
         muliAdapter
-                .addViewHolder(new LeftDelegates())
-                .addViewHolder(0, new LeftDelegates())
-                .addViewHolder(1, new RightDelegates())
+                .addViewHolder(new LeftDelegates())//默认
+
+//                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
+//                .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
+
 //                .addHeaderHolder(R.layout.header_simple)
 //                .addFooterHolder(R.layout.footer_simple)
                 .addEmptyHold(R.layout.empty)
@@ -83,7 +85,7 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
                         return true;
                     }
                 })
-                .addOnScrollListener(scroller=new OnScrollRcvListenerEx(new OnScrollRcvListenerEx.LoadMoreCallback() {
+                .addOnScrollListener(scroller = new OnScrollRcvListenerEx(new OnScrollRcvListenerEx.LoadMoreCallback() {
                     @Override
                     public void loadMore() {
                         handler.postDelayed(new Runnable() {
@@ -106,7 +108,6 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
                     }
                 }))
         ;
-//        RecyclerViewEmptyUtils.addEmptyView(rv,View.inflate(this, R.layout.empty, null));
     }
 
     public int loadMoreCount = 1;
@@ -117,7 +118,6 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
             case R.id.bt_add:
                 mDatas.add("insert one no ani");
                 muliAdapter.notifyDataSetChanged();
-//                muliAdapter.add(1, "insert one no ani");
                 break;
             case R.id.bt_aniAdd:
                 mDatas.add(1, "insert one with ani");
