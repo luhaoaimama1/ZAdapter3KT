@@ -3,8 +3,11 @@
 # 优点
 
 -[x] recyclerView链式调用
+
 -[x] 可复用,资源id写在复用类里面
+
 -[x] Helper类的链式调用与可扩展
+
 -[x] 空数据view的支持
 
 >为什么使用 helper 而不是 bindview?

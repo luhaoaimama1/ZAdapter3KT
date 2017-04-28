@@ -5,8 +5,11 @@
 # advantages
 
 -[x] RecyclerView chain calls
+
 -[x] Reusable, resource id write inside the reusable class
+
 -[x] Helper class chain calls and extensible
+
 -[x] Empty data support the view
 
 >Why use a helper rather than bindview?
