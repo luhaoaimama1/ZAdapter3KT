@@ -29,6 +29,4 @@ public class ExtraHelper extends Helper<ExtraHelper> {
         checkChild();
         return child;
     }
-
-
 }

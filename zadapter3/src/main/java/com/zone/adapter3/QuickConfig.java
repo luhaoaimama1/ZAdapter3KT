@@ -23,7 +23,7 @@ public class QuickConfig {
         return loadMoreDelegates;
     }
 
-    public void setiLoadMoreDelegates(ILoadMoreDelegates iLoadMoreDelegates) {
+    public void setLoadMoreDelegates(ILoadMoreDelegates iLoadMoreDelegates) {
         this.loadMoreDelegates = iLoadMoreDelegates;
     }
 
