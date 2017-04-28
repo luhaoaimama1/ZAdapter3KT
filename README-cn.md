@@ -43,8 +43,8 @@ Step 2. Add the dependency
             };
     muliAdapter
                 .addViewHolder(new LeftDelegates())//默认
-                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
-                .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
+                .addViewHolder(0, new LeftDelegates()) //多部剧
+                .addViewHolder(1, new RightDelegates())//多部剧
                 .addHeaderHolder(R.layout.header_simple)//资源
                 .addHeaderHolder(ViewDelegates footer)//也可以的
                 .addFooterHolder(R.layout.footer_simple)//资源
@@ -101,6 +101,8 @@ public class LeftDelegates extends ViewDelegates<String> {
 ```
 
 3.Helper的扩展技巧:扩展技巧是 装饰模式+链式调用
+
+> ExtraHelper.wrapper(helper).setText(R.id.tv, data).heihei().heihei2();
 
 ```
 public class ExtraHelper extends Helper<ExtraHelper> {
