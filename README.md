@@ -13,7 +13,8 @@
 -[x] Empty data support the view
 
 > Why use a helper rather than bindview?
-> Reason: can be customized packaging logic, not strong, can even write;
+
+> Reason: can be customized packaging logic , not strong, can even write;
 
 # Usage
 
