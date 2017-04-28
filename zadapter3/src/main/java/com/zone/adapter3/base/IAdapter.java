@@ -36,6 +36,14 @@ public interface IAdapter<T> {
 
     OnItemLongClickListener getOnItemLongClickListener();
 
+    interface OnItemClickListener {
+        void onItemClick(ViewGroup parent, View view, int position);
+    }
+
+    interface OnItemLongClickListener {
+        boolean onItemLongClick(ViewGroup parent, View view, int position);
+    }
+
     // =======================================
     // ============RecyclerView方法==============
     // =======================================
@@ -52,13 +60,15 @@ public interface IAdapter<T> {
 
     IAdapter loadMoreFail();
 
-    interface OnItemClickListener {
-        void onItemClick(ViewGroup parent, View view, int position);
-    }
+    IAdapter end();
 
-    interface OnItemLongClickListener {
-        boolean onItemLongClick(ViewGroup parent, View view, int position);
-    }
+    /**
+     * 重footerDelegates清除LoadMoreDelegates
+     * 不通知监听
+     * @return
+     */
+    IAdapter clearLoadMoreDelegates();
+
 
     // =======================================
     // ============ header/footer ==============

@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RecyclerActivity"></activity>
+        <activity android:name=".Recycler2ZRefreshActivity"></activity>
     </application>
 
 </manifest>

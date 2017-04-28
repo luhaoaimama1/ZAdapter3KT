@@ -24,13 +24,23 @@ public abstract class ILoadMoreDelegates extends ViewDelegates {
     public void setOnScrollRcvListener(OnScrollRcvListener onScrollRcvListener) {
         this.mOnScrollRcvListener = onScrollRcvListener;
     }
-
+    /**
+     * loadMore的表现形式 和监听无关
+     */
     public abstract void loading();
 
+    /**
+     * loadMore的表现形式 和监听无关
+     */
     public abstract void complete();
 
+    /**
+     * loadMore的表现形式 和监听无关
+     */
     public abstract void fail();
-
+    /**
+     * loadMore的表现形式  和监听无关
+     */
     public abstract void end();
 
 

@@ -26,5 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="Staggered" />
+    <Button
+        android:id="@+id/bt_Link"
+        android:onClick="onClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="ZRefresh联动" />
 
 </LinearLayout>

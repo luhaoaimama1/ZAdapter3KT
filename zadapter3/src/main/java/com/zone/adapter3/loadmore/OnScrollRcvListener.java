@@ -75,29 +75,40 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
                 mQuickRcvAdapter.addFooterHolder(loadMoreDelegates);
                 mQuickRcvAdapter.notifyItemInserted(mQuickRcvAdapter.getItemCount() - 1);
                 recyclerView.scrollToPosition(mQuickRcvAdapter.getItemCount() - 1);
-                loadMoreDelegates.loading();
             }
+            loadMoreDelegates.loading();
         }
     }
 
     //移除
     public void loadMoreComplete() {
-        mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates);
-        mQuickRcvAdapter.notifyDataSetChanged();
+        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
+            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates);
+            mQuickRcvAdapter.notifyDataSetChanged();
+        }
         loadMoreDelegates.complete();
+    }
+
+    public void clearLoadMoreDelegates() {
+        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
+            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates);
+            mQuickRcvAdapter.notifyDataSetChanged();
+        }
     }
 
     //数据到底部了
     public void end() {
-        loadMoreDelegates.end();
+        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
+            loadMoreDelegates.end();
     }
 
     //失败
     public void loadMoreFail() {
-        loadMoreDelegates.fail();
+        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
+            loadMoreDelegates.fail();
     }
 
-    public boolean isCanLoadMore2isRest(RecyclerView recyclerView) {
+    protected boolean isCanLoadMore2isRest(RecyclerView recyclerView) {
         return true;
     }
 

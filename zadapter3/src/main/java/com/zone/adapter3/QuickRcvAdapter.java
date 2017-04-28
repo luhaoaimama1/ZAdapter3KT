@@ -143,5 +143,18 @@ public class QuickRcvAdapter<T> extends Header2FooterRcvAdapter<T> {
         return this;
     }
 
+    @Override
+    public IAdapter end() {
+        checkScrollerListener();
+        listener.end();
+        return this;
+    }
+
+    @Override
+    public IAdapter clearLoadMoreDelegates() {
+        checkScrollerListener();
+        listener.clearLoadMoreDelegates();
+        return this;
+    }
 }
 
