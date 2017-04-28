@@ -105,25 +105,25 @@ public class LeftDelegates extends ViewDelegates<String> {
 > ExtraHelper.wrapper(helper).setText(R.id.tv, data).heihei().heihei2();
 
 ```
-public class ExtraHelper extends Helper<ExtraHelper> {
+public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
 
 
-    private ExtraHelper(Helper helper) {
-        super(helper.getContext(), helper.getHolder(),helper.getAdapter());
-        child = this;
+    protected ExtraHelper(Helper helper) {
+        super(helper.getContext(), helper.getHolder(), helper.getAdapter());
+        child = (T) this;
     }
 
-    public static ExtraHelper wrapper(Helper helper){
+    public static ExtraHelper<ExtraHelper> wrapper(Helper helper) {
         return new ExtraHelper(helper);
     }
 
-    public ExtraHelper heihei() {
+    public T heihei() {
         System.out.println("heihei!");
         checkChild();
         return child;
     }
 
-    public ExtraHelper heihei2() {
+    public T heihei2() {
         System.out.println("heihei2!");
         checkChild();
         return child;
@@ -136,6 +136,7 @@ public class ExtraHelper extends Helper<ExtraHelper> {
 
     //全局替换加载更多
     QuickConfig.build().setLoadMoreDelegates(ILoadMoreDelegates iLoadMoreDelegates).perform();
+
 
 
 # Reference&Thanks：
