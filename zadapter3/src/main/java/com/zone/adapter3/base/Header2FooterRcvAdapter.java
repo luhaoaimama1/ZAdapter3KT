@@ -127,7 +127,12 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public int getItemCount() {
-        return data.size() + mHeaderViews.size() + mFooterViews.size() + (isEmptyData() ? 1 : 0);
+        return getRealItemCount() + (isEmptyData() ? 1 : 0);
+    }
+
+    @Override
+    public int getRealItemCount() {
+        return data.size() + mHeaderViews.size() + mFooterViews.size();
     }
 
     /**

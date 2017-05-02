@@ -23,6 +23,8 @@ public interface IAdapter<T> {
     // =======================================
     List<T> getData();
 
+    int getRealItemCount();
+
     Context getContext();
     // =======================================
     // ============Listener ==============
@@ -65,6 +67,7 @@ public interface IAdapter<T> {
     /**
      * 重footerDelegates清除LoadMoreDelegates
      * 不通知监听
+     *
      * @return
      */
     IAdapter clearLoadMoreDelegates();
