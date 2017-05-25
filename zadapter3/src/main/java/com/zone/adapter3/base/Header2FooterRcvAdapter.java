@@ -6,17 +6,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.zone.adapter.R;
 import com.zone.adapter3.QuickConfig;
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
 import com.zone.adapter3.helper.Helper;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,7 @@ import java.util.List;
  */
 public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
-    private static int HEADER_TYPE = -1000;
-    private static int FOOTER_TYPE = -2000;
+    public static final int ITEM_VIEW_TYPE_HEADER_OR_FOOTER = -3;
 
     //Limit one thousand
     private List<ViewDelegates> mHeaderViews = new ArrayList<>();
@@ -47,27 +45,16 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public Holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        if (viewType <= HEADER_TYPE && viewType > HEADER_TYPE - 1000) {
-            QuickConfig.e("onCreateViewHolder header:" + viewType);
-
-//            if (mHeaderViews.get(HEADER_TYPE - viewType).getItemView() == null)
-            mHeaderViews.get(HEADER_TYPE - viewType).tryCreateView(context, mRecyclerView);
-
-            return new Holder(setFullspan(mHeaderViews.get(HEADER_TYPE - viewType).getItemView()));
-        } else if (viewType <= FOOTER_TYPE && viewType > FOOTER_TYPE - 1000) {
-            QuickConfig.e("onCreateViewHolder footer:" + viewType);
-
-//            if (mFooterViews.get(FOOTER_TYPE - viewType).getItemView() == null)
-            mFooterViews.get(FOOTER_TYPE - viewType).tryCreateView(context, mRecyclerView);
-            return new Holder(setFullspan(mFooterViews.get(FOOTER_TYPE - viewType).getItemView()));
+        if (viewType == ITEM_VIEW_TYPE_HEADER_OR_FOOTER) {
+            QuickConfig.e("onCreateViewHolder header or footer :" + viewType);
+            return new Holder(setFullspan(LayoutInflater.from(context)
+                    .inflate(R.layout.base_vp, mRecyclerView, false)));
         } else if (viewType == Wrapper.EMPTY_VALUE) {
             QuickConfig.e("onCreateViewHolder Empty:" + viewType);
             mEmptyView.tryCreateView(context, mRecyclerView);
             return new Holder(setFullspan(mEmptyView.getItemView()));
         } else {
-            //Viewtype is getitemviewtype (position ID) int
-            QuickConfig.e("onCreateViewHolder views:" + viewType + " \t HEADER_TYPE-1000"
-                    + (HEADER_TYPE - 1000) + " \t HEADER_TYPE" + HEADER_TYPE);
+            QuickConfig.e("onCreateViewHolder views:" + viewType );
             Wrapper targetWarpper = null;
             for (Wrapper mView : mViews) {
                 if (mView.getStyle() == Wrapper.DEFAULT_VALUE) {
@@ -81,7 +68,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             }
             if (targetWarpper == null)
                 throw new IllegalStateException("请设置默认o.style.switch的默认viewHold");
-            targetWarpper.getViewDelegates().reallyCreateView(context, mRecyclerView);
+            //这里 必须创建  因为我是通过 ViewDelegates的类型去创建的
+            targetWarpper.getViewDelegates().reallyCreateHFView(context, mRecyclerView);
+            if (targetWarpper.getViewDelegates().isFullspan())
+                setFullspan(targetWarpper.getViewDelegates().getItemView());
             final Holder holder = new Holder(context, targetWarpper);
             holder.setHelper(createHelper(holder, context, targetWarpper));
             return holder;
@@ -118,6 +108,18 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
                 holder.wrapper.getViewDelegates().fillData(
                         position, data.get(getDataPosition(position)),
                         holder.helper);
+        } else if (position < mHeaderViews.size()) {
+            ((ViewGroup) holder.itemView).removeAllViews();
+            ViewGroup vp = (ViewGroup) mHeaderViews.get(position).getItemView().getParent();
+            if (vp != null)
+                vp.removeAllViews();
+            ((ViewGroup) holder.itemView).addView(mHeaderViews.get(position).getItemView());
+        } else {
+            ((ViewGroup) holder.itemView).removeAllViews();
+            ViewGroup vp = (ViewGroup) mFooterViews.get(position - getHeaderViewsCount() - data.size()).getItemView().getParent();
+            if (vp != null)
+                vp.removeAllViews();
+            ((ViewGroup) holder.itemView).addView(mFooterViews.get(position - getHeaderViewsCount() - data.size()).getItemView());
         }
     }
 
@@ -148,22 +150,18 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             QuickConfig.e("getItemViewType empty:" + position);
             return Wrapper.EMPTY_VALUE;
         }
-        if (position < getHeaderViewsCount()) {
-            //头部id -1000 --> -2000
-            QuickConfig.e("getItemViewType head:" + position);
-            return HEADER_TYPE - position;
-        } else if (position >= getHeaderViewsCount() && position < getHeaderViewsCount() + data.size()) {
-            QuickConfig.e("getItemViewType ivews:" + position);
+        if (position >= getHeaderViewsCount() && position < getHeaderViewsCount() + data.size()) {
+            QuickConfig.e("getItemViewType views:" + position);
             int result = getItemViewType2(getDataPosition(position));
-            if (result < HEADER_TYPE && result > FOOTER_TYPE - 1000)
-                throw new IllegalStateException("layoutType is viewHolder or footer type");
+            if (result == ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
+                throw new IllegalStateException("layoutType is must not be"+ITEM_VIEW_TYPE_HEADER_OR_FOOTER);
             return result;
         } else {
-            //底id -2000 --> -3000
-            QuickConfig.e("getItemViewType footer:" + position);
-            return FOOTER_TYPE - (position - getHeaderViewsCount() - data.size());
+            QuickConfig.e("getItemViewType healder or footer:" + position);
+            return ITEM_VIEW_TYPE_HEADER_OR_FOOTER;
         }
     }
+
 
     @Override
     public IAdapter relatedList(RecyclerView mRecyclerView) {
@@ -183,9 +181,14 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
                 @Override
                 public int getSpanSize(int position) {
                     if (position >= getHeaderViewsCount() && position < getHeaderViewsCount()
-                            + data.size())
+                            + data.size()) {
+                        for (int i = 0; i < mViews.size(); i++) {
+                            if (mViews.get(i).getStyle() == getItemViewType2(getDataPosition(position))
+                                    && mViews.get(i).getViewDelegates().isFullspan())
+                                return ((GridLayoutManager) manager).getSpanCount();
+                        }
                         return 1;
-                    else
+                    } else
                         return ((GridLayoutManager) manager).getSpanCount();
                 }
             });
@@ -212,8 +215,9 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public IAdapter addViewHolder(int style, ViewDelegates viewDelegates) {
         if (Wrapper.DEFAULT_VALUE == style
                 || Wrapper.EMPTY_VALUE == style
-                || (style <= HEADER_TYPE && style > FOOTER_TYPE - 1000))
-            throw new IllegalStateException("style不能为关键的值-1,-2,-1000到-3000");
+                || style==ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
+            throw new IllegalStateException(String.format("style不能为关键的值:%d,%d,%d"
+                    ,Wrapper.DEFAULT_VALUE,Wrapper.EMPTY_VALUE,ITEM_VIEW_TYPE_HEADER_OR_FOOTER));
         if (!repeatCheckList.contains(style))
             repeatCheckList.add(style);
         else
@@ -226,8 +230,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public IAdapter addHeaderHolder(ViewDelegates header) {
         if (header == null)
             throw new RuntimeException("viewHolder is null");
-        if (!mHeaderViews.contains(header))
+        if (!mHeaderViews.contains(header)) {
             mHeaderViews.add(header);
+            header.reallyCreateHFView(context);
+        }
         return this;
     }
 
@@ -245,8 +251,11 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public IAdapter addFooterHolder(ViewDelegates footer) {
         if (footer == null)
             throw new RuntimeException("footer is null");
-        if (!mFooterViews.contains(footer))
+        if (!mFooterViews.contains(footer)) {
             mFooterViews.add(footer);
+            footer.reallyCreateHFView(context);
+        }
+
         return this;
     }
 

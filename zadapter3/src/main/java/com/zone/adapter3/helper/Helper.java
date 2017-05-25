@@ -317,6 +317,10 @@ public class Helper<T extends Helper> {
         return (V) view;
     }
 
+    public T restore(){
+        views.clear();
+        return child;
+    }
     // =======================================
     // ============基础信息==============
     // =======================================

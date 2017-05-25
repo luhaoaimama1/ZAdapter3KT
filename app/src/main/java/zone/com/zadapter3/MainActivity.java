@@ -53,4 +53,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClick() {
         startActivity(new Intent(this, Recycler2ZRefreshActivity.class));
     }
+
+    @OnClick(R.id.bt_Muli)
+    public void onClick2() {
+        startActivity(new Intent(this, MuliRecyclerActivity.class));
+    }
 }

@@ -47,9 +47,9 @@ public abstract class ILoadMoreDelegates extends ViewDelegates {
     protected abstract void initData(View convertView, RecyclerView rv);
 
     @Override
-    public void reallyCreateView(Context context, RecyclerView rv) {
+    public void reallyCreateHFView(Context context, RecyclerView rv) {
         QuickConfig.e("tryCreateView");
-        super.reallyCreateView(context, rv);
+        super.reallyCreateHFView(context, rv);
         initData(getItemView(), rv);
     }
 

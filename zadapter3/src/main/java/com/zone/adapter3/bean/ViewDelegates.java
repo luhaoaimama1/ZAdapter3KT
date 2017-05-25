@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.zone.adapter3.helper.Helper;
 
@@ -16,16 +17,23 @@ public abstract class ViewDelegates<T> {
 
     protected Context context;
     private View itemView;
+    private String tag;
 
     public ViewDelegates tryCreateView(Context context, RecyclerView rv) {
         if (itemView == null)
-            reallyCreateView(context, rv);
+            reallyCreateHFView(context, rv);
         return this;
     }
 
-    public void reallyCreateView(Context context, RecyclerView rv) {
+    public void reallyCreateHFView(Context context, RecyclerView rv) {
         this.context = context;
         itemView = LayoutInflater.from(context).inflate(getLayoutId(), rv, false);
+    }
+
+    public void reallyCreateHFView(Context context) {
+        this.context = context;
+        //null的时候 生成的是FrameLayout的布局
+        itemView = LayoutInflater.from(context).inflate(getLayoutId(), null, false);
     }
 
     @LayoutRes
@@ -35,5 +43,17 @@ public abstract class ViewDelegates<T> {
 
     public View getItemView() {
         return itemView;
+    }
+
+    public boolean isFullspan() {
+        return false;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

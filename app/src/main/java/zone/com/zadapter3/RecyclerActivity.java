@@ -38,8 +38,8 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
         setContentView(R.layout.a_recycler);
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
-        for (int i = 'A'; i <= 'Z'; i++) {
-            mDatas.add("" + (char) i);
+        for (int i = 1; i <= 1000; i++) {
+            mDatas.add("" +  i);
         }
 
         //base test
@@ -64,8 +64,8 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
         };
         muliAdapter
                 .addViewHolder(new LeftDelegates())//默认
-//                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
-//                .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
+                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
+                .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
 //                .addHeaderHolder(R.layout.header_simple)
 //                .addFooterHolder(R.layout.footer_simple)
                 .addEmptyHold(R.layout.empty)

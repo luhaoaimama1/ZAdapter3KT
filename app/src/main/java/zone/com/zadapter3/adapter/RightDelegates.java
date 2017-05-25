@@ -21,4 +21,9 @@ public class RightDelegates extends ViewDelegates<String> {
     public void fillData(int postion, String data, Helper helper) {
         helper.setText(R.id.tv, data);
     }
+
+    @Override
+    public boolean isFullspan() {
+        return true;
+    }
 }
