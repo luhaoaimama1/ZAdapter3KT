@@ -38,6 +38,7 @@ makeJar.dependsOn(build)
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:recyclerview-v7:24.2.0'
+//    compile 'com.android.support:recyclerview-v7:23.2.1'
 }
 
 //---------------jitPack 文档注释 Start------------------------

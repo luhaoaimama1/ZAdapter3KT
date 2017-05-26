@@ -1,12 +1,14 @@
 package zone.com.zadapter3;
 
 import android.app.Activity;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
@@ -35,12 +37,19 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
         setContentView(R.layout.a_muli_recycler);
         ButterKnife.bind(this);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
+        rv.setItemAnimator(new DefaultItemAnimator());
+        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.left = 10;
+                outRect.bottom = 10;
+
+            }
+        });
         for (int i = 1; i <= 10; i++) {
             mDatas.add("" + i);
         }
-        rv.setLayoutManager(new GridLayoutManager(this, 3));
-
-        rv.setItemAnimator(new DefaultItemAnimator());
 
         muliAdapter = new QuickRcvAdapter(this, mDatas) {
             @Override
@@ -78,9 +87,26 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
         return false;
     }
 
+    @OnClick(R.id.bt_add)
+    public void onClick2() {
+        mDatas.add("onscrooll");
+        muliAdapter.notifyItemInsertedEx(mDatas.size() - 1);
+        rv.scrollToPosition(muliAdapter.getItemCount() - 1);
+    }
+
+    @OnClick(R.id.bt_addFooter)
+    public void onClick3() {
+        muliAdapter.addFooterHolder(R.layout.header_simple);
+        muliAdapter.notifyItemInserted(muliAdapter.getItemCount());
+        rv.scrollToPosition(muliAdapter.getItemCount() - 1);
+    }
+
     @OnClick(R.id.bt_change)
     public void onClick() {
-        muliAdapter.removeFooterHolder(footer1);
+        //todo  getIndex(ViewDelegates)  主要是定位  后做notifyItem动画
+        muliAdapter.getFooterViewsCount();
+        muliAdapter.removeFooterHolder(footer1);//todo  remove 到时候 带
+//        muliAdapter.notifyItemRemoved(mDatas.size()+muliAdapter.getHeaderViewsCount()+);
         footer1.setTag("footer1");
         muliAdapter.removeFooterHolder(footer2);
         muliAdapter.addFooterHolder(footer2 = new ViewDelegates() {
@@ -93,11 +119,12 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
             public void fillData(int postion, Object data, Helper helper) {
 
             }
-        })
-       .addFooterHolder(R.layout.header_simple);
+        });
         footer2.setTag("footer2");
-
-        muliAdapter.notifyDataSetChanged();
-
+//        muliAdapter.notifyDataSetChanged();
+//        muliAdapter.notifyItemChanged(muliAdapter.getItemCount()-1);
+//        muliAdapter.notifyItemInserted(muliAdapter.getItemCount());
+        rv.scrollToPosition(muliAdapter.getItemCount() - 1);
+        //todo 动画定位!
     }
 }

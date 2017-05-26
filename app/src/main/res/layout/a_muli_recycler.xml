@@ -9,13 +9,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
+
+        <Button
+            android:id="@+id/bt_add"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="add" />
+
+        <Button
+            android:id="@+id/bt_addFooter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="addFooter" />
+
         <Button
             android:id="@+id/bt_change"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="change" />
+            android:text="onChange" />
 
     </LinearLayout>
 

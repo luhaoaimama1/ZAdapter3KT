@@ -109,18 +109,18 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
                         position, data.get(getDataPosition(position)),
                         holder.helper);
         } else if (position < mHeaderViews.size()) {
-            ((ViewGroup) holder.itemView).removeAllViews();
-            ViewGroup vp = (ViewGroup) mHeaderViews.get(position).getItemView().getParent();
-            if (vp != null)
-                vp.removeAllViews();
-            ((ViewGroup) holder.itemView).addView(mHeaderViews.get(position).getItemView());
+            bindHFView((ViewGroup) holder.itemView, mHeaderViews.get(position).getItemView());
         } else {
-            ((ViewGroup) holder.itemView).removeAllViews();
-            ViewGroup vp = (ViewGroup) mFooterViews.get(position - getHeaderViewsCount() - data.size()).getItemView().getParent();
-            if (vp != null)
-                vp.removeAllViews();
-            ((ViewGroup) holder.itemView).addView(mFooterViews.get(position - getHeaderViewsCount() - data.size()).getItemView());
+            bindHFView((ViewGroup) holder.itemView, mFooterViews.get(position - getHeaderViewsCount() - data.size()).getItemView());
         }
+    }
+
+    private void bindHFView(ViewGroup parent, View child) {
+        parent.removeAllViews();
+        ViewGroup vp = (ViewGroup) child.getParent();
+        if (vp != null)
+            vp.removeAllViews();
+        parent.addView(child);
     }
 
     private int getDataPosition(int mapPosition) {
@@ -232,7 +232,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             throw new RuntimeException("viewHolder is null");
         if (!mHeaderViews.contains(header)) {
             mHeaderViews.add(header);
-            header.reallyCreateHFView(context);
+            header.tryCreateView(context,null);
         }
         return this;
     }
@@ -253,7 +253,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             throw new RuntimeException("footer is null");
         if (!mFooterViews.contains(footer)) {
             mFooterViews.add(footer);
-            footer.reallyCreateHFView(context);
+            footer.tryCreateView(context,null);
         }
 
         return this;
