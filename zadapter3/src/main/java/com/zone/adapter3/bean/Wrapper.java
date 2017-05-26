@@ -1,6 +1,5 @@
 package com.zone.adapter3.bean;
 
-import com.zone.adapter3.bean.ViewDelegates;
 
 public class Wrapper {
     public static final int DEFAULT_VALUE = -1;

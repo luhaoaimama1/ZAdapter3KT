@@ -25,6 +25,6 @@ public class CommonRcvAdapter extends QuickRcvAdapter<String> {
 
     @Override
     protected int getItemViewType2(int dataPosition) {
-        return dataPosition % 2;
+        return dataPosition % 3==0?0:1;
     }
 }

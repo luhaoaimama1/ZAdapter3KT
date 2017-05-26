@@ -96,19 +96,17 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
 
     @OnClick(R.id.bt_addFooter)
     public void onClick3() {
-        muliAdapter.addFooterHolder(R.layout.header_simple);
-        muliAdapter.notifyItemInserted(muliAdapter.getItemCount());
+//        muliAdapter.addHeaderHolder(R.layout.header_simple,true);
+        muliAdapter.addFooterHolder(R.layout.header_simple,true);
         rv.scrollToPosition(muliAdapter.getItemCount() - 1);
     }
 
     @OnClick(R.id.bt_change)
     public void onClick() {
-        //todo  getIndex(ViewDelegates)  主要是定位  后做notifyItem动画
         muliAdapter.getFooterViewsCount();
-        muliAdapter.removeFooterHolder(footer1);//todo  remove 到时候 带
-//        muliAdapter.notifyItemRemoved(mDatas.size()+muliAdapter.getHeaderViewsCount()+);
+        muliAdapter.removeFooterHolder(footer1,true);
         footer1.setTag("footer1");
-        muliAdapter.removeFooterHolder(footer2);
+        muliAdapter.removeFooterHolder(footer2,true);
         muliAdapter.addFooterHolder(footer2 = new ViewDelegates() {
             @Override
             public int getLayoutId() {
@@ -119,12 +117,9 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
             public void fillData(int postion, Object data, Helper helper) {
 
             }
-        });
+        },true);
         footer2.setTag("footer2");
-//        muliAdapter.notifyDataSetChanged();
-//        muliAdapter.notifyItemChanged(muliAdapter.getItemCount()-1);
-//        muliAdapter.notifyItemInserted(muliAdapter.getItemCount());
-        rv.scrollToPosition(muliAdapter.getItemCount() - 1);
-        //todo 动画定位!
+        muliAdapter.scrollToHF(footer2);
+//        muliAdapter.scrollToLast();
     }
 }

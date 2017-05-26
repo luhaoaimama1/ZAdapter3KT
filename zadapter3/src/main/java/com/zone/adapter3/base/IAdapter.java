@@ -5,11 +5,11 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.loadmore.OnScrollRcvListener;
 import com.zone.adapter3.loadmore.callback.ILoadMoreDelegates;
+import com.zone.adapter3.manager.MarginItemDecoration;
 
 import java.util.List;
 
@@ -23,6 +23,7 @@ public interface IAdapter<T> {
     // =======================================
     List<T> getData();
 
+    //当时空页面的时候应该是0 所以排除空页面的
     int getRealItemCount();
 
     Context getContext();
@@ -50,9 +51,32 @@ public interface IAdapter<T> {
     // ============RecyclerView方法==============
     // =======================================
 
+    RecyclerView getRecyclerView();
+
     IAdapter addOnScrollListener(OnScrollRcvListener listener);
 
     OnScrollRcvListener getOnScrollListener();
+
+    IAdapter addItemDecoration(int space);
+
+    IAdapter addItemDecoration(MarginItemDecoration itemDecoration);
+
+    void scrollToData(T o);
+
+    void scrollToPosition(int position);
+
+    void scrollToLast();
+
+    void scrollToHF(ViewDelegates hf);
+
+    void smoothScrollToData(T o);
+
+    void smoothScrollToPosition(int position);
+
+    void smoothScrollToHF(ViewDelegates hf);
+
+    void smoothScrollToLast();
+
 
     // =======================================
     // ============加载更多==============
@@ -79,7 +103,11 @@ public interface IAdapter<T> {
 
     IAdapter removeHeaderHolder(ViewDelegates header);
 
+    IAdapter removeHeaderHolder(ViewDelegates header,boolean notify);
+
     IAdapter removeFooterHolder(ViewDelegates footer);
+
+    IAdapter removeFooterHolder(ViewDelegates footer,boolean notify);
 
     IAdapter clearHeaderHolder();
 
@@ -95,7 +123,11 @@ public interface IAdapter<T> {
 
     IAdapter addFooterHolder(@LayoutRes int layout);
 
+    IAdapter addFooterHolder(@LayoutRes int layout,boolean notify);
+
     IAdapter addFooterHolder(ViewDelegates footer);
+
+    IAdapter addFooterHolder(ViewDelegates footer,boolean notify);
 
     IAdapter setLoadFooterViewHold(@LayoutRes int layout);
 
@@ -103,7 +135,11 @@ public interface IAdapter<T> {
 
     IAdapter addHeaderHolder(@LayoutRes int layout);
 
+    IAdapter addHeaderHolder(@LayoutRes int layout,boolean notify);
+
     IAdapter addHeaderHolder(ViewDelegates header);
+
+    IAdapter addHeaderHolder(ViewDelegates header,boolean notify);
 
     IAdapter addViewHolder(int style, ViewDelegates viewDelegates);
 
@@ -114,6 +150,10 @@ public interface IAdapter<T> {
     int getHeaderViewsCount();
 
     int getFooterViewsCount();
+
+    //用于动画定位 不包括空view;
+    int indexOfHF(ViewDelegates item);
+
 
     // =======================================
     // ============ notify ==============

@@ -9,6 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.zone.adapter.R;
 import com.zone.adapter3.QuickConfig;
 import com.zone.adapter3.bean.Holder;
@@ -16,6 +17,8 @@ import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
 import com.zone.adapter3.helper.Helper;
+import com.zone.adapter3.manager.MarginItemDecoration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +57,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             mEmptyView.tryCreateView(context, mRecyclerView);
             return new Holder(setFullspan(mEmptyView.getItemView()));
         } else {
-            QuickConfig.e("onCreateViewHolder views:" + viewType );
+            QuickConfig.e("onCreateViewHolder views:" + viewType);
             Wrapper targetWarpper = null;
             for (Wrapper mView : mViews) {
                 if (mView.getStyle() == Wrapper.DEFAULT_VALUE) {
@@ -154,7 +157,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             QuickConfig.e("getItemViewType views:" + position);
             int result = getItemViewType2(getDataPosition(position));
             if (result == ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
-                throw new IllegalStateException("layoutType is must not be"+ITEM_VIEW_TYPE_HEADER_OR_FOOTER);
+                throw new IllegalStateException("layoutType is must not be" + ITEM_VIEW_TYPE_HEADER_OR_FOOTER);
             return result;
         } else {
             QuickConfig.e("getItemViewType healder or footer:" + position);
@@ -215,9 +218,9 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public IAdapter addViewHolder(int style, ViewDelegates viewDelegates) {
         if (Wrapper.DEFAULT_VALUE == style
                 || Wrapper.EMPTY_VALUE == style
-                || style==ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
+                || style == ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
             throw new IllegalStateException(String.format("style不能为关键的值:%d,%d,%d"
-                    ,Wrapper.DEFAULT_VALUE,Wrapper.EMPTY_VALUE,ITEM_VIEW_TYPE_HEADER_OR_FOOTER));
+                    , Wrapper.DEFAULT_VALUE, Wrapper.EMPTY_VALUE, ITEM_VIEW_TYPE_HEADER_OR_FOOTER));
         if (!repeatCheckList.contains(style))
             repeatCheckList.add(style);
         else
@@ -227,14 +230,24 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addHeaderHolder(ViewDelegates header) {
+    public IAdapter addHeaderHolder(ViewDelegates header, boolean notify) {
         if (header == null)
             throw new RuntimeException("viewHolder is null");
         if (!mHeaderViews.contains(header)) {
             mHeaderViews.add(header);
-            header.tryCreateView(context,null);
+            header.tryCreateView(context, null);
+            hfItemInserted(header, notify);
         }
         return this;
+    }
+
+    private void hfItemInserted(ViewDelegates hf, boolean notify) {
+        if (notify) {
+            int index = indexOfHF(hf);
+            if (index != -1)
+                notifyItemInserted(index);
+        }
+
     }
 
     @Override
@@ -243,32 +256,86 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addFooterHolder(@LayoutRes int layout) {
-        return addFooterHolder(new ResViewDelegates(layout));
+    public IAdapter addHeaderHolder(@LayoutRes int layout, boolean notify) {
+        return addHeaderHolder(new ResViewDelegates(layout), true);
+    }
+
+    @Override
+    public IAdapter addHeaderHolder(ViewDelegates header) {
+        return addHeaderHolder(header, false);
+    }
+
+    @Override
+    public int indexOfHF(ViewDelegates item) {
+        int index = mHeaderViews.indexOf(item);
+        if (index != -1)
+            return index;
+        else {
+            index = mFooterViews.indexOf(item);
+            if (index != -1)
+                return mHeaderViews.size() + data.size() + index;
+            else
+                return -1;
+        }
+    }
+
+    @Override
+    public IAdapter addFooterHolder(@LayoutRes int layout, boolean notify) {
+        return addFooterHolder(new ResViewDelegates(layout), true);
     }
 
     @Override
     public IAdapter addFooterHolder(ViewDelegates footer) {
+        return addFooterHolder(footer, false);
+    }
+
+    @Override
+    public IAdapter addFooterHolder(@LayoutRes int layout) {
+        return addFooterHolder(new ResViewDelegates(layout));
+    }
+
+
+    @Override
+    public IAdapter addFooterHolder(ViewDelegates footer, boolean notify) {
         if (footer == null)
             throw new RuntimeException("footer is null");
         if (!mFooterViews.contains(footer)) {
             mFooterViews.add(footer);
-            footer.tryCreateView(context,null);
+            footer.tryCreateView(context, null);
+            hfItemInserted(footer, notify);
         }
+        return this;
+    }
 
+    @Override
+    public IAdapter removeHeaderHolder(ViewDelegates header, boolean notify) {
+        return hfItemRemoved(mHeaderViews,header, notify);
+    }
+
+    private IAdapter hfItemRemoved(List<ViewDelegates> hfViews, ViewDelegates header, boolean notify) {
+        if (notify) {
+            int removeIndex = indexOfHF(header);
+            hfViews.remove(header);
+            if (removeIndex != -1)
+                notifyItemRemoved(removeIndex);
+        } else
+            hfViews.remove(header);
         return this;
     }
 
     @Override
     public IAdapter removeHeaderHolder(ViewDelegates header) {
-        mHeaderViews.remove(header);
-        return this;
+        return removeHeaderHolder(header, false);
     }
 
     @Override
     public IAdapter removeFooterHolder(ViewDelegates footer) {
-        mFooterViews.remove(footer);
-        return this;
+        return removeFooterHolder(footer, false);
+    }
+
+    @Override
+    public IAdapter removeFooterHolder(ViewDelegates footer, boolean notify) {
+        return  hfItemRemoved(mFooterViews,footer, notify);
     }
 
     @Override
@@ -324,5 +391,67 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
                 && mHeaderViews.size() == 0
                 && mFooterViews.size() == 0
                 && data.size() == 0;
+    }
+
+    @Override
+    public void scrollToData(T o) {
+        mRecyclerView.scrollToPosition(data.indexOf(o)+mHeaderViews.size());
+    }
+
+    @Override
+    public void scrollToHF(ViewDelegates hf) {
+        mRecyclerView.scrollToPosition(indexOfHF(hf));
+    }
+
+    @Override
+    public void smoothScrollToData(T o) {
+        mRecyclerView.smoothScrollToPosition(data.indexOf(o)+mHeaderViews.size());
+    }
+
+    @Override
+    public void smoothScrollToHF(ViewDelegates hf) {
+        mRecyclerView.smoothScrollToPosition(indexOfHF(hf));
+    }
+
+    @Override
+    public void scrollToPosition(int position) {
+        mRecyclerView.scrollToPosition(position);
+    }
+
+    @Override
+    public void smoothScrollToPosition(int position) {
+        mRecyclerView.smoothScrollToPosition(position);
+    }
+
+    @Override
+    public void scrollToLast() {
+        mRecyclerView.scrollToPosition(getRealItemCount()-1);
+    }
+
+    @Override
+    public void smoothScrollToLast() {
+        mRecyclerView.smoothScrollToPosition(getRealItemCount()-1);
+    }
+
+    @Override
+    public IAdapter addItemDecoration(int space) {
+        return addItemDecoration(new MarginItemDecoration(space,this));
+    }
+
+    @Override
+    public IAdapter addItemDecoration(MarginItemDecoration itemDecoration) {
+        if(mRecyclerView==null)
+            throw  new IllegalStateException("please first use relatedList(RecyclerView mRecyclerView)!");
+        mRecyclerView.addItemDecoration(itemDecoration);
+        return this;
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return mRecyclerView;
+    }
+
+    public List<Wrapper> getDataWraps(){
+        return mViews;
     }
 }

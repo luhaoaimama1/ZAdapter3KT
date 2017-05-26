@@ -27,6 +27,7 @@
             android:onClick="onClick"
             android:text="addFooter" />
 
+
         <Button
             android:id="@+id/bt_change"
             android:layout_width="0dp"

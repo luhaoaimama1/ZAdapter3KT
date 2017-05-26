@@ -38,7 +38,7 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
         setContentView(R.layout.a_recycler);
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= 100; i++) {
             mDatas.add("" +  i);
         }
 
@@ -55,11 +55,10 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
             rv.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         }
         rv.setItemAnimator(new DefaultItemAnimator());
-
         muliAdapter = new QuickRcvAdapter(this, mDatas){
             @Override
             protected int getItemViewType2(int dataPosition) {
-                return dataPosition % 2;
+                return dataPosition % 3==0?1:0;
             }
         };
         muliAdapter
@@ -70,6 +69,7 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
 //                .addFooterHolder(R.layout.footer_simple)
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv)
+                .addItemDecoration(10)
                 .setOnItemClickListener(new IAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(ViewGroup parent, View view, int position) {
@@ -83,28 +83,28 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
                         return true;
                     }
                 })
-                .addOnScrollListener(scroller = new OnScrollRcvListenerEx(new OnScrollRcvListenerEx.LoadMoreCallback() {
-                    @Override
-                    public void loadMore() {
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                switch (loadMoreCount) {
-                                    case 1:
-                                        scroller.loadMoreFail();
-                                        break;
-                                    case 2:
-                                        scroller.loadMoreComplete();
-                                        break;
-                                    default:
-                                        scroller.end();
-                                        break;
-                                }
-                                loadMoreCount++;
-                            }
-                        }, 2000);
-                    }
-                }))
+//                .addOnScrollListener(scroller = new OnScrollRcvListenerEx(new OnScrollRcvListenerEx.LoadMoreCallback() {
+//                    @Override
+//                    public void loadMore() {
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                switch (loadMoreCount) {
+//                                    case 1:
+//                                        scroller.loadMoreFail();
+//                                        break;
+//                                    case 2:
+//                                        scroller.loadMoreComplete();
+//                                        break;
+//                                    default:
+//                                        scroller.end();
+//                                        break;
+//                                }
+//                                loadMoreCount++;
+//                            }
+//                        }, 2000);
+//                    }
+//                }))
         ;
     }
 
