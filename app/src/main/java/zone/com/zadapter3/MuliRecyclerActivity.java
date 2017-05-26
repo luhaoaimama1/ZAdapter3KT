@@ -91,7 +91,7 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
     public void onClick2() {
         mDatas.add("onscrooll");
         muliAdapter.notifyItemInsertedEx(mDatas.size() - 1);
-        rv.scrollToPosition(muliAdapter.getItemCount() - 1);
+        rv.scrollToPosition(muliAdapter.getHeaderViewsCount()+mDatas.size() - 1);
     }
 
     @OnClick(R.id.bt_addFooter)
