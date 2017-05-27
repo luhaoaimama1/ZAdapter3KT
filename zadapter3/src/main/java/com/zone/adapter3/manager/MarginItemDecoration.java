@@ -98,9 +98,9 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
 
                     if (i == adapter.getRealItemCount() - 1)
                         entity.groupId = groupCount;
-                    else{
+                    else {
                         entity.groupId = groupCount++;
-                        entity.changeLine=true;
+                        entity.changeLine = true;
                     }
                     spanIndex = 0;
                     entity.spanIndex = spanIndex;
@@ -114,7 +114,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                     if (spanIndex == spanCount - 1 && i != adapter.getRealItemCount() - 1) {
                         groupCount++;
                         spanIndex = 0;
-                        entity.changeLine=true;
+                        entity.changeLine = true;
                     }
                 }
 
@@ -133,9 +133,10 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        if (adapter.getRealItemCount() == 0)
-            return;
+        if (adapter.getRealItemCount() == 0) return;
         int position = parent.getChildAdapterPosition(view);
+        if (position < 0) return;
+
         RecyclerView.LayoutManager manager = parent.getLayoutManager();
         if (manager instanceof GridLayoutManager) {
             if (((GridLayoutManager) manager).getOrientation() == GridLayoutManager.VERTICAL) {
@@ -163,7 +164,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
             outRect.top = space;
         if (hasBottom && item.groupId == groupCount)
             outRect.bottom = space;
-        if (item.groupId != 0 )
+        if (item.groupId != 0)
             outRect.top = space;
 
         //考虑左右
@@ -208,7 +209,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
             outRect.top = space;
         if (hasBottom && postion == adapter.getRealItemCount() - 1)
             outRect.bottom = space;
-        if (postion != 0 )
+        if (postion != 0)
             outRect.top = space;
     }
 

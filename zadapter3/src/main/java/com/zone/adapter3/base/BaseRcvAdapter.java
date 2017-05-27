@@ -1,8 +1,13 @@
 package com.zone.adapter3.base;
 
 import android.content.Context;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+
 import com.zone.adapter3.bean.Holder;
+import com.zone.adapter3.diff.DiffCallBack;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,5 +73,31 @@ public abstract class BaseRcvAdapter<T> extends RecyclerView.Adapter<Holder> imp
     public void notifyItemRangeRemovedEx(int dataPositionStart, int itemCount) {
         checkBound(dataPositionStart, itemCount);
         notifyItemRangeRemoved(dataPositionStart + getHeaderViewsCount(), itemCount);
+    }
+
+    private List<T> dataBackUp;
+    private DiffUtil.DiffResult diffResult;
+
+    @Override
+    public void diffSetKeyframe() {
+        dataBackUp = new ArrayList<>();
+        dataBackUp.addAll(data);
+        diffResult = null;
+    }
+
+    @Override
+    public void diffCalculate(DiffCallBack<T> diffCallBack) {
+        if (dataBackUp == null)
+            throw new IllegalStateException("please first use diffSetKeyframe()!");
+        diffCallBack.setDatas(dataBackUp, data);
+        diffResult = DiffUtil.calculateDiff(diffCallBack, true);
+    }
+
+    @Override
+    public void diffNotifyDataSetChanged() {
+        if (diffResult != null)
+            diffResult.dispatchUpdatesTo(this);
+        else
+            throw new IllegalStateException("please first use diffCalculate(diffCallBack)!");
     }
 }

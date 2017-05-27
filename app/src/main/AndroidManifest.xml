@@ -18,6 +18,7 @@
         <activity android:name=".RecyclerActivity"></activity>
         <activity android:name=".Recycler2ZRefreshActivity"></activity>
         <activity android:name=".MuliRecyclerActivity"></activity>
+        <activity android:name=".RecyclerDiffActivity"></activity>
     </application>
 
 </manifest>

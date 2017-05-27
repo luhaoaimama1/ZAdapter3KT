@@ -40,5 +40,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="多布局问题分析" />
+    <Button
+        android:id="@+id/bt_diff"
+        android:onClick="onClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="diff" />
 
 </LinearLayout>

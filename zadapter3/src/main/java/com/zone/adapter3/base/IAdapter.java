@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
+import com.zone.adapter3.diff.DiffCallBack;
 import com.zone.adapter3.loadmore.OnScrollRcvListener;
 import com.zone.adapter3.loadmore.callback.ILoadMoreDelegates;
 import com.zone.adapter3.manager.MarginItemDecoration;
@@ -187,6 +188,12 @@ public interface IAdapter<T> {
 
     void notifyItemRangeRemovedEx(int dataPositionStart, int itemCount);
 
+    void diffSetKeyframe();
+
+    //后台使用
+    void diffCalculate(DiffCallBack<T> diffCallBack);
+
+    void diffNotifyDataSetChanged();
 
     // =======================================
     // ============adapter原生方法 ==============

@@ -58,4 +58,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClick2() {
         startActivity(new Intent(this, MuliRecyclerActivity.class));
     }
+
+    @OnClick(R.id.bt_diff)
+    public void onClick3() {
+        startActivity(new Intent(this, RecyclerDiffActivity.class));
+    }
 }
