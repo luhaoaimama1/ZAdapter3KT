@@ -141,6 +141,7 @@ public interface IAdapter<T> {
 
     IAdapter addHeaderHolder(ViewDelegates header,boolean notify);
 
+    //允许style重复 重复的话 就覆盖之前的
     IAdapter addViewHolder(int style, ViewDelegates viewDelegates);
 
     IAdapter addViewHolder(ViewDelegates viewDelegates);

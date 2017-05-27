@@ -62,6 +62,7 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
                 .addViewHolder(new LeftDelegates())//默认
                 .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
                 .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
+//                .addViewHolder(0, new RightDelegates())//可以覆盖
                 .addHeaderHolder(R.layout.header_simple)
                 .addHeaderHolder(R.layout.header_simple2)
                 .addHeaderHolder(R.layout.header_simple2)

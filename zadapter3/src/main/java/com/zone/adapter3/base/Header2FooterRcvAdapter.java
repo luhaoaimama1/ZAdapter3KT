@@ -208,7 +208,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
      */
     @Override
     public IAdapter addViewHolder(ViewDelegates viewDelegates) {
-        mViews.add(new Wrapper(Wrapper.DEFAULT_VALUE, viewDelegates));
+        if (mViews.size()==0||mViews.get(0).getStyle() != Wrapper.DEFAULT_VALUE)
+            mViews.add(0, new Wrapper(Wrapper.DEFAULT_VALUE, viewDelegates));
+        else
+            mViews.set(0, new Wrapper(Wrapper.DEFAULT_VALUE, viewDelegates));
         return this;
     }
 
@@ -219,13 +222,19 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         if (Wrapper.DEFAULT_VALUE == style
                 || Wrapper.EMPTY_VALUE == style
                 || style == ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
-            throw new IllegalStateException(String.format("style不能为关键的值:%d,%d,%d"
+            throw new IllegalStateException(String.format("style不能为内设的值:%d,%d,%d"
                     , Wrapper.DEFAULT_VALUE, Wrapper.EMPTY_VALUE, ITEM_VIEW_TYPE_HEADER_OR_FOOTER));
-        if (!repeatCheckList.contains(style))
+        if (!repeatCheckList.contains(style)) {
             repeatCheckList.add(style);
-        else
-            throw new IllegalStateException("style重复");
-        mViews.add(new Wrapper(style, viewDelegates));
+            mViews.add(new Wrapper(style, viewDelegates));
+        } else {
+            for (int i = 0; i < mViews.size(); i++) {
+                if (style == mViews.get(i).getStyle()) {
+                    mViews.set(i, new Wrapper(style, viewDelegates));
+                    break;
+                }
+            }
+        }
         return this;
     }
 
@@ -309,7 +318,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public IAdapter removeHeaderHolder(ViewDelegates header, boolean notify) {
-        return hfItemRemoved(mHeaderViews,header, notify);
+        return hfItemRemoved(mHeaderViews, header, notify);
     }
 
     private IAdapter hfItemRemoved(List<ViewDelegates> hfViews, ViewDelegates header, boolean notify) {
@@ -335,7 +344,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public IAdapter removeFooterHolder(ViewDelegates footer, boolean notify) {
-        return  hfItemRemoved(mFooterViews,footer, notify);
+        return hfItemRemoved(mFooterViews, footer, notify);
     }
 
     @Override
@@ -395,7 +404,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public void scrollToData(T o) {
-        mRecyclerView.scrollToPosition(data.indexOf(o)+mHeaderViews.size());
+        mRecyclerView.scrollToPosition(data.indexOf(o) + mHeaderViews.size());
     }
 
     @Override
@@ -405,7 +414,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public void smoothScrollToData(T o) {
-        mRecyclerView.smoothScrollToPosition(data.indexOf(o)+mHeaderViews.size());
+        mRecyclerView.smoothScrollToPosition(data.indexOf(o) + mHeaderViews.size());
     }
 
     @Override
@@ -425,23 +434,23 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public void scrollToLast() {
-        mRecyclerView.scrollToPosition(getRealItemCount()-1);
+        mRecyclerView.scrollToPosition(getRealItemCount() - 1);
     }
 
     @Override
     public void smoothScrollToLast() {
-        mRecyclerView.smoothScrollToPosition(getRealItemCount()-1);
+        mRecyclerView.smoothScrollToPosition(getRealItemCount() - 1);
     }
 
     @Override
     public IAdapter addItemDecoration(int space) {
-        return addItemDecoration(new MarginItemDecoration(space,this));
+        return addItemDecoration(new MarginItemDecoration(space, this));
     }
 
     @Override
     public IAdapter addItemDecoration(MarginItemDecoration itemDecoration) {
-        if(mRecyclerView==null)
-            throw  new IllegalStateException("please first use relatedList(RecyclerView mRecyclerView)!");
+        if (mRecyclerView == null)
+            throw new IllegalStateException("please first use relatedList(RecyclerView mRecyclerView)!");
         mRecyclerView.addItemDecoration(itemDecoration);
         return this;
     }
@@ -451,7 +460,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         return mRecyclerView;
     }
 
-    public List<Wrapper> getDataWraps(){
+    public List<Wrapper> getDataWraps() {
         return mViews;
     }
 }
