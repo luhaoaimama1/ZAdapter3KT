@@ -96,7 +96,7 @@ public abstract class DiffCallBack<T> extends DiffUtil.Callback {
      * @param newItemPosition The position of the item in the new list
      * @return A payload object that represents the change between the two items.
      * 返回 一个 代表着新老item的改变内容的 payload对象，
-     * //实现这个方法 只是没有了ItemChange的白光一闪动画，（反正我也觉得不太重要）
+     * //实现这个方法 就没有了ItemChange的白光一闪动画，（反正我也觉得不太重要）
      */
     @Nullable
     @Override

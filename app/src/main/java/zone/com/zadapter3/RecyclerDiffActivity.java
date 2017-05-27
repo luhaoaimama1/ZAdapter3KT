@@ -39,8 +39,8 @@ public class RecyclerDiffActivity extends Activity implements Handler.Callback, 
 
 //        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 //            rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rv.setLayoutManager(new GridLayoutManager(this, 3));
-//        rv.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+//        rv.setLayoutManager(new GridLayoutManager(this, 3));
+        rv.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         rv.setItemAnimator(new DefaultItemAnimator());
         muliAdapter = new QuickRcvAdapter(this, mDatas) {
             @Override
