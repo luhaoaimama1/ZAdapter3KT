@@ -28,11 +28,9 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
 
     protected IAdapter mQuickRcvAdapter;
 
-
     {
         loadMoreDelegates.setOnScrollRcvListener(this);
     }
-
     // =======================================
     // ============set/get系列==============
     // =======================================
@@ -72,9 +70,8 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
         if (loadMoreDelegates != null) {
             loadMoreDelegates.tryCreateView(recyclerView.getContext(), recyclerView);
             if (!mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
-                mQuickRcvAdapter.addFooterHolder(loadMoreDelegates);
-                mQuickRcvAdapter.notifyItemInserted(mQuickRcvAdapter.getItemCount() - 1);
-                recyclerView.scrollToPosition(mQuickRcvAdapter.getItemCount() - 1);
+                mQuickRcvAdapter.addFooterHolder(loadMoreDelegates,true);
+                mQuickRcvAdapter.scrollToHF(loadMoreDelegates);
             }
             loadMoreDelegates.loading();
         }
@@ -82,10 +79,8 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
 
     //移除
     public void loadMoreComplete() {
-        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
-            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates);
-            mQuickRcvAdapter.notifyDataSetChanged();
-        }
+        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
+            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates,true);
         loadMoreDelegates.complete();
     }
 
@@ -108,6 +103,7 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
             loadMoreDelegates.fail();
     }
 
+    //能加载更多 并且处于rest状态  主要是为了兼容其他的刷新控件
     protected boolean isCanLoadMore2isRest(RecyclerView recyclerView) {
         return true;
     }

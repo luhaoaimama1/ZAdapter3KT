@@ -93,18 +93,18 @@ public class Recycler2ZRefreshActivity extends Activity implements Handler.Callb
                     public void run() {
                         switch (loadMoreCount) {
                             case 1:
-                                mDatas.add("loadMore Fail!");
+//                                mDatas.add("loadMore Fail!");
                                 mAdapter.notifyDataSetChanged();
                                 mAdapter.loadMoreFail();
                                 break;
                             case 2:
-                                mDatas.add("loadMore Complete!");
+//                                mDatas.add("loadMore Complete!");
                                 mAdapter.notifyDataSetChanged();
                                 mAdapter.loadMoreComplete();
                                 break;
                             default:
                                 mAdapter.end();
-                                mDatas.add("loadMore end!");
+//                                mDatas.add("loadMore end!");
                                 mAdapter.notifyDataSetChanged();
                                 refresh.setCanLoadMore(false);
                                 break;

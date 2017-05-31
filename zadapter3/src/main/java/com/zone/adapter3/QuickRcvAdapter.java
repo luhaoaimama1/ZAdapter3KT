@@ -127,7 +127,7 @@ public class QuickRcvAdapter<T> extends Header2FooterRcvAdapter<T> {
     @Override
     public IAdapter loadMoreComplete() {
         checkScrollerListener();
-        listener.loadMoreFail();
+        listener.loadMoreComplete();
         return this;
     }
 
