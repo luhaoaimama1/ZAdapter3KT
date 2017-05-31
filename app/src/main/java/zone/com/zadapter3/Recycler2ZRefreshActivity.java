@@ -20,10 +20,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import zone.com.zadapter3.adapter.LeftDelegates;
+import zone.com.zadapter3.adapter.RightDelegates;
 import zone.com.zadapter3.helper.OnScrollRcvListenerExZRefresh;
 import zone.com.zrefreshlayout.ZRefreshLayout;
 
-public class Recycler2ZRefreshActivity extends Activity implements Handler.Callback, View.OnClickListener {
+public class Recycler2ZRefreshActivity extends Activity implements Handler.Callback {
 
     @Bind(R.id.rv)
     RecyclerView rv;
@@ -37,7 +38,7 @@ public class Recycler2ZRefreshActivity extends Activity implements Handler.Callb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new Handler(this);
-        setContentView(R.layout.a_recycler);
+        setContentView(R.layout.a_recycler_zrefresh);
         ButterKnife.bind(this);
 
         rv.setLayoutManager(new GridLayoutManager(this, 3));
@@ -60,8 +61,8 @@ public class Recycler2ZRefreshActivity extends Activity implements Handler.Callb
         };
         mAdapter
                 .addViewHolder(new LeftDelegates())//默认
-//                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
-//                .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
+                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
+                .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
 //                .addHeaderHolder(R.layout.header_simple)
 //                .addFooterHolder(R.layout.footer_simple)
                 .addEmptyHold(R.layout.empty)
@@ -93,19 +94,22 @@ public class Recycler2ZRefreshActivity extends Activity implements Handler.Callb
                     public void run() {
                         switch (loadMoreCount) {
                             case 1:
-//                                mDatas.add("loadMore Fail!");
-                                mAdapter.notifyDataSetChanged();
                                 mAdapter.loadMoreFail();
+                                mDatas.add("loadMore Fail!");
+                                mAdapter.notifyItemInsertedEx(mDatas.size()-1);
+                                mAdapter.scrollToLast();
                                 break;
                             case 2:
-//                                mDatas.add("loadMore Complete!");
-                                mAdapter.notifyDataSetChanged();
                                 mAdapter.loadMoreComplete();
+                                mDatas.add("loadMore Complete!");
+                                mAdapter.notifyItemInsertedEx(mDatas.size()-1);
+                                mAdapter.scrollToLast();
                                 break;
                             default:
                                 mAdapter.end();
-//                                mDatas.add("loadMore end!");
-                                mAdapter.notifyDataSetChanged();
+                                mDatas.add("loadMore end!");
+                                mAdapter.notifyItemInsertedEx(mDatas.size()-1);
+                                mAdapter.scrollToLast();
                                 refresh.setCanLoadMore(false);
                                 break;
                         }
@@ -124,7 +128,7 @@ public class Recycler2ZRefreshActivity extends Activity implements Handler.Callb
             public void refresh(ZRefreshLayout zRefreshLayout) {
                 refresh.setCanLoadMore(true);
                 loadMoreCount = 1;
-                mAdapter.clearLoadMoreDelegates();
+                mAdapter.removeLoadMoreDelegates();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -143,52 +147,6 @@ public class Recycler2ZRefreshActivity extends Activity implements Handler.Callb
     }
 
     public int loadMoreCount = 1;
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.bt_add:
-                mDatas.add("insert one no ani");
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.bt_aniAdd:
-                mDatas.add(1, "insert one with ani");
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.bt_remove:
-                if (mDatas.size() > 1) {
-                    mDatas.remove(1);
-                    mAdapter.notifyDataSetChanged();
-                }
-                break;
-            case R.id.bt_removeAni:
-                if (mDatas.size() > 1) {
-                    mDatas.remove(1);
-                    mAdapter.notifyDataSetChanged();
-                }
-                break;
-            case R.id.bt_clear:
-                mDatas.clear();
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.bt_addHeader:
-                mAdapter.addHeaderHolder(R.layout.header_simple);
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.bt_addFooter:
-                mAdapter.addFooterHolder(R.layout.footer_simple);
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.bt_clearFooter:
-                mAdapter.clearFooterHolder();
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.bt_clearHeader:
-                mAdapter.clearHeaderHolder();
-                mAdapter.notifyDataSetChanged();
-                break;
-        }
-    }
 
     @Override
     public boolean handleMessage(Message msg) {

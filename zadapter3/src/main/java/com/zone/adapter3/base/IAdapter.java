@@ -95,7 +95,7 @@ public interface IAdapter<T> {
      *
      * @return
      */
-    IAdapter clearLoadMoreDelegates();
+    IAdapter removeLoadMoreDelegates();
 
 
     // =======================================

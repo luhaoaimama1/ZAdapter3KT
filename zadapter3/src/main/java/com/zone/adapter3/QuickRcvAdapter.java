@@ -151,7 +151,7 @@ public class QuickRcvAdapter<T> extends Header2FooterRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter clearLoadMoreDelegates() {
+    public IAdapter removeLoadMoreDelegates() {
         checkScrollerListener();
         listener.clearLoadMoreDelegates();
         return this;

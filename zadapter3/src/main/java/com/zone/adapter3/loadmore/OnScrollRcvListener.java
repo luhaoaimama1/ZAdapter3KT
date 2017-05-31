@@ -70,7 +70,7 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
         if (loadMoreDelegates != null) {
             loadMoreDelegates.tryCreateView(recyclerView.getContext(), recyclerView);
             if (!mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
-                mQuickRcvAdapter.addFooterHolder(loadMoreDelegates,true);
+                mQuickRcvAdapter.addFooterHolder(loadMoreDelegates, true);
                 mQuickRcvAdapter.scrollToHF(loadMoreDelegates);
             }
             loadMoreDelegates.loading();
@@ -79,27 +79,26 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
 
     //移除
     public void loadMoreComplete() {
-        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
-            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates,true);
-        loadMoreDelegates.complete();
+        if (loadMoreDelegates != null && mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
+            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates, true);
+            loadMoreDelegates.complete();
+        }
     }
 
     public void clearLoadMoreDelegates() {
-        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
-            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates);
-            mQuickRcvAdapter.notifyDataSetChanged();
-        }
+        if (loadMoreDelegates != null &&mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
+            mQuickRcvAdapter.removeFooterHolder(loadMoreDelegates,true);
     }
 
     //数据到底部了
     public void end() {
-        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
+        if (loadMoreDelegates != null && mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
             loadMoreDelegates.end();
     }
 
     //失败
     public void loadMoreFail() {
-        if (mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
+        if (loadMoreDelegates != null && mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
             loadMoreDelegates.fail();
     }
 
