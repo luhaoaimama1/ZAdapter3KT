@@ -11,30 +11,22 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
-import com.zone.adapter3.loadmore.OnScrollRcvListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import zone.com.zadapter3.adapter.LeftDelegates;
 import zone.com.zadapter3.adapter.RightDelegates;
-import zone.com.zadapter3.helper.OnScrollRcvListenerEx;
 
 public class RecyclerActivity extends Activity implements Handler.Callback, View.OnClickListener {
 
     private RecyclerView rv;
     private List<String> mDatas = new ArrayList<String>();
     private IAdapter<String> muliAdapter;
-    private Handler handler;
-    private OnScrollRcvListenerEx scroller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        handler = new Handler(this);
         setContentView(R.layout.a_recycler);
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
@@ -82,33 +74,9 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
                         System.out.println("被点击->onItemLongClick:" + position);
                         return true;
                     }
-                })
-//                .addOnScrollListener(scroller = new OnScrollRcvListenerEx(new OnScrollRcvListenerEx.LoadMoreCallback() {
-//                    @Override
-//                    public void loadMore() {
-//                        handler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                switch (loadMoreCount) {
-//                                    case 1:
-//                                        scroller.loadMoreFail();
-//                                        break;
-//                                    case 2:
-//                                        scroller.loadMoreComplete();
-//                                        break;
-//                                    default:
-//                                        scroller.end();
-//                                        break;
-//                                }
-//                                loadMoreCount++;
-//                            }
-//                        }, 2000);
-//                    }
-//                }))
-        ;
+                });
     }
 
-    public int loadMoreCount = 1;
 
     @Override
     public void onClick(View v) {
