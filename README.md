@@ -164,6 +164,8 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
     IAdapter removeFooterHolder(ViewDelegates footer);
 
     IAdapter removeFooterHolder(ViewDelegates footer,boolean notify);
+
+    mAdapter.addItemDecoration(10)
     ...
 ```
 
