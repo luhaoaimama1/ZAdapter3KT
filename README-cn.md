@@ -10,6 +10,12 @@
 
 -[x] 空数据view的支持
 
+-[x] 支持Diff快速
+
+-[x] 支持添加快捷方法
+
+-[x] 支持与ZRefresh联动
+
 > 为什么使用 helper 而不是 bindview?
 
 > 原因： 可定制封装逻辑,不强转,可连写；
@@ -137,7 +143,45 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
     //全局替换加载更多
     QuickConfig.build().setLoadMoreDelegates(ILoadMoreDelegates iLoadMoreDelegates).perform();
 
+5.支持与ZRefresh联动
 
+> 请看demo
+
+6.支持添加快捷方法
+
+```
+    mAdapter.notifyItemInsertedEx(mDatas.size() - 1);
+
+    void scrollToData(T o);
+
+    void scrollToPosition(int position);
+
+    void scrollToLast();//滚动到底
+
+    void scrollToHF(ViewDelegates hf);
+
+    IAdapter removeFooterHolder(ViewDelegates footer);
+
+    IAdapter removeFooterHolder(ViewDelegates footer,boolean notify);
+    ...很多快捷方法
+```
+
+7.支持Diff快速
+
+```
+        muliAdapter.diffSetKeyframe();//打个关键帧
+        mDatas.add(7, "insert diff");
+        for (int i = 0; i < 3; i++) {
+            mDatas.remove(1 + i);
+        }
+        muliAdapter.diffCalculate(new DiffCallBack<String>() {
+            @Override
+            public boolean areContentsTheSame(String oldItem, String newItem) {
+                return oldItem.equals(newItem);
+            }
+        });//计算 最好写在线程中
+        muliAdapter.diffNotifyDataSetChanged();//通知
+```
 
 # Reference&Thanks：
 https://github.com/JoanZapata/base-adapter-helper

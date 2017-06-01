@@ -63,7 +63,7 @@ public class RecyclerDiffActivity extends Activity implements Handler.Callback, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_diff:
-                muliAdapter.diffSetKeyframe();
+                muliAdapter.diffSetKeyframe();//打个关键帧
                 mDatas.add(7, "insert diff");
                 for (int i = 0; i < 3; i++) {
                     mDatas.remove(1 + i);
@@ -73,8 +73,8 @@ public class RecyclerDiffActivity extends Activity implements Handler.Callback, 
                     public boolean areContentsTheSame(String oldItem, String newItem) {
                         return oldItem.equals(newItem);
                     }
-                });
-                muliAdapter.diffNotifyDataSetChanged();
+                });//计算 最好卸载线程中
+                muliAdapter.diffNotifyDataSetChanged();//通知
                 break;
         }
     }

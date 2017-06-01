@@ -12,6 +12,12 @@
 
 -[x] Empty data support the view
 
+-[x] Support the Diff fast
+
+-[x] Add quick way to support
+
+-[x] Support and ZRefresh linkage
+
 > Why use a helper rather than bindview?
 
 > Reason: can be customized packaging logic , not strong, can even write;
@@ -138,6 +144,45 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
     //Global replacement load more
     QuickConfig.build().setLoadMoreDelegates(ILoadMoreDelegates iLoadMoreDelegates).perform();
 
+5.Support and ZRefresh linkage
+
+> please look demo
+
+6.Add quick way to support
+
+```
+    mAdapter.notifyItemInsertedEx(mDatas.size() - 1);
+
+    void scrollToData(T o);
+
+    void scrollToPosition(int position);
+
+    void scrollToLast();
+
+    void scrollToHF(ViewDelegates hf);
+
+    IAdapter removeFooterHolder(ViewDelegates footer);
+
+    IAdapter removeFooterHolder(ViewDelegates footer,boolean notify);
+    ...
+```
+
+7.Support the Diff fast
+
+```
+        muliAdapter.diffSetKeyframe();//A key frame
+        mDatas.add(7, "insert diff");
+        for (int i = 0; i < 3; i++) {
+            mDatas.remove(1 + i);
+        }
+        muliAdapter.diffCalculate(new DiffCallBack<String>() {
+            @Override
+            public boolean areContentsTheSame(String oldItem, String newItem) {
+                return oldItem.equals(newItem);
+            }
+        });//Calculate the best written on the thread
+        muliAdapter.diffNotifyDataSetChanged();//notify
+```
 
 # Reference&Thanks：
 https://github.com/JoanZapata/base-adapter-helper

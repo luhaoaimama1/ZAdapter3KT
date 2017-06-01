@@ -96,19 +96,19 @@ public class Recycler2ZRefreshActivity extends Activity implements Handler.Callb
                             case 1:
                                 mAdapter.loadMoreFail();
                                 mDatas.add("loadMore Fail!");
-                                mAdapter.notifyItemInsertedEx(mDatas.size()-1);
+                                mAdapter.notifyItemInsertedEx(mDatas.size() - 1);
                                 mAdapter.scrollToLast();
                                 break;
                             case 2:
                                 mAdapter.loadMoreComplete();
                                 mDatas.add("loadMore Complete!");
-                                mAdapter.notifyItemInsertedEx(mDatas.size()-1);
+                                mAdapter.notifyItemInsertedEx(mDatas.size() - 1);
                                 mAdapter.scrollToLast();
                                 break;
                             default:
                                 mAdapter.end();
                                 mDatas.add("loadMore end!");
-                                mAdapter.notifyItemInsertedEx(mDatas.size()-1);
+                                mAdapter.notifyItemInsertedEx(mDatas.size() - 1);
                                 mAdapter.scrollToLast();
                                 refresh.setCanLoadMore(false);
                                 break;

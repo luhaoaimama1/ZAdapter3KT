@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
+import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.helper.Helper;
 
@@ -66,17 +67,7 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
                 .addHeaderHolder(R.layout.header_simple)
                 .addHeaderHolder(R.layout.header_simple2)
                 .addHeaderHolder(R.layout.header_simple2)
-                .addFooterHolder(footer1 = new ViewDelegates() {
-                    @Override
-                    public int getLayoutId() {
-                        return R.layout.footer_simple;
-                    }
-
-                    @Override
-                    public void fillData(int postion, Object data, Helper helper) {
-
-                    }
-                })
+                .addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple))
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv);
     }

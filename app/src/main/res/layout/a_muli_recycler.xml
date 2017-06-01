@@ -38,10 +38,10 @@
 
     </LinearLayout>
 
-    <zone.com.zrefreshlayout.ZRefreshLayout
-        android:id="@+id/refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<zone.com.zrefreshlayout.ZRefreshLayout-->
+        <!--android:id="@+id/refresh"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
@@ -49,6 +49,6 @@
             android:layout_height="match_parent"
             android:text="Hello_world" />
 
-    </zone.com.zrefreshlayout.ZRefreshLayout>
+    <!--</zone.com.zrefreshlayout.ZRefreshLayout>-->
 
 </LinearLayout>
