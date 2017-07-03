@@ -63,4 +63,17 @@ public class MainActivity extends AppCompatActivity {
     public void onClick3() {
         startActivity(new Intent(this, RecyclerDiffActivity.class));
     }
+
+    @OnClick(R.id.bt_layoutManager)
+    public void layoutManagerClick() {
+        startActivity(new Intent(this, LayoutManagerActivity.class));
+    }
+    @OnClick(R.id.bt_NlayoutManager)
+    public void nLayoutManagerClick() {
+        startActivity(new Intent(this, NLayoutManagerActivity.class));
+    }
+    @OnClick(R.id.bt_Fully)
+    public void fullyClick() {
+        startActivity(new Intent(this, FullyRecyclerActivity.class));
+    }
 }

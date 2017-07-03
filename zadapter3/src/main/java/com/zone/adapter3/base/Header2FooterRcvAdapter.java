@@ -112,8 +112,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
                         position, data.get(getDataPosition(position)),
                         holder.helper);
         } else if (position < mHeaderViews.size()) {
+            QuickConfig.e("bind header position:" + position);
             bindHFView((ViewGroup) holder.itemView, mHeaderViews.get(position).getItemView());
         } else {
+            QuickConfig.e("bind footer position:" + position);
             bindHFView((ViewGroup) holder.itemView, mFooterViews.get(position - getHeaderViewsCount() - data.size()).getItemView());
         }
     }

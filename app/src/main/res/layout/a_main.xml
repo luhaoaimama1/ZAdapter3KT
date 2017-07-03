@@ -7,45 +7,75 @@
 
     <Button
         android:id="@+id/bt_Linear"
-        android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:onClick="onClick"
         android:text="Linear" />
+
     <Button
         android:id="@+id/bt_Grid"
-        android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:onClick="onClick"
         android:text="Grid" />
+
     <Button
         android:id="@+id/bt_Staggered"
-        android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:onClick="onClick"
         android:text="Staggered" />
+
     <Button
         android:id="@+id/bt_Link"
-        android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:onClick="onClick"
         android:text="ZRefresh联动" />
+
     <Button
         android:id="@+id/bt_Muli"
-        android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:onClick="onClick"
         android:text="多布局问题分析" />
+
     <Button
         android:id="@+id/bt_diff"
-        android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:onClick="onClick"
         android:text="diff" />
+
+    <Button
+        android:id="@+id/bt_layoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:onClick="onClick"
+        android:text="LayoutManager" />
+
+    <Button
+        android:id="@+id/bt_NlayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:onClick="onClick"
+        android:text="训练LayoutManager" />
+
+
+    <Button
+        android:id="@+id/bt_Fully"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:onClick="onClick"
+        android:text="满布局测试" />
 
 </LinearLayout>

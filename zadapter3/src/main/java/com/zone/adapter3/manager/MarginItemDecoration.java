@@ -1,18 +1,14 @@
 package com.zone.adapter3.manager;
 
-import android.content.ClipData;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
-
 import com.zone.adapter3.base.Header2FooterRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
 import com.zone.adapter3.bean.Wrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
