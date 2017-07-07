@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import zone.com.zadapter3.adapter.LeftDelegates;
 import zone.com.zadapter3.adapter.RightDelegates;
+import zone.com.zadapter3.core.DefaultItemAnimator2;
 
 public class MuliRecyclerActivity extends Activity implements Handler.Callback {
 
@@ -70,6 +71,7 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
                 .addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple))
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv);
+        rv.setItemAnimator(new DefaultItemAnimator2());
     }
 
     ViewDelegates footer1, footer2;

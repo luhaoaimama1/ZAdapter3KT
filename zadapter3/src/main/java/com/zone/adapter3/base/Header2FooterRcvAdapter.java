@@ -292,7 +292,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public IAdapter addFooterHolder(@LayoutRes int layout, boolean notify) {
-        return addFooterHolder(new ResViewDelegates(layout), true);
+        return addFooterHolder(new ResViewDelegates(layout), notify);
     }
 
     @Override
