@@ -17,7 +17,7 @@ import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
 import com.zone.adapter3.helper.Helper;
-import com.zone.adapter3.manager.MarginItemDecoration;
+import com.zone.adapter3.decoration.MarginItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

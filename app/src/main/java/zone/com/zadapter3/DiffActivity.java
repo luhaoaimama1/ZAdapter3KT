@@ -21,7 +21,7 @@ import java.util.List;
 import zone.com.zadapter3.adapter.LeftDelegates;
 import zone.com.zadapter3.adapter.RightDelegates;
 
-public class RecyclerDiffActivity extends Activity implements Handler.Callback, View.OnClickListener {
+public class DiffActivity extends Activity implements Handler.Callback, View.OnClickListener {
 
     private RecyclerView rv;
     private List<String> mDatas = new ArrayList<String>();

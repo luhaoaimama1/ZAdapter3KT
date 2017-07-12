@@ -16,11 +16,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".RecyclerActivity"></activity>
-        <activity android:name=".Recycler2ZRefreshActivity"></activity>
-        <activity android:name=".MuliRecyclerActivity"></activity>
-        <activity android:name=".RecyclerDiffActivity"></activity>
-        <activity android:name=".LayoutManagerActivity"></activity>
-        <activity android:name=".NLayoutManagerActivity"></activity>
+        <activity android:name=".ZRefreshActivity"></activity>
+        <activity android:name=".HeadFooterRecyclerActivity"></activity>
+        <activity android:name=".DiffActivity"></activity>
+        <activity android:name=".LayoutActivity"></activity>
+        <activity android:name=".HexoLayoutActivity"></activity>
         <activity android:name=".FullyRecyclerActivity"></activity>
     </application>
 

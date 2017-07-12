@@ -51,27 +51,29 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_Link)
     public void onClick() {
-        startActivity(new Intent(this, Recycler2ZRefreshActivity.class));
+        startActivity(new Intent(this, ZRefreshActivity.class));
     }
 
-    @OnClick(R.id.bt_Muli)
+    @OnClick(R.id.bt_HeadFooter)
     public void onClick2() {
-        startActivity(new Intent(this, MuliRecyclerActivity.class));
+        startActivity(new Intent(this, HeadFooterRecyclerActivity.class));
     }
 
     @OnClick(R.id.bt_diff)
     public void onClick3() {
-        startActivity(new Intent(this, RecyclerDiffActivity.class));
+        startActivity(new Intent(this, DiffActivity.class));
     }
 
     @OnClick(R.id.bt_layoutManager)
     public void layoutManagerClick() {
-        startActivity(new Intent(this, LayoutManagerActivity.class));
+        startActivity(new Intent(this, LayoutActivity.class));
     }
-    @OnClick(R.id.bt_NlayoutManager)
+
+    @OnClick(R.id.bt_HexolayoutManager)
     public void nLayoutManagerClick() {
-        startActivity(new Intent(this, NLayoutManagerActivity.class));
+        startActivity(new Intent(this, HexoLayoutActivity.class));
     }
+
     @OnClick(R.id.bt_Fully)
     public void fullyClick() {
         startActivity(new Intent(this, FullyRecyclerActivity.class));

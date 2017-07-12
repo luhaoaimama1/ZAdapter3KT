@@ -77,6 +77,13 @@ Step 2. Add the dependency
                     }
                 }))
                 .relatedList(rv)
+                /**
+                * 必须先设置layoutManager才能设置此方法。
+                * addItemDecoration(MarginItemDecoration itemDecoration)
+                * 也可以用此方法获取itemDecoration 包含hasRight(boolean hasRight),hasBottom(boolean hasBottom)等方法
+                * 更高级的可以通过setOnTransformListener自定义间隔
+                */
+                .addItemDecoration(10);
 ```
 
 2.ViewDelegates的使用与
@@ -184,6 +191,24 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
         });//计算 最好写在线程中
         muliAdapter.diffNotifyDataSetChanged();//通知
 ```
+
+# Update log
+
+>由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
+
+
+## 1.0.15
+
+  * 1. recyclerView链式调用
+  * 2. 可复用,资源id写在复用类里面
+  * 3. Helper类的链式调用与可扩展
+  * 4. 空数据view的支持
+  * 5. 支持Diff快速
+  * 6. 支持添加和滚动的快捷方法
+  * 7. 快速支持四种状态 loading,complete,end,fail 支持与ZRefresh联动
+  * 8. 满布局的支持,与特殊布局的demo,还有滚动速度布局的引用
+  * 9. decoration的快速支持,支持是否包含边界,单独左右上下等,更高级包含自定义监听
+
 
 # Reference&Thanks：
 https://github.com/JoanZapata/base-adapter-helper

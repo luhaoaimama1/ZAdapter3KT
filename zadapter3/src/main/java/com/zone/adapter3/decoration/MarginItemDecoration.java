@@ -1,4 +1,4 @@
-package com.zone.adapter3.manager;
+package com.zone.adapter3.decoration;
 
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
@@ -6,9 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+
 import com.zone.adapter3.base.Header2FooterRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
 import com.zone.adapter3.bean.Wrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
     private final IAdapter adapter;
     private int space;
     private boolean hasTop = true, hasBottom = true, hasLeft = true, hasRight = true;
-
+    private onTransformListener mOnTransformListener;
 
     public MarginItemDecoration(int space, IAdapter adapter) {
         this.space = space;
@@ -151,6 +153,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                 throw new IllegalStateException("StaggeredGridLayoutManager 横向暂时不支持!");
         } else
             throw new IllegalStateException("其他类型的Manager暂时不支持!");
+        transformRect(position, entityList.size()!=0?entityList.get(position):null, outRect);
     }
 
     private void gridV(Rect outRect, int position) {
@@ -254,5 +257,25 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
     public MarginItemDecoration hasRight(boolean hasRight) {
         this.hasRight = hasRight;
         return this;
+    }
+
+
+    public onTransformListener getOnTransformListener() {
+        return mOnTransformListener;
+    }
+
+    public MarginItemDecoration setOnTransformListener(onTransformListener mOnTransformListener) {
+        this.mOnTransformListener = mOnTransformListener;
+        return this;
+    }
+
+    private void transformRect(int position, Entity item, Rect outRect) {
+        if (mOnTransformListener != null)
+            mOnTransformListener.transformRect(position, item, outRect);
+    }
+
+
+    public interface onTransformListener {
+        void transformRect(int position, Entity item, Rect outRect);
     }
 }

@@ -9,13 +9,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
 import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.helper.Helper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +22,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import zone.com.zadapter3.adapter.LeftDelegates;
 import zone.com.zadapter3.adapter.RightDelegates;
-import zone.com.zadapter3.core.DefaultItemAnimator2;
 
-public class MuliRecyclerActivity extends Activity implements Handler.Callback {
+public class HeadFooterRecyclerActivity extends Activity implements Handler.Callback {
 
     @Bind(R.id.rv)
     RecyclerView rv;
@@ -71,7 +68,6 @@ public class MuliRecyclerActivity extends Activity implements Handler.Callback {
                 .addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple))
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv);
-        rv.setItemAnimator(new DefaultItemAnimator2());
     }
 
     ViewDelegates footer1, footer2;

@@ -14,7 +14,7 @@ import java.util.Random;
 import zone.com.zadapter3.layoutmanager.CardItemView;
 import zone.com.zadapter3.layoutmanager.CardLayoutManager;
 
-public class LayoutManagerActivity extends AppCompatActivity {
+public class LayoutActivity extends AppCompatActivity {
 
     private static final int[] COLORS = {0xff00FFFF, 0xffDEB887, 0xff5F9EA0,
             0xff7FFF00, 0xff6495ED, 0xffDC143C,
@@ -72,7 +72,7 @@ public class LayoutManagerActivity extends AppCompatActivity {
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(LayoutManagerActivity.this, holder.text.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LayoutActivity.this, holder.text.getText(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -10,7 +10,7 @@ import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.diff.DiffCallBack;
 import com.zone.adapter3.loadmore.OnScrollRcvListener;
 import com.zone.adapter3.loadmore.callback.ILoadMoreDelegates;
-import com.zone.adapter3.manager.MarginItemDecoration;
+import com.zone.adapter3.decoration.MarginItemDecoration;
 
 import java.util.List;
 

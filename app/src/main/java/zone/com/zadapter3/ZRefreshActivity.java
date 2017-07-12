@@ -24,7 +24,7 @@ import zone.com.zadapter3.adapter.RightDelegates;
 import zone.com.zadapter3.helper.OnScrollRcvListenerExZRefresh;
 import zone.com.zrefreshlayout.ZRefreshLayout;
 
-public class Recycler2ZRefreshActivity extends Activity implements Handler.Callback {
+public class ZRefreshActivity extends Activity implements Handler.Callback {
 
     @Bind(R.id.rv)
     RecyclerView rv;

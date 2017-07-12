@@ -1,15 +1,11 @@
 package zone.com.zadapter3;
 
 import android.app.Activity;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
@@ -26,7 +22,6 @@ import butterknife.OnClick;
 import zone.com.zadapter3.adapter.LeftDelegates;
 import zone.com.zadapter3.adapter.RightDelegates;
 import zone.com.zadapter3.layout.FullyLinearLayoutManager;
-import zone.com.zadapter3.layout.NFullyLinearLayoutManager;
 
 public class FullyRecyclerActivity extends Activity implements Handler.Callback {
 
@@ -42,19 +37,24 @@ public class FullyRecyclerActivity extends Activity implements Handler.Callback 
         ButterKnife.bind(this);
 //        rv.setLayoutManager(new WrapHeightGridLayoutManager(this, 3));
 //        rv.setLayoutManager(new GridLayoutManager(this, 3));
-//        rv.setLayoutManager(new FullyLinearLayoutManager(this));
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setItemAnimator(new DefaultItemAnimator());
-        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.left = 10;
-                outRect.bottom = 10;
+        rv.setLayoutManager(new FullyLinearLayoutManager(this));
+//        rv.setLayoutManager(new NFullyLinearLayoutManager(this));
+//        rv.setLayoutManager(new LinearLayoutManager(this));
 
-            }
-        });
-        rv.setLayoutManager(new NFullyLinearLayoutManager(this));
+        rv.setItemAnimator(new DefaultItemAnimator());
+//        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+//                outRect.left = 10;
+//                outRect.bottom = 10;
+//                outRect.top = 10;
+//                outRect.right = 10;
+//
+//            }
+//        });
+
+
         for (int i = 1; i <= 5; i++) {
             mDatas.add("" + i);
         }
@@ -65,6 +65,7 @@ public class FullyRecyclerActivity extends Activity implements Handler.Callback 
                 return dataPosition % 2;
             }
         };
+
         muliAdapter
                 .addViewHolder(new LeftDelegates())//默认
                 .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
@@ -73,9 +74,10 @@ public class FullyRecyclerActivity extends Activity implements Handler.Callback 
 //                .addHeaderHolder(R.layout.header_simple)
 //                .addHeaderHolder(R.layout.header_simple2)
 //                .addHeaderHolder(R.layout.header_simple2)
-//                .addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple))
+                .addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple))
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv);
+        muliAdapter.addItemDecoration(10);
     }
 
     ViewDelegates footer1, footer2;

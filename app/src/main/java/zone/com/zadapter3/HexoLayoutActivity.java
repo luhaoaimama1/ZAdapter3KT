@@ -12,7 +12,7 @@ import android.widget.Toast;
 import zone.com.zadapter3.layoutmanager.HexoItemView;
 import zone.com.zadapter3.layoutmanager.ZLayoutManager;
 
-public class NLayoutManagerActivity extends AppCompatActivity {
+public class HexoLayoutActivity extends AppCompatActivity {
 
     private static final int[] COLORS = {0xffffa9a9, 0xffb7e6ff, 0xffff4081};
 
@@ -60,7 +60,7 @@ public class NLayoutManagerActivity extends AppCompatActivity {
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(NLayoutManagerActivity.this, holder.text.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HexoLayoutActivity.this, holder.text.getText(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -15,7 +15,7 @@ import android.view.View;
 import zone.com.zadapter3.R;
 
 /**
- * Created by qibin on 16-9-26.
+ * [2017] by Zone
  */
 
 public class HexoItemView extends View {

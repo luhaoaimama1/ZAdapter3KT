@@ -79,6 +79,13 @@ Step 2. Add the dependency
                     }
                 }))
                 .relatedList(rv)
+                /**
+                * Must first set the layoutManager to set up this way.
+                * addItemDecoration(MarginItemDecoration itemDecoration)
+                * You can also use this method to get itemDecoration,contains hasRight(boolean hasRight),hasBottom(boolean hasBottom)...
+                * More advanced by setOnTransformListener custom intervals
+                */
+                .addItemDecoration(10);
 ```
 
 2.ViewDelegates's use
@@ -185,6 +192,20 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
         });//Calculate the best written on the thread
         muliAdapter.diffNotifyDataSetChanged();//notify
 ```
+
+# Update log
+
+## 1.0.15
+
+  * 1. RecyclerView chain calls
+  * 2. Reusable, resource id write inside the reusable class
+  * 3. Helper class chain calls and extensible
+  * 4. Empty data support the view
+  * 5. Support the Diff fast
+  * 6. Add quick way to support
+  * 7. Rapid support four state loading,complete,end,fail Support and ZRefresh linkage
+  * 8. With the support of the layout, and the special layout of the demo, the layout of the reference and rolling speed
+  * 9. Decoration fast support, support does it include the border, up and down or so alone and so on, the more advanced contains custom monitoring
 
 # Reference&Thanks：
 https://github.com/JoanZapata/base-adapter-helper

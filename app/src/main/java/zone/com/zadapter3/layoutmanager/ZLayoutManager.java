@@ -9,10 +9,6 @@ import zone.com.zadapter3.core.Pool;
 
 /**
  * [2017] by Zone
- * todo  测量 fully
- * todo  decl的继承修改
- * todo  decl的继承修改-> 因为我已经测量出来结果了 所以会更简单点把;
- * todo  修改滚动速度的理解
  */
 
 public class ZLayoutManager extends RecyclerView.LayoutManager {
