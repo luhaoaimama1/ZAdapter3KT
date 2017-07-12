@@ -45,37 +45,37 @@ Step 2. Add the dependency
     IAdapter<String> muliAdapter = new QuickRcvAdapter(this, mDatas){
                 @Override
                 protected int getItemViewType2(int dataPosition) {
-                //此方法可以默认 设置不写, 默认值返回Wrapper.DEFAULT_VALUE(-1)
+                //This method can not write for the default Settings and the default value to return Wrapper.DEFAULT_VALUE(-1)
                     return dataPosition % 2;
                 }
             };
     muliAdapter
-                .addViewHolder(new LeftDelegates())//默认
-                .addViewHolder(0, new LeftDelegates()) //多部剧
-                .addViewHolder(1, new RightDelegates())//多部剧
-                .addHeaderHolder(R.layout.header_simple)//资源
-                .addHeaderHolder(ViewDelegates footer)//也可以的
-                .addFooterHolder(R.layout.footer_simple)//资源
-                .addFooterHolder(ViewDelegates footer)//也可以的
-                .addEmptyHold(R.layout.empty)//也支持empty 资源
-                .addEmptyHold(ViewDelegates emtpy)//也支持empty
+                .addViewHolder(new LeftDelegates())//default
+                .addViewHolder(0, new LeftDelegates()) //Many layout
+                .addViewHolder(1, new RightDelegates())//Many layout
+                .addHeaderHolder(R.layout.header_simple)//resources
+                .addHeaderHolder(ViewDelegates footer)//Can also be the
+                .addFooterHolder(R.layout.footer_simple)//resources
+                .addFooterHolder(ViewDelegates footer)//Can also be the
+                .addEmptyHold(R.layout.empty)//Also support empty resources
+                .addEmptyHold(ViewDelegates emtpy)//Also support empty
                 .setOnItemClickListener(new IAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(ViewGroup parent, View view, int position) {
-                        System.out.println("被点击->onItemClick" + position);
+                        System.out.println("By clicking->onItemClick" + position);
                     }
                 })
                 .setOnItemLongClickListener(new IAdapter.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(ViewGroup parent, View view, int position) {
-                        System.out.println("被点击->onItemLongClick:" + position);
+                        System.out.println("By clicking->onItemLongClick:" + position);
                         return true;
                     }
                 })
                 .addOnScrollListener(scroller = new OnScrollRcvListenerEx(new OnScrollRcvListenerEx.LoadMoreCallback() {
                     @Override
                     public void loadMore() {
-                    //这个类主要是为了和我的ZRefresh库兼容。我会委托上啦加载在这里处理!
+                    //And I was the main reason for this class ZRefresh library compatible.I will entrust the loading processing here!
                     }
                 }))
                 .relatedList(rv)
@@ -106,7 +106,7 @@ public class LeftDelegates extends ViewDelegates<String> {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        System.out.println("helper click测试 ");
+                        System.out.println("helper click test ");
                     }
                 }, new int[]{R.id.tv, R.id.ll_main});
         ;
