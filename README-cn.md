@@ -197,7 +197,7 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
 
-## 1.0.15
+## 1.0.2
 
   * 1. recyclerView链式调用
   * 2. 可复用,资源id写在复用类里面

@@ -195,7 +195,7 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
 
 # Update log
 
-## 1.0.15
+## 1.0.2
 
   * 1. RecyclerView chain calls
   * 2. Reusable, resource id write inside the reusable class
