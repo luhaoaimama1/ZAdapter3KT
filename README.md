@@ -195,6 +195,12 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
 
 # Update log
 
+## 1.0.3
+
+  * Support break absorb effect
+  * fix MarginItemDecoration bug,and support ViewDelegates's reduceDectorRect and dectorRect change dector ;
+
+
 ## 1.0.2
 
   * 1. RecyclerView chain calls
