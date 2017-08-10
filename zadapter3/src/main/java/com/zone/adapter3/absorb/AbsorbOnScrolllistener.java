@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
+
 import com.zone.adapter3.QuickConfig;
 
 public class AbsorbOnScrollListener extends RecyclerView.OnScrollListener {
@@ -33,7 +34,14 @@ public class AbsorbOnScrollListener extends RecyclerView.OnScrollListener {
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        int pos = ((LinearLayoutManager) (recyclerView.getLayoutManager())).findFirstVisibleItemPosition();
+        int pos = 0;
+        try {
+            //GridLayoutManager 继承LinearLayoutManager 所以也支持GridLayoutManager
+            pos = ((LinearLayoutManager) (recyclerView.getLayoutManager())).findFirstVisibleItemPosition();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalStateException("仅仅支持继承LinearLayoutManager的布局!");
+        }
 
         //缓存list中断头view
         for (int i = 0; i < absorbPos.length; i++) {
