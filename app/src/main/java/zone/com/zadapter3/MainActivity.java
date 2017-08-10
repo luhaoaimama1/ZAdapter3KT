@@ -83,4 +83,8 @@ public class MainActivity extends AppCompatActivity {
     public void absorbClick() {
         startActivity(new Intent(this, AdsorbActivity.class));
     }
+    @OnClick(R.id.bt_AbsorbGrid)
+    public void absorbGridClick() {
+        startActivity(new Intent(this, AdsorbGridActivity.class));
+    }
 }

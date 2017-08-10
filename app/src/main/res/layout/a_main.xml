@@ -86,4 +86,12 @@
         android:onClick="onClick"
         android:text="吸附效果" />
 
+    <Button
+        android:id="@+id/bt_AbsorbGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:onClick="onClick"
+        android:text="Grid吸附效果" />
+
 </LinearLayout>

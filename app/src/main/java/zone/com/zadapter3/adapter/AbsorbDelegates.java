@@ -24,6 +24,9 @@ public class AbsorbDelegates extends ViewDelegates<String> {
     @Override
     public void fillData(int postion, String data, Helper helper) {
     }
+    public boolean isFullspan() {
+        return true;
+    }
 
 
 }
