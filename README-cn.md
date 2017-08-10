@@ -4,6 +4,8 @@
 
 -[x] recyclerView链式调用
 
+-[x] 支持断头吸附
+
 -[x] 可复用,资源id写在复用类里面
 
 -[x] Helper类的链式调用与可扩展
@@ -191,6 +193,35 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
         });//计算 最好写在线程中
         muliAdapter.diffNotifyDataSetChanged();//通知
 ```
+
+8.断头吸附效果的支持
+
+![](https://ww1.sinaimg.cn/large/006tNc79ly1fifdm9jzucg307i0dcal7.gif)
+
+```
+rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
+
+        muliAdapter = new QuickRcvAdapter(this, mDatas) {
+            @Override
+            protected int getItemViewType2(int dataPosition) {
+                if (dataPosition == 3)
+                    return 1;
+                else if (dataPosition == 6)
+                    return 2;
+                else if (dataPosition == 9)
+                    return 3;
+                else
+                    return 0;
+            }
+        };
+        muliAdapter
+                .addViewHolder(new LeftDelegates())//默认
+                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
+                .addViewHolder(1, new AbsorbDelegates())//多部剧 注释开启即可
+                .addViewHolder(2, new AbsorbDelegates2())//多部剧 注释开启即可
+                .addViewHolder(3, new AbsorbDelegates())//多部剧 注释开启即可
+```
+
 
 # Update log
 

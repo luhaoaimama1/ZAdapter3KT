@@ -6,6 +6,8 @@
 
 -[x] RecyclerView chain calls
 
+-[x] Support break absorb effect
+
 -[x] Reusable, resource id write inside the reusable class
 
 -[x] Helper class chain calls and extensible
@@ -192,6 +194,36 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
         });//Calculate the best written on the thread
         muliAdapter.diffNotifyDataSetChanged();//notify
 ```
+
+8.Support break absorb effect
+
+![](https://ww1.sinaimg.cn/large/006tNc79ly1fifdm9jzucg307i0dcal7.gif)
+
+```
+rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
+
+        muliAdapter = new QuickRcvAdapter(this, mDatas) {
+            @Override
+            protected int getItemViewType2(int dataPosition) {
+                if (dataPosition == 3)
+                    return 1;
+                else if (dataPosition == 6)
+                    return 2;
+                else if (dataPosition == 9)
+                    return 3;
+                else
+                    return 0;
+            }
+        };
+        muliAdapter
+                .addViewHolder(new LeftDelegates())//default
+                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
+                .addViewHolder(1, new AbsorbDelegates())//多部剧 注释开启即可
+                .addViewHolder(2, new AbsorbDelegates2())//多部剧 注释开启即可
+                .addViewHolder(3, new AbsorbDelegates())//多部剧 注释开启即可
+```
+
+
 
 # Update log
 
