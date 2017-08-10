@@ -18,7 +18,7 @@ import zone.com.zadapter3.adapter.AbsorbDelegates;
 import zone.com.zadapter3.adapter.AbsorbDelegates2;
 import zone.com.zadapter3.adapter.LeftDelegates;
 
-import com.zone.adapter3.absorb.AbsorbOnScrollListener;
+import com.zone.adapter3.absorb.AbsorbOnScrolListener;
 
 /**
  * [2017] by Zone
@@ -42,7 +42,7 @@ public class AdsorbActivity extends Activity {
         for (int i = 1; i <= 100; i++) {
             mDatas.add("" + i);
         }
-        rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
+        rv.addOnScrollListener(new AbsorbOnScrolListener(vp, 3, 6, 9));
 
         muliAdapter = new QuickRcvAdapter(this, mDatas) {
             @Override
