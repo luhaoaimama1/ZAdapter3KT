@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 
 import com.zone.adapter3.QuickConfig;
 
-public class AbsorbOnScrolListener extends RecyclerView.OnScrollListener {
+public class AbsorbOnScrollListener extends RecyclerView.OnScrollListener {
 
     private final FrameLayout vpShow;
     private int[] absorbPos;
@@ -16,7 +16,7 @@ public class AbsorbOnScrolListener extends RecyclerView.OnScrollListener {
     private View placeholderView;
     private View contentView;
 
-    public AbsorbOnScrolListener(FrameLayout vpShow, int... absorbPos) {
+    public AbsorbOnScrollListener(FrameLayout vpShow, int... absorbPos) {
         if (absorbPos == null || absorbPos.length == 0)
             throw new IllegalStateException("absorbPos is not null or empty");
         this.absorbPos = absorbPos;

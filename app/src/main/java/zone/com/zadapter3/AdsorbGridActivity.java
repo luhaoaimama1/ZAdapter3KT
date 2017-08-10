@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.zone.adapter3.QuickRcvAdapter;
-import com.zone.adapter3.absorb.AbsorbOnScrolListener;
+import com.zone.adapter3.absorb.AbsorbOnScrollListener;
 import com.zone.adapter3.base.IAdapter;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class AdsorbGridActivity extends Activity {
         for (int i = 1; i <= 100; i++) {
             mDatas.add("" + i);
         }
-        rv.addOnScrollListener(new AbsorbOnScrolListener(vp, 3, 6, 9));
+        rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
         muliAdapter = new QuickRcvAdapter(this, mDatas) {
             @Override
