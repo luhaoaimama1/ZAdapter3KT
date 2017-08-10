@@ -21,6 +21,7 @@
         <activity android:name=".DiffActivity"></activity>
         <activity android:name=".LayoutActivity"></activity>
         <activity android:name=".HexoLayoutActivity"></activity>
+        <activity android:name=".AdsorbActivity"></activity>
         <activity android:name=".FullyRecyclerActivity"></activity>
     </application>
 

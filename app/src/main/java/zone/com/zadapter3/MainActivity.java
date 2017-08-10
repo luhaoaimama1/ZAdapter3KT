@@ -78,4 +78,9 @@ public class MainActivity extends AppCompatActivity {
     public void fullyClick() {
         startActivity(new Intent(this, FullyRecyclerActivity.class));
     }
+
+    @OnClick(R.id.bt_Absorb)
+    public void absorbClick() {
+        startActivity(new Intent(this, AdsorbActivity.class));
+    }
 }
