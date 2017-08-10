@@ -1,5 +1,6 @@
 package zone.com.zadapter3.adapter;
 
+import android.graphics.Rect;
 import android.view.View;
 
 import com.zone.adapter3.QuickConfig;
@@ -28,5 +29,9 @@ public class AbsorbDelegates extends ViewDelegates<String> {
         return true;
     }
 
-
+    @Override
+    public Rect dectorRect() {
+        return new Rect(0,ORG_DECTOR,0,ORG_DECTOR);
+//        return null;
+    }
 }

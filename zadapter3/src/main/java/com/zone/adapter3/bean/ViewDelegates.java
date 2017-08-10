@@ -1,6 +1,7 @@
 package com.zone.adapter3.bean;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.zone.adapter3.helper.Helper;
 
 public abstract class ViewDelegates<T> {
 
+    public static final int ORG_DECTOR=Integer.MAX_VALUE;
     protected Context context;
     private View itemView;
     private String tag;
@@ -47,6 +49,13 @@ public abstract class ViewDelegates<T> {
 
     public boolean isFullspan() {
         return false;
+    }
+
+    public Rect dectorRect() {
+        return null;
+    }
+    public Rect reduceDectorRect() {
+        return null;
     }
 
     public String getTag() {

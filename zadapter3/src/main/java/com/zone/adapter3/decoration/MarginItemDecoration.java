@@ -6,11 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-
 import com.zone.adapter3.base.Header2FooterRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
+import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,10 +59,41 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
         public int groupId;
         public int spanIndex;
         boolean changeLine;
+        Rect outRect;
+        Rect reduceDectorRect;
     }
 
     private void calculate() {
         RecyclerView.LayoutManager manager = adapter.getRecyclerView().getLayoutManager();
+        if(manager instanceof LinearLayoutManager){
+
+            restore();
+
+            for (int i = 0; i < adapter.getRealItemCount(); i++) {
+                boolean isHeader = i < adapter.getHeaderViewsCount();
+                boolean isFooter = i > adapter.getHeaderViewsCount() + adapter.getData().size() - 1;
+                boolean isDataFullLine = true;
+                Rect outRect = null;
+                Rect reduceDectorRect = null;
+                if (!(isHeader && isFooter)) {
+                    Header2FooterRcvAdapter headerAdapter = (Header2FooterRcvAdapter) adapter;
+                    for (int j = 0; j < headerAdapter.getDataWraps().size(); j++) {
+                        List<Wrapper> warps = headerAdapter.getDataWraps();
+                        if (adapter.getItemViewType(i) == warps.get(j).getStyle()) {
+                            outRect = warps.get(j).getViewDelegates().dectorRect();
+                            reduceDectorRect = warps.get(j).getViewDelegates().reduceDectorRect();
+                            break;
+                        }
+                    }
+                    Entity entity = new Entity();
+                    entity.isFullLine=isDataFullLine;
+                    addEntity(outRect, reduceDectorRect, entity);
+                }
+            }
+
+        }
+
+
         if (manager instanceof GridLayoutManager || manager instanceof StaggeredGridLayoutManager) {
 
             restore();
@@ -76,12 +106,16 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                 boolean isHeader = i < adapter.getHeaderViewsCount();
                 boolean isFooter = i > adapter.getHeaderViewsCount() + adapter.getData().size() - 1;
                 boolean isDataFullLine = false;
+                Rect outRect = null;
+                Rect reduceDectorRect = null;
                 if (!(isHeader && isFooter)) {
                     Header2FooterRcvAdapter headerAdapter = (Header2FooterRcvAdapter) adapter;
                     for (int j = 0; j < headerAdapter.getDataWraps().size(); j++) {
                         List<Wrapper> warps = headerAdapter.getDataWraps();
                         if (adapter.getItemViewType(i) == warps.get(j).getStyle()) {
                             isDataFullLine = warps.get(j).getViewDelegates().isFullspan();
+                            outRect = warps.get(j).getViewDelegates().dectorRect();
+                            reduceDectorRect = warps.get(j).getViewDelegates().reduceDectorRect();
                             break;
                         }
                     }
@@ -102,14 +136,16 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                     }
                     spanIndex = 0;
                     entity.spanIndex = spanIndex;
-                    entityList.add(entity);
+
+                    addEntity(outRect, reduceDectorRect, entity);
                 } else {
                     entity.isFullLine = false;
                     entity.groupId = groupCount;
                     entity.spanIndex = spanIndex;
-                    entityList.add(entity);
+
+                    addEntity(outRect, reduceDectorRect, entity);
                     spanIndex++;
-                    if (spanIndex == spanCount - 1 && i != adapter.getRealItemCount() - 1) {
+                    if (entity.spanIndex == spanCount - 1 && i != adapter.getRealItemCount() - 1) {
                         groupCount++;
                         spanIndex = 0;
                         entity.changeLine = true;
@@ -118,6 +154,12 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
 
             }
         }
+    }
+
+    private void addEntity(Rect outRect, Rect reduceDectorRect, Entity entity) {
+        entity.outRect= outRect;
+        entity.reduceDectorRect= reduceDectorRect;
+        entityList.add(entity);
     }
 
     private void restore() {
@@ -153,6 +195,32 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                 throw new IllegalStateException("StaggeredGridLayoutManager 横向暂时不支持!");
         } else
             throw new IllegalStateException("其他类型的Manager暂时不支持!");
+
+        if(entityList.size()!=0){
+            Entity item = entityList.get(position);
+            if(item.outRect!=null){
+                if(item.outRect.top!= ViewDelegates.ORG_DECTOR)
+                    outRect.top=item.outRect.top;
+
+                if(item.outRect.bottom!= ViewDelegates.ORG_DECTOR)
+                    outRect.bottom=item.outRect.bottom;
+
+                if(item.outRect.left!= ViewDelegates.ORG_DECTOR)
+                    outRect.left=item.outRect.left;
+
+                if(item.outRect.right!= ViewDelegates.ORG_DECTOR)
+                    outRect.right=item.outRect.right;
+            }
+
+            if(item.reduceDectorRect!=null){
+                outRect.top+=item.reduceDectorRect.top;
+                outRect.bottom+=item.reduceDectorRect.bottom;
+                outRect.right+=item.reduceDectorRect.right;
+                outRect.left+=item.reduceDectorRect.left;
+            }
+
+        }
+
         transformRect(position, entityList.size()!=0?entityList.get(position):null, outRect);
     }
 
