@@ -197,7 +197,7 @@ public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
 
-## 1.0.3
+## 1.0.5
 
   * 支持断头吸附效果
   * 修复MarginItemDecoration bug并支持ViewDelegates的reduceDectorRect与dectorRect的dector修改;
