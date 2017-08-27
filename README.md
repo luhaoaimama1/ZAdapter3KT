@@ -227,7 +227,7 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
 # Update log
 
-## 1.0.6
+## 1.0.7
 
   * Repair not filling all kinds of generic and cause the getView method of generic error
 
