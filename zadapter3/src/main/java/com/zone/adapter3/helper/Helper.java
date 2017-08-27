@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.zone.adapter3.base.Header2FooterRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
 import com.zone.adapter3.bean.Holder;
 
@@ -31,7 +30,7 @@ import com.zone.adapter3.bean.Holder;
  * <br>
  * <b>Usage</b>
  * <pre>
- * return T.get(context, convertView, parent, R.layout.item)
+ * return T.getView(context, convertView, parent, R.layout.item)
  *         .setText(R.id.tvName, contact.getName())
  *         .setText(R.id.tvEmails, contact.getEmails().toString())
  *         .setText(R.id.tvNumbers, contact.getNumbers().toString())
@@ -63,13 +62,6 @@ public class Helper<T extends Helper> {
         this.convertView = holder.itemView;
         this.context = context;
         child = (T) this;
-    }
-
-    // =======================================
-    // ============ 快捷方法  ==============
-    // =======================================
-    public <V extends View> V getView(@IdRes int viewId) {
-        return retrieveView(viewId);
     }
 
     public T setText(@IdRes int viewId, String value) {
@@ -306,15 +298,20 @@ public class Helper<T extends Helper> {
         return convertView;
     }
 
+    // =======================================
+    // ============ 快捷方法  ==============
+    // =======================================
+    public <V extends View> V getView(int viewId) {
+        return (V)retrieveView(viewId);
+    }
 
-    @SuppressWarnings("unchecked")
-    protected <V extends View> V retrieveView(@IdRes int viewId) {
+    protected <V extends View> V retrieveView( int viewId) {
         View view = views.get(viewId);
         if (view == null) {
             view = convertView.findViewById(viewId);
             views.put(viewId, view);
         }
-        return (V) view;
+        return  (V)view;
     }
 
     public T restore(){

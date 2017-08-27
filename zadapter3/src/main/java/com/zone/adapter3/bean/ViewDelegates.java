@@ -41,7 +41,7 @@ public abstract class ViewDelegates<T> {
     @LayoutRes
     public abstract int getLayoutId();
 
-    public abstract void fillData(int postion, T data, Helper helper);
+    public abstract void fillData(int postion, T data, Helper<Helper> helper);
 
     public View getItemView() {
         return itemView;

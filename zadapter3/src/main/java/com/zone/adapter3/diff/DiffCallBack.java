@@ -76,7 +76,7 @@ public abstract class DiffCallBack<T> extends DiffUtil.Callback {
     /**
      * When {@link #areItemsTheSame(int, int)} returns {@code true} for two items and
      * {@link #areContentsTheSame(int, int)} returns false for them, DiffUtil
-     * calls this method to get a payload about the change.
+     * calls this method to getView a payload about the change.
      * <p>
      * 当{@link #areItemsTheSame(int, int)} 返回true，且{@link #areContentsTheSame(int, int)} 返回false时，DiffUtils会回调此方法，
      * 去得到这个Item（有哪些）改变的payload。
