@@ -228,6 +228,10 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
 
+## 1.0.6
+
+  * 修复未补全类泛型而导致的getView方法泛型的错误
+
 ## 1.0.5
 
   * 支持断头吸附效果
