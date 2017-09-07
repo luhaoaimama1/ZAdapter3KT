@@ -27,20 +27,22 @@ public class OnScrollRcvListenerExZRefresh extends OnScrollRcvListener {
     @Override
     public void loadMoreComplete() {
         super.loadMoreComplete();
-        zrefreshComplete();
+        zrefreshLoadComplete();
     }
 
-    private void zrefreshComplete() {
-        //一般是通知footerView动画去complete
-        zRefreshLayout.loadMoreComplete();
-        //因为被委托了 只好自己去走footerView里的onComplete该做的事情了  通知footerView动画完成
-        AUtils.notifyLoadMoreCompleteListener(zRefreshLayout);
+    private void zrefreshLoadComplete() {
+        if(zRefreshLayout.isLoadMore()){
+            //一般是通知footerView动画去complete
+            zRefreshLayout.loadMoreComplete();
+            //因为被委托了 只好自己去走footerView里的onComplete该做的事情了  通知footerView动画完成
+            AUtils.notifyLoadMoreCompleteListener(zRefreshLayout);
+        }
     }
 
     @Override
     public void loadMoreFail() {
         super.loadMoreFail();
-        zrefreshComplete();
+        zrefreshLoadComplete();
     }
 
     @Override
@@ -49,7 +51,8 @@ public class OnScrollRcvListenerExZRefresh extends OnScrollRcvListener {
         if(zRefreshLayout.isRefresh())
             zRefreshLayout.refreshComplete();
         else
-            zrefreshComplete();
+            zrefreshLoadComplete();
+        zRefreshLayout.setCanLoadMore(false);
     }
 
     @Override
