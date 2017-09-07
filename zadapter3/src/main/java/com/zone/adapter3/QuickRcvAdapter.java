@@ -104,6 +104,8 @@ public class QuickRcvAdapter<T> extends Header2FooterRcvAdapter<T> {
 
     @Override
     public IAdapter addOnScrollListener(OnScrollRcvListener listener) {
+        if(getRecyclerView()==null)
+            throw new IllegalStateException("please first use method: relatedList(rv)!");
         this.listener = listener;
         mRecyclerView.addOnScrollListener(listener);
         listener.setQuickRcvAdapter(this);
