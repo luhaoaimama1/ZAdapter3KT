@@ -68,11 +68,7 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
     //加载状态 已经帮你滚动好了
     protected void loadMore(RecyclerView recyclerView) {
         if (loadMoreDelegates != null) {
-            loadMoreDelegates.tryCreateView(recyclerView.getContext(), recyclerView);
-            if (!mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
-                mQuickRcvAdapter.addFooterHolder(loadMoreDelegates, true);
-                mQuickRcvAdapter.scrollToHF(loadMoreDelegates);
-            }
+            addFooter(recyclerView);
             loadMoreDelegates.loading();
         }
     }
@@ -92,8 +88,19 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
 
     //数据到底部了
     public void end() {
-        if (loadMoreDelegates != null && mQuickRcvAdapter.containFooterHolder(loadMoreDelegates))
+        if (loadMoreDelegates != null ){
+            addFooter(mQuickRcvAdapter.getRecyclerView());
             loadMoreDelegates.end();
+        }
+
+    }
+
+    private void addFooter(RecyclerView recyclerView) {
+        loadMoreDelegates.tryCreateView(recyclerView.getContext(), recyclerView);
+        if (!mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
+            mQuickRcvAdapter.addFooterHolder(loadMoreDelegates, true);
+            mQuickRcvAdapter.scrollToHF(loadMoreDelegates);
+        }
     }
 
     //失败

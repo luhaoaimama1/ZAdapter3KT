@@ -46,7 +46,10 @@ public class OnScrollRcvListenerExZRefresh extends OnScrollRcvListener {
     @Override
     public void end() {
         super.end();
-        zrefreshComplete();
+        if(zRefreshLayout.isRefresh())
+            zRefreshLayout.refreshComplete();
+        else
+            zrefreshComplete();
     }
 
     @Override
