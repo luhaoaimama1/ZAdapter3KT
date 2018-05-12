@@ -306,7 +306,7 @@ public class Helper<T extends Helper> {
     }
 
     protected <V extends View> V retrieveView( int viewId) {
-        View view = views.get(viewId);
+            View view = views.get(viewId);
         if (view == null) {
             view = convertView.findViewById(viewId);
             views.put(viewId, view);

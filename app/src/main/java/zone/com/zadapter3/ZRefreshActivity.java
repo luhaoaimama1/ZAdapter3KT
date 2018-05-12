@@ -132,7 +132,7 @@ public class ZRefreshActivity extends Activity implements Handler.Callback {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mDatas.clear();
+//                        mDatas.clear();
                         mDatas.add( "Refresh Complete!");
                         mAdapter.notifyDataSetChanged();
                         mAdapter.end();

@@ -5,6 +5,8 @@ import com.zone.adapter3.helper.Helper;
 /**
  * [2017] by Zone
  * 包装类  ,并且 returen this 泛型属性
+ *
+ * 代理类也可以
  */
 public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
 

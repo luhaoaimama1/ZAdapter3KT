@@ -30,9 +30,9 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
         setContentView(R.layout.a_recycler);
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
-        for (int i = 1; i <= 100; i++) {
-            mDatas.add("" +  i);
-        }
+//        for (int i = 1; i <= 100; i++) {
+//            mDatas.add("" +  i);
+//        }
 
         //base test
         String type = getIntent().getStringExtra("type");
