@@ -1,6 +1,6 @@
 package zone.com.zadapter3.helper;
 
-import com.zone.adapter3.helper.Helper;
+import com.zone.adapter3.bean.Holder;
 
 /**
  * [2017] by Zone
@@ -8,16 +8,16 @@ import com.zone.adapter3.helper.Helper;
  *
  * 代理类也可以
  */
-public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
+public class ExtraHelper<T extends ExtraHelper> extends Holder<T> {
 
 
-    protected ExtraHelper(Helper helper) {
-        super(helper.getContext(), helper.getHolder(), helper.getAdapter());
+    protected ExtraHelper(Holder holder) {
+        super( holder.itemView);
         child = (T) this;
     }
 
-    public static ExtraHelper<ExtraHelper> wrapper(Helper helper) {
-        return new ExtraHelper(helper);
+    public static ExtraHelper<ExtraHelper> wrapper(Holder holder) {
+        return new ExtraHelper(holder);
     }
 
     public T heihei() {

@@ -9,16 +9,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.zone.adapter.R;
 import com.zone.adapter3.QuickConfig;
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
-import com.zone.adapter3.helper.Helper;
 import com.zone.adapter3.decoration.MarginItemDecoration;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,14 +45,15 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public Holder onCreateViewHolder(final ViewGroup parent, int viewType) {
+         Holder holder;
         if (viewType == ITEM_VIEW_TYPE_HEADER_OR_FOOTER) {
             QuickConfig.e("onCreateViewHolder header or footer :" + viewType);
-            return new Holder(setFullspan(LayoutInflater.from(context)
+            holder=new Holder(setFullspan(LayoutInflater.from(context)
                     .inflate(R.layout.base_vp, mRecyclerView, false)));
         } else if (viewType == Wrapper.EMPTY_VALUE) {
             QuickConfig.e("onCreateViewHolder Empty:" + viewType);
-            mEmptyView.tryCreateView(context, mRecyclerView);
-            return new Holder(setFullspan(mEmptyView.getItemView()));
+            holder=mEmptyView.tryEHFCreateView(context, this);
+            setFullspan(holder.itemView);
         } else {
             QuickConfig.e("onCreateViewHolder views:" + viewType);
             Wrapper targetWarpper = null;
@@ -71,20 +69,22 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             }
             if (targetWarpper == null)
                 throw new IllegalStateException("请设置默认o.style.switch的默认viewHold");
-            //这里 必须创建  因为我是通过 ViewDelegates的类型去创建的
-            targetWarpper.getViewDelegates().reallyCreateHFView(context, mRecyclerView);
-            if (targetWarpper.getViewDelegates().isFullspan())
-                setFullspan(targetWarpper.getViewDelegates().getItemView());
-            final Holder holder = new Holder(context, targetWarpper);
-            holder.setHelper(createHelper(holder, context, targetWarpper));
-            return holder;
+            //这里 必须创建 而不能try try的含义是 仅仅能创建一次 用于头和脚  因为我是通过 ViewDelegates的类型去创建的
+            holder = getContentHolder(targetWarpper, targetWarpper.getViewDelegates());
+
         }
+        return holder;
     }
 
-
-    protected Helper createHelper(Holder holder, Context context, Wrapper targetWarpper) {
-        return new Helper(context, holder, this);
+    protected Holder getContentHolder(Wrapper targetWarpper, ViewDelegates viewDelegates) {
+        Holder holder;
+        holder=viewDelegates.reallyCreateView(context, this);
+        holder.setViewDelegates(viewDelegates);
+        if (targetWarpper.getViewDelegates().isFullspan())
+            setFullspan(holder.itemView);
+        return holder;
     }
+
 
     //viewHolder or footer 保留第一层的lp 这样第一层就不会无效了!
     private View setFullspan(View itemView) {
@@ -104,35 +104,41 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        if (isEmptyData())
+
+        if (isEmptyData()){
+            mEmptyView.fillData(position,null,holder);
             return;
+        }
+
         if (position >= mHeaderViews.size() && position < mHeaderViews.size() + getContentCount()) {
-            if (holder.wrapper != null) {
+            if (holder.getViewDelegates() != null) {
                 T obj = null;
                 if (contentDataMapListener != null)
                     obj = contentDataMapListener.getData(data, getDataPosition(position));
                 else
                     obj = data.get(getDataPosition(position));
-                holder.wrapper.getViewDelegates().fillData(
-                        position, obj, holder.helper);
+                holder.getViewDelegates().fillData(position, obj, holder);
 
             }
 
         } else if (position < mHeaderViews.size()) {
             QuickConfig.e("bind header position:" + position);
-            bindHFView((ViewGroup) holder.itemView, mHeaderViews.get(position).getItemView());
+            bindHFView(position,holder, mHeaderViews.get(position));
         } else {
             QuickConfig.e("bind footer position:" + position);
-            bindHFView((ViewGroup) holder.itemView, mFooterViews.get(position - getHeaderViewsCount() - getContentCount()).getItemView());
+            bindHFView(position,holder, mFooterViews.get(position - getHeaderViewsCount() - getContentCount()));
         }
     }
 
-    private void bindHFView(ViewGroup parent, View child) {
+    private void bindHFView(int position, Holder holder, ViewDelegates viewDelegates) {
+        ViewGroup parent= (ViewGroup) holder.itemView;
+        View child=viewDelegates.getEhfHolder().itemView;
         parent.removeAllViews();
         ViewGroup vp = (ViewGroup) child.getParent();
         if (vp != null)
             vp.removeAllViews();
         parent.addView(child);
+        viewDelegates.fillData(position,null,holder);
     }
 
     private int getDataPosition(int mapPosition) {
@@ -285,7 +291,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             throw new RuntimeException("viewHolder is null");
         if (!mHeaderViews.contains(header)) {
             mHeaderViews.add(header);
-            header.tryCreateView(context, null);
+            header.tryEHFCreateView(context, this);
             hfItemInserted(header, notify);
         }
         return this;
@@ -351,7 +357,8 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             throw new RuntimeException("footer is null");
         if (!mFooterViews.contains(footer)) {
             mFooterViews.add(footer);
-            footer.tryCreateView(context, null);
+            //todo?
+            footer.tryEHFCreateView(context, this);
             hfItemInserted(footer, notify);
         }
         return this;

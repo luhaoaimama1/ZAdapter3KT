@@ -5,8 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zone.adapter3.QuickConfig;
+import com.zone.adapter3.base.IAdapter;
+import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
-import com.zone.adapter3.helper.Helper;
 import com.zone.adapter3.loadmore.OnScrollRcvListener;
 
 /**
@@ -47,14 +48,15 @@ public abstract class ILoadMoreDelegates extends ViewDelegates {
     protected abstract void initData(View convertView, RecyclerView rv);
 
     @Override
-    public void reallyCreateHFView(Context context, RecyclerView rv) {
-        QuickConfig.e("tryCreateView");
-        super.reallyCreateHFView(context, rv);
-        initData(getItemView(), rv);
+    public Holder reallyCreateView(Context context,  IAdapter adapter) {
+        QuickConfig.e("tryEHFCreateView");
+        Holder holder=super.reallyCreateView(context, mOnScrollRcvListener.getQuickRcvAdapter());
+        initData(holder.itemView, mOnScrollRcvListener.getQuickRcvAdapter().getRecyclerView());
+        return holder;
     }
 
     @Override
-    public void fillData(int postion, Object data, Helper helper) {
+    public void fillData(int postion, Object data, Holder holder) {
 
     }
 

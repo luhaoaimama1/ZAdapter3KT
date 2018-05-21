@@ -2,8 +2,8 @@ package zone.com.zadapter3.adapter;
 
 import android.view.View;
 
+import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
-import com.zone.adapter3.helper.Helper;
 
 import zone.com.zadapter3.R;
 
@@ -20,16 +20,16 @@ public class ImgDelegates extends ViewDelegates<String> {
     }
 
     @Override
-    public void fillData(int postion, String data, final Helper helper) {
+    public void fillData(int postion, String data, final Holder holder) {
         if(data!=null){
-            helper.setImageResource(R.id.img,R.mipmap.ic_launcher);
-            helper.setOnClickListener(null,R.id.img);
+            holder.setImageResource(R.id.img,R.mipmap.ic_launcher);
+            holder.setOnClickListener(null,R.id.img);
         }else{
-            helper.setOnClickListener(new View.OnClickListener() {
+            holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    helper.getAdapter().getData().add("");
-                    helper.getAdapter().notifyDataSetChanged();
+                    adapter.getData().add("");
+                    adapter.notifyDataSetChanged();
                 }
             },R.id.img);
         }

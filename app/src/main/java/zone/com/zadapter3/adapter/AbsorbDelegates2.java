@@ -1,7 +1,7 @@
 package zone.com.zadapter3.adapter;
 
+import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
-import com.zone.adapter3.helper.Helper;
 
 import zone.com.zadapter3.R;
 
@@ -18,7 +18,7 @@ public class AbsorbDelegates2 extends ViewDelegates<String> {
     }
 
     @Override
-    public void fillData(int postion, String data, Helper helper) {
+    public void fillData(int postion, String data, Holder helper) {
     }
 
     public boolean isFullspan() {

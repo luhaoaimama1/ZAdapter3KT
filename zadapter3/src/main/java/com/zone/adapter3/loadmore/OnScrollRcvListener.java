@@ -96,7 +96,7 @@ public class OnScrollRcvListener extends RecyclerView.OnScrollListener {
     }
 
     private void addFooter(RecyclerView recyclerView) {
-        loadMoreDelegates.tryCreateView(recyclerView.getContext(), recyclerView);
+        loadMoreDelegates.tryEHFCreateView(recyclerView.getContext(), mQuickRcvAdapter);
         if (!mQuickRcvAdapter.containFooterHolder(loadMoreDelegates)) {
             mQuickRcvAdapter.addFooterHolder(loadMoreDelegates, true);
             mQuickRcvAdapter.scrollToHF(loadMoreDelegates);

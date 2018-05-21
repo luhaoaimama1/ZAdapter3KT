@@ -128,15 +128,15 @@ public class ZRefreshActivity extends Activity implements Handler.Callback {
             public void refresh(ZRefreshLayout zRefreshLayout) {
                 refresh.setCanLoadMore(true);
                 loadMoreCount = 1;
-                mAdapter.removeLoadMoreDelegates();
+//                mAdapter.removeLoadMoreDelegates();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
 //                        mDatas.clear();
                         mDatas.add( "Refresh Complete!");
                         mAdapter.notifyDataSetChanged();
-                        mAdapter.end();
-//                        refresh.refreshComplete();
+//                        mAdapter.end();
+                        refresh.refreshComplete();
                     }
                 }, 2000);
             }

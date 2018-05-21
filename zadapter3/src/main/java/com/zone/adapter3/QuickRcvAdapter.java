@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import com.zone.adapter3.base.Header2FooterRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
 import com.zone.adapter3.bean.Holder;
+import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
-import com.zone.adapter3.helper.Helper;
 import com.zone.adapter3.loadmore.OnScrollRcvListener;
 import com.zone.adapter3.loadmore.callback.ILoadMoreDelegates;
 import com.zone.adapter3.loadmore.callback.NullLoadMoreDelegates;
@@ -42,9 +42,10 @@ public class QuickRcvAdapter<T> extends Header2FooterRcvAdapter<T> {
     }
 
     @Override
-    protected Helper createHelper(Holder holder, Context context, Wrapper targetWarpper) {
+    protected Holder getContentHolder(Wrapper targetWarpper, ViewDelegates viewDelegates) {
+        Holder holder=super.getContentHolder(targetWarpper, viewDelegates);
         initOnItemClickListener(holder);
-        return super.createHelper(holder, context, targetWarpper);
+        return  holder;
     }
 
     private void initOnItemClickListener(final Holder holder) {

@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView;
 
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
+import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
-import com.zone.adapter3.helper.Helper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +114,10 @@ public class FullyRecyclerActivity extends Activity implements Handler.Callback 
             }
 
             @Override
-            public void fillData(int postion, Object data, Helper helper) {
+            public void fillData(int postion, Object data, Holder holder) {
 
             }
+
         },true);
         footer2.setTag("footer2");
         muliAdapter.scrollToHF(footer2);

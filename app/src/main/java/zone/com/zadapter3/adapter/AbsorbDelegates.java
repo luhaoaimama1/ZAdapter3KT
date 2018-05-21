@@ -4,8 +4,8 @@ import android.graphics.Rect;
 import android.view.View;
 
 import com.zone.adapter3.QuickConfig;
+import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
-import com.zone.adapter3.helper.Helper;
 
 import zone.com.zadapter3.R;
 import zone.com.zadapter3.helper.ExtraHelper;
@@ -23,7 +23,7 @@ public class AbsorbDelegates extends ViewDelegates<String> {
     }
 
     @Override
-    public void fillData(int postion, String data, Helper helper) {
+    public void fillData(int postion, String data, Holder helper) {
     }
     public boolean isFullspan() {
         return true;
