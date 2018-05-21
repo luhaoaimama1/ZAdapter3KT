@@ -24,8 +24,11 @@ public interface IAdapter<T> {
     // =======================================
     List<T> getData();
 
-    //当时空页面的时候应该是0 所以排除空页面的
-    int getRealItemCount();
+
+    //获取ContentCount+headerCount+FooterCount
+    int getCHFItemCount();
+
+    int getContentCount();
 
     Context getContext();
     // =======================================
@@ -101,6 +104,8 @@ public interface IAdapter<T> {
     // =======================================
     // ============ header/footer ==============
     // =======================================
+
+    IAdapter setContentDataMapListener(Header2FooterRcvAdapter.ContentDataMapListener contentDataMapListener);
 
     IAdapter removeHeaderHolder(ViewDelegates header);
 

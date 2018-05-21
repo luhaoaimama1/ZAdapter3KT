@@ -69,9 +69,9 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
 
             restore();
 
-            for (int i = 0; i < adapter.getRealItemCount(); i++) {
+            for (int i = 0; i < adapter.getCHFItemCount(); i++) {
                 boolean isHeader = i < adapter.getHeaderViewsCount();
-                boolean isFooter = i > adapter.getHeaderViewsCount() + adapter.getData().size() - 1;
+                boolean isFooter = i > adapter.getHeaderViewsCount() + adapter.getContentCount() - 1;
                 boolean isDataFullLine = true;
                 Rect outRect = null;
                 Rect reduceDectorRect = null;
@@ -102,9 +102,9 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                 spanCount = ((GridLayoutManager) manager).getSpanCount();
             else
                 spanCount = ((StaggeredGridLayoutManager) manager).getSpanCount();
-            for (int i = 0; i < adapter.getRealItemCount(); i++) {
+            for (int i = 0; i < adapter.getCHFItemCount(); i++) {
                 boolean isHeader = i < adapter.getHeaderViewsCount();
-                boolean isFooter = i > adapter.getHeaderViewsCount() + adapter.getData().size() - 1;
+                boolean isFooter = i > adapter.getHeaderViewsCount() + adapter.getContentCount() - 1;
                 boolean isDataFullLine = false;
                 Rect outRect = null;
                 Rect reduceDectorRect = null;
@@ -128,7 +128,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                         spanIndex = 0;
                     }
 
-                    if (i == adapter.getRealItemCount() - 1)
+                    if (i == adapter.getCHFItemCount() - 1)
                         entity.groupId = groupCount;
                     else {
                         entity.groupId = groupCount++;
@@ -145,7 +145,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
 
                     addEntity(outRect, reduceDectorRect, entity);
                     spanIndex++;
-                    if (entity.spanIndex == spanCount - 1 && i != adapter.getRealItemCount() - 1) {
+                    if (entity.spanIndex == spanCount - 1 && i != adapter.getCHFItemCount() - 1) {
                         groupCount++;
                         spanIndex = 0;
                         entity.changeLine = true;
@@ -173,7 +173,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        if (adapter.getRealItemCount() == 0) return;
+        if (adapter.getCHFItemCount() == 0) return;
         int position = parent.getChildAdapterPosition(view);
         if (position < 0) return;
 
@@ -257,7 +257,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
     private void linearH(Rect outRect, int postion) {
         if (hasLeft && postion == 0)
             outRect.left = space;
-        if (hasRight && postion == adapter.getRealItemCount() - 1)
+        if (hasRight && postion == adapter.getCHFItemCount() - 1)
             outRect.right = space;
         if (postion != 0)
             outRect.left = space;
@@ -274,7 +274,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
             outRect.right = space;
         if (hasTop && postion == 0)
             outRect.top = space;
-        if (hasBottom && postion == adapter.getRealItemCount() - 1)
+        if (hasBottom && postion == adapter.getCHFItemCount() - 1)
             outRect.bottom = space;
         if (postion != 0)
             outRect.top = space;

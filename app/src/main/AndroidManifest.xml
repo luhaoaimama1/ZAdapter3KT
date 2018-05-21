@@ -24,6 +24,7 @@
         <activity android:name=".AdsorbActivity"></activity>
         <activity android:name=".AdsorbGridActivity"></activity>
         <activity android:name=".FullyRecyclerActivity"></activity>
+        <activity android:name=".NineRecyclerActivity"></activity>
     </application>
 
 </manifest>

@@ -87,4 +87,8 @@ public class MainActivity extends AppCompatActivity {
     public void absorbGridClick() {
         startActivity(new Intent(this, AdsorbGridActivity.class));
     }
+    @OnClick(R.id.bt_NineGrid)
+    public void nineGridClick() {
+        startActivity(new Intent(this, NineRecyclerActivity.class));
+    }
 }

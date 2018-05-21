@@ -106,17 +106,24 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public void onBindViewHolder(Holder holder, int position) {
         if (isEmptyData())
             return;
-        if (position >= mHeaderViews.size() && position < mHeaderViews.size() + data.size()) {
-            if (holder.wrapper != null)
+        if (position >= mHeaderViews.size() && position < mHeaderViews.size() + getContentCount()) {
+            if (holder.wrapper != null) {
+                T obj = null;
+                if (contentDataMapListener != null)
+                    obj = contentDataMapListener.getData(data, getDataPosition(position));
+                else
+                    obj = data.get(getDataPosition(position));
                 holder.wrapper.getViewDelegates().fillData(
-                        position, data.get(getDataPosition(position)),
-                        holder.helper);
+                        position, obj, holder.helper);
+
+            }
+
         } else if (position < mHeaderViews.size()) {
             QuickConfig.e("bind header position:" + position);
             bindHFView((ViewGroup) holder.itemView, mHeaderViews.get(position).getItemView());
         } else {
             QuickConfig.e("bind footer position:" + position);
-            bindHFView((ViewGroup) holder.itemView, mFooterViews.get(position - getHeaderViewsCount() - data.size()).getItemView());
+            bindHFView((ViewGroup) holder.itemView, mFooterViews.get(position - getHeaderViewsCount() - getContentCount()).getItemView());
         }
     }
 
@@ -134,12 +141,44 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public int getItemCount() {
-        return getRealItemCount() + (isEmptyData() ? 1 : 0);
+        return getCHFItemCount() + (isEmptyData() ? 1 : 0);
     }
 
     @Override
-    public int getRealItemCount() {
-        return data.size() + mHeaderViews.size() + mFooterViews.size();
+    public int getCHFItemCount() {
+        return getContentCount() + mHeaderViews.size() + mFooterViews.size();
+    }
+
+
+    @Override
+    public int getContentCount() {
+        if (contentDataMapListener != null)
+            return contentDataMapListener.getContentCount(data);
+        return data.size();
+    }
+
+    ContentDataMapListener contentDataMapListener = new ContentDataMapListener() {
+        @Override
+        public <T> int getContentCount(List<T> datas) {
+            return datas.size();
+        }
+
+        @Override
+        public <T> T getData(List<T> datas, int position) {
+            return datas.get(position);
+        }
+    };
+
+    @Override
+    public IAdapter setContentDataMapListener(ContentDataMapListener contentDataMapListener) {
+        this.contentDataMapListener = contentDataMapListener;
+        return this;
+    }
+
+    public interface ContentDataMapListener {
+        <T> int getContentCount(List<T> datas);
+
+        <T> T getData(List<T> datas, int position);
     }
 
     /**
@@ -155,7 +194,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
             QuickConfig.e("getItemViewType empty:" + position);
             return Wrapper.EMPTY_VALUE;
         }
-        if (position >= getHeaderViewsCount() && position < getHeaderViewsCount() + data.size()) {
+        if (position >= getHeaderViewsCount() && position < getHeaderViewsCount() + getContentCount()) {
             QuickConfig.e("getItemViewType views:" + position);
             int result = getItemViewType2(getDataPosition(position));
             if (result == ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
@@ -186,7 +225,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
                 @Override
                 public int getSpanSize(int position) {
                     if (position >= getHeaderViewsCount() && position < getHeaderViewsCount()
-                            + data.size()) {
+                            + getContentCount()) {
                         for (int i = 0; i < mViews.size(); i++) {
                             if (mViews.get(i).getStyle() == getItemViewType2(getDataPosition(position))
                                     && mViews.get(i).getViewDelegates().isFullspan())
@@ -210,7 +249,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
      */
     @Override
     public IAdapter addViewHolder(ViewDelegates viewDelegates) {
-        if (mViews.size()==0||mViews.get(0).getStyle() != Wrapper.DEFAULT_VALUE)
+        if (mViews.size() == 0 || mViews.get(0).getStyle() != Wrapper.DEFAULT_VALUE)
             mViews.add(0, new Wrapper(Wrapper.DEFAULT_VALUE, viewDelegates));
         else
             mViews.set(0, new Wrapper(Wrapper.DEFAULT_VALUE, viewDelegates));
@@ -284,7 +323,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         else {
             index = mFooterViews.indexOf(item);
             if (index != -1)
-                return mHeaderViews.size() + data.size() + index;
+                return mHeaderViews.size() + getContentCount() + index;
             else
                 return -1;
         }
@@ -401,7 +440,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         return mEmptyView != null
                 && mHeaderViews.size() == 0
                 && mFooterViews.size() == 0
-                && data.size() == 0;
+                && getContentCount() == 0;
     }
 
     @Override
@@ -436,12 +475,12 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public void scrollToLast() {
-        mRecyclerView.scrollToPosition(getRealItemCount() - 1);
+        mRecyclerView.scrollToPosition(getCHFItemCount() - 1);
     }
 
     @Override
     public void smoothScrollToLast() {
-        mRecyclerView.smoothScrollToPosition(getRealItemCount() - 1);
+        mRecyclerView.smoothScrollToPosition(getCHFItemCount() - 1);
     }
 
     @Override
