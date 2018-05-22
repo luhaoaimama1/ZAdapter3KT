@@ -1,104 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sv"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/bt_Linear"
+    <com.zone.view.FlowLayout
+        android:id="@+id/flowLayoutZone1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="Linear" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/bt_Grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="Grid" />
-
-    <Button
-        android:id="@+id/bt_Staggered"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="Staggered" />
-
-    <Button
-        android:id="@+id/bt_Link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="ZRefresh联动" />
-
-    <Button
-        android:id="@+id/bt_HeadFooter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="HeadFooter添加删除" />
-
-    <Button
-        android:id="@+id/bt_diff"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="diff" />
-
-    <Button
-        android:id="@+id/bt_layoutManager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="别人的LayoutManager" />
-
-    <Button
-        android:id="@+id/bt_HexolayoutManager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="HexoLayoutManager" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D7F679"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="基础测试" />
 
 
-    <Button
-        android:id="@+id/bt_Fully"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="满布局测试" />
+        <Button
+            android:id="@+id/bt_Linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="Linear" />
 
-    <Button
-        android:id="@+id/bt_Absorb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="吸附效果" />
+        <Button
+            android:id="@+id/bt_Grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="Grid" />
 
-    <Button
-        android:id="@+id/bt_AbsorbGrid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="Grid吸附效果" />
-    <Button
-        android:id="@+id/bt_NineGrid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:onClick="onClick"
-        android:text="NineGrid" />
+        <Button
+            android:id="@+id/bt_Staggered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="Staggered" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/bt_NineGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="NineGrid" />
+
+        <Button
+            android:id="@+id/bt_HeadFooter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="HeadFooter添加删除" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D7F679"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="布局测试" />
+
+        <Button
+            android:id="@+id/bt_layoutManager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="别人的LayoutManager" />
+
+        <Button
+            android:id="@+id/bt_HexolayoutManager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="HexoLayoutManager" />
+
+
+        <Button
+            android:id="@+id/bt_Fully"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="满布局测试" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D7F679"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="其他测试" />
+
+        <Button
+            android:id="@+id/bt_Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="ZRefresh联动" />
+
+
+        <Button
+            android:id="@+id/bt_diff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="diff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D7F679"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="吸附测试" />
+
+        <Button
+            android:id="@+id/bt_Absorb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="吸附效果" />
+
+        <Button
+            android:id="@+id/bt_AbsorbGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="Grid吸附效果" />
+
+
+    </com.zone.view.FlowLayout>
+
+</ScrollView>

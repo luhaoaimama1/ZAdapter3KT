@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.zone.adapter.R;
 import com.zone.adapter3.QuickConfig;
+import com.zone.adapter3.bean.EHFViewDelegates;
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
@@ -29,9 +30,9 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public static final int ITEM_VIEW_TYPE_HEADER_OR_FOOTER = -3;
 
     //Limit one thousand
-    private List<ViewDelegates> mHeaderViews = new ArrayList<>();
-    private List<ViewDelegates> mFooterViews = new ArrayList<>();
-    private ViewDelegates mEmptyView;
+    private List<EHFViewDelegates> mHeaderViews = new ArrayList<>();
+    private List<EHFViewDelegates> mFooterViews = new ArrayList<>();
+    private EHFViewDelegates mEmptyView;
     //no limit;
     private List<Wrapper> mViews = new ArrayList<>();
 
@@ -103,8 +104,12 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, int position, List<Object> payloads) {
+        super.onBindViewHolder(holder.setPayloads(payloads), position, payloads);
+    }
 
+    @Override
+    public void onBindViewHolder(Holder holder, int position) {
         if (isEmptyData()){
             mEmptyView.fillData(position,null,holder);
             return;
@@ -130,9 +135,9 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         }
     }
 
-    private void bindHFView(int position, Holder holder, ViewDelegates viewDelegates) {
+    private void bindHFView(int position, Holder holder, EHFViewDelegates viewDelegates) {
         ViewGroup parent= (ViewGroup) holder.itemView;
-        View child=viewDelegates.getEhfHolder().itemView;
+        View child=viewDelegates.getEHFHolder().itemView;
         parent.removeAllViews();
         ViewGroup vp = (ViewGroup) child.getParent();
         if (vp != null)
@@ -369,7 +374,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         return hfItemRemoved(mHeaderViews, header, notify);
     }
 
-    private IAdapter hfItemRemoved(List<ViewDelegates> hfViews, ViewDelegates header, boolean notify) {
+    private IAdapter hfItemRemoved(List<EHFViewDelegates> hfViews, ViewDelegates header, boolean notify) {
         if (notify) {
             int removeIndex = indexOfHF(header);
             hfViews.remove(header);

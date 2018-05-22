@@ -87,7 +87,19 @@ public class HeadFooterRecyclerActivity extends Activity implements Handler.Call
     @OnClick(R.id.bt_addFooter)
     public void onClick3() {
 //        muliAdapter.addHeaderHolder(R.layout.header_simple,true);
-        muliAdapter.addFooterHolder(R.layout.header_simple,true);
+
+        int mode2= (int) (Math.random()*100%3);
+        switch (mode2) {
+            case 0:
+                muliAdapter.addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple),true);
+                break;
+            case 1:
+                muliAdapter.addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple_img2),true);
+                break;
+            case 2:
+                muliAdapter.addFooterHolder(footer1 = new ResViewDelegates(R.layout.footer_simple_img),true);
+                break;
+        }
         rv.scrollToPosition(muliAdapter.getItemCount() - 1);
     }
 
@@ -100,7 +112,7 @@ public class HeadFooterRecyclerActivity extends Activity implements Handler.Call
         muliAdapter.addFooterHolder(footer2 = new ViewDelegates() {
             @Override
             public int getLayoutId() {
-                return R.layout.footer_simple2;
+                return R.layout.footer_simple3;
             }
 
             @Override

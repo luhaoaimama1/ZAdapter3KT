@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Allows an abstraction of the ViewHolder pattern.<br>
  * <br>
@@ -40,6 +42,8 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
 
     private ViewDelegates viewDelegates;
 
+    private List<Object> payloads;
+
     public ViewDelegates getViewDelegates() {
         return viewDelegates;
     }
@@ -48,9 +52,20 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
         this.viewDelegates = viewDelegates;
     }
 
+    public List<Object> getPayloads() {
+        return payloads;
+    }
+
+    public T setPayloads(List<Object> payloads) {
+        this.payloads = payloads;
+        return child;
+    }
+
+
     // =======================================
     // ============ 快捷扩展方法  ==============
     // =======================================
+
 
     protected T child;
     /**

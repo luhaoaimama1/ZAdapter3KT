@@ -106,11 +106,33 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
                 muliAdapter.notifyDataSetChanged();
                 break;
             case R.id.bt_addHeader:
-                muliAdapter.addHeaderHolder(R.layout.header_simple);
+                int mode= (int) (Math.random()*100%3);
+                switch (mode) {
+                    case 0:
+                        muliAdapter.addHeaderHolder(R.layout.header_simple);
+                        break;
+                    case 1:
+                        muliAdapter.addHeaderHolder(R.layout.header_simple2);
+                        break;
+                    case 2:
+                        muliAdapter.addHeaderHolder(R.layout.header_simple3);
+                        break;
+                }
                 muliAdapter.notifyDataSetChanged();
                 break;
             case R.id.bt_addFooter:
-                muliAdapter.addFooterHolder(R.layout.footer_simple);
+                int mode2= (int) (Math.random()*100%3);
+                switch (mode2) {
+                    case 0:
+                        muliAdapter.addFooterHolder(R.layout.footer_simple);
+                        break;
+                    case 1:
+                        muliAdapter.addFooterHolder(R.layout.footer_simple_img2);
+                        break;
+                    case 2:
+                        muliAdapter.addFooterHolder(R.layout.footer_simple_img);
+                        break;
+                }
                 muliAdapter.notifyDataSetChanged();
                 break;
             case R.id.bt_clearFooter:

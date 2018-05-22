@@ -6,7 +6,6 @@ import android.widget.TextView;
 import com.zone.adapter3.QuickConfig;
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
-
 import zone.com.zadapter3.R;
 
 /**
@@ -40,13 +39,13 @@ public class LeftDelegates extends ViewDelegates<String> {
                     }
                 });
 //
-//                        Extraholder.wrapper(holder).setText(R.id.tv, data).heihei().heihei2()
-//                                .setOnClickListener(new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View view) {
-//                                        System.out.println("holder click测试 ");
-//                                    }
-//                                }, new int[]{R.id.tv, R.id.ll_main});
+//        ExtraHelper.wrapper(holder).setText(R.id.tv, data).heihei().heihei2()
+//                .setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        System.out.println("holder click测试 ");
+//                    }
+//                }, new int[]{R.id.tv, R.id.ll_main});
     }
 
 
