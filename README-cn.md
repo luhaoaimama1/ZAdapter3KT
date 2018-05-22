@@ -8,13 +8,13 @@
 
 -[x] 可复用,资源id写在复用类里面
 
--[x] Helper类的链式调用与可扩展
+-[x] Holder类的链式调用与可扩展
 
 -[x] 空数据view的支持
 
--[x] 支持Diff快速
+-[x] 支持添加快捷方法(滑动 ItemDecoration)
 
--[x] 支持添加快捷方法
+-[x] 支持Diff快速
 
 -[x] 支持与ZRefresh联动
 
@@ -114,22 +114,32 @@ public class LeftDelegates extends ViewDelegates<String> {
 }
 
 ```
+如果想在创建view的时候插入一些操作 则需要多实现一个方法
+```
+@Override
+public  Holder getLayoutHolder(){
+    Holder holder=super.getLayoutView();
+    //逻辑添加
+    return holder;
+}
+```
+
 
 3.Helper的扩展技巧:扩展技巧是 装饰模式+链式调用
 
-> ExtraHelper.wrapper(helper).setText(R.id.tv, data).heihei().heihei2();
+> ExtraHelper.wrapper(holder).setText(R.id.tv, data).heihei().heihei2();
 
 ```
-public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
+public class ExtraHelper<T extends ExtraHelper> extends Holder<T> {
 
 
-    protected ExtraHelper(Helper helper) {
-        super(helper.getContext(), helper.getHolder(), helper.getAdapter());
+    protected ExtraHelper(Holder holder) {
+        super( holder.itemView);
         child = (T) this;
     }
 
-    public static ExtraHelper<ExtraHelper> wrapper(Helper helper) {
-        return new ExtraHelper(helper);
+    public static ExtraHelper<ExtraHelper> wrapper(Holder holder) {
+        return new ExtraHelper(holder);
     }
 
     public T heihei() {
@@ -227,6 +237,17 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
+
+## 1.0.8
+
+  * 支持onbind 第四个参数
+  * 增加ViewDelegates#getLayoutHolder方法实现 创建时 setOnclick的一些逻辑，和其他人的习惯
+  * 把helper功能移动到holder上 原因： view->holder 而view->helper,helper就是扩展功能的 那么我放到holder里也没问题。
+  * 支持setContentDataMapListener的方法在不影响内部逻辑的情况下。让itemCounts和datas数据解耦 具体就是九图demo
+
+#### 发现的问题
+
+  * 断头吸附无法支持快速滑动的问题。 慢慢来还行 ，快速滑动会丢失一些计算 暂时不清楚 ，所以要是用到断头吸附的功能还是，用 两个view 同步显示吧.不要用一个view的了
 
 ## 1.0.71
 

@@ -14,9 +14,9 @@
 
 -[x] Empty data support the view
 
--[x] Support the Diff fast
+-[x] Add quick way to support(scroll ItemDecoration)
 
--[x] Add quick way to support
+-[x] Support the Diff fast
 
 -[x] Support and ZRefresh linkage
 
@@ -116,21 +116,33 @@ public class LeftDelegates extends ViewDelegates<String> {
 }
 ```
 
-3.The expansion of the Helper skills: decorative pattern is extended technique + chain calls
-
-> ExtraHelper.wrapper(helper).setText(R.id.tv, data).heihei().heihei2();
+If you want to insert some operations when creating a view, you need to implement an additional method
 
 ```
-public class ExtraHelper<T extends ExtraHelper> extends Helper<T> {
+@Override
+public  Holder getLayoutHolder(){
+    Holder holder=super.getLayoutView();
+    //逻辑添加
+    return holder;
+}
+```
 
 
-    protected ExtraHelper(Helper helper) {
-        super(helper.getContext(), helper.getHolder(), helper.getAdapter());
+3.The expansion of the Helper skills: decorative pattern is extended technique + chain calls
+
+> ExtraHelper.wrapper(holder).setText(R.id.tv, data).heihei().heihei2();
+
+```
+public class ExtraHelper<T extends ExtraHelper> extends Holder<T> {
+
+
+    protected ExtraHelper(Holder holder) {
+        super( holder.itemView);
         child = (T) this;
     }
 
-    public static ExtraHelper<ExtraHelper> wrapper(Helper helper) {
-        return new ExtraHelper(helper);
+    public static ExtraHelper<ExtraHelper> wrapper(Holder holder) {
+        return new ExtraHelper(holder);
     }
 
     public T heihei() {
@@ -226,6 +238,18 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
 
 # Update log
+
+## 1.0.8
+
+  * Support onbind payloads
+  * Support ViewDelegates#getLayoutHolder Method to implement some of the logic of setOnclick when it was created, and the habits of others
+  * Move helper functionality to holder 。 cause： view->holder ，view->helper,helper Even if it's extended, then I can put it in holder.
+  * Support  setContentDataMapListener Method without affecting internal logic. To decouple itemCounts and datas data is specifically a nine-figure demo.
+
+#### Discovered problems
+
+  * Severed adsorption does not support rapid slippage. Slow down, quick slippage will lose some calculations for the time being, so if you use the function of severed adsorption, use two view to synchronize display. Don't use a view.
+
 
 ## 1.0.71
 
