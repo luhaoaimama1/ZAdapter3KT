@@ -42,6 +42,6 @@ public abstract class EHFViewDelegates<T> {
 
     public abstract Holder reallyCreateView(Context context, IAdapter adapter) ;
 
-    public abstract void fillData(int postion, T data, Holder<Holder> holder);
+    public abstract void fillData(int postion, T data, Holder holder);
 
 }

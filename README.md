@@ -129,32 +129,40 @@ public  Holder getLayoutHolder(){
 
 
 3.The expansion of the Helper skills: decorative pattern is extended technique + chain calls
+Reference：https://softwareengineering.stackexchange.com/questions/356782/multiple-layers-of-abstraction-and-chain-calls-of-methods-java-functional-like/356802
 
 > ExtraHelper.wrapper(holder).setText(R.id.tv, data).heihei().heihei2();
 
 ```
-public class ExtraHelper<T extends ExtraHelper> extends Holder<T> {
+/**
+ * https://softwareengineering.stackexchange.com/questions/356782/multiple-layers-of-abstraction-and-chain-calls-of-methods-java-functional-like/356802
+ * java8 的方式可以 。java7则不可以
+ */
+public class ChainCallsCovariant2 {
 
 
-    protected ExtraHelper(Holder holder) {
-        super( holder.itemView);
-        child = (T) this;
+    static class Layer2<T extends Layer2<T>> {
+        public T layer2Method() {
+            return (T) this;
+        }
+
     }
 
-    public static ExtraHelper<ExtraHelper> wrapper(Holder holder) {
-        return new ExtraHelper(holder);
+    static class Layer3<T extends Layer3<T>> extends Layer2<T> {
+        public T layer3Method() {
+            return (T) this;
+        }
+
+        public static final <U extends Layer3<U>> U newLayer3Instance() {
+            return (U) new Layer3();
+        }
+
     }
 
-    public T heihei() {
-        System.out.println("heihei!");
-        checkChild();
-        return child;
-    }
+    public static void main(String[] args) {
 
-    public T heihei2() {
-        System.out.println("heihei2!");
-        checkChild();
-        return child;
+        Layer3.newLayer3Instance().layer2Method()
+                .layer3Method().layer2Method();
     }
 }
 

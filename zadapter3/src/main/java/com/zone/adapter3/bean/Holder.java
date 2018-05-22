@@ -1,5 +1,6 @@
 package com.zone.adapter3.bean;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -38,7 +39,7 @@ import java.util.List;
  * </pre>
  * Created by Administrator on 2016/3/27.
  */
-public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
+public class Holder<T extends Holder<T>> extends RecyclerView.ViewHolder {
 
     private ViewDelegates viewDelegates;
 
@@ -58,7 +59,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
 
     public T setPayloads(List<Object> payloads) {
         this.payloads = payloads;
-        return child;
+        return (T) this;
     }
 
 
@@ -67,7 +68,6 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
     // =======================================
 
 
-    protected T child;
     /**
      * Views indexed with their IDs
      */
@@ -84,71 +84,60 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
         super(view);
         this.views = new SparseArray<>();
         context = view.getContext();
-        child = (T) this;
         convertView = view;
-    }
-
-    protected void checkChild() {
-        if (child == null)
-            throw new IllegalStateException("child must be set in child's Constructor!" +
-                    "not method:initDefaultValueAnimator");
     }
 
 
     public T setText(@IdRes int viewId, String value) {
         TextView view = retrieveView(viewId);
         view.setText(value);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     public T setImageResource(@IdRes int viewId, @DrawableRes int imageResId) {
         ImageView view = retrieveView(viewId);
         view.setImageResource(imageResId);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     public T setImageDrawable(@IdRes int viewId, @Nullable Drawable drawable) {
         ImageView view = retrieveView(viewId);
         view.setImageDrawable(drawable);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     public T setImageBitmap(@IdRes int viewId, Bitmap bitmap) {
         ImageView view = retrieveView(viewId);
         view.setImageBitmap(bitmap);
-        checkChild();
-        return child;
+
+        return (T) this;
     }
 
     public T setBackgroundColor(@IdRes int viewId, @ColorInt int color) {
         View view = retrieveView(viewId);
         view.setBackgroundColor(color);
-        checkChild();
-        return child;
+
+        return (T) this;
     }
 
     public T setBackgroundRes(@IdRes int viewId, @DrawableRes int backgroundRes) {
         View view = retrieveView(viewId);
         view.setBackgroundResource(backgroundRes);
-        checkChild();
-        return child;
+
+        return (T) this;
     }
 
     public T setTextColor(@IdRes int viewId, @ColorInt int textColor) {
         TextView view = retrieveView(viewId);
         view.setTextColor(textColor);
-        checkChild();
-        return child;
+
+        return (T) this;
     }
 
     public T setTextColorRes(@IdRes int viewId, @ColorRes int textColorRes) {
         TextView view = retrieveView(viewId);
         view.setTextColor(context.getResources().getColor(textColorRes));
-        checkChild();
-        return child;
+        return (T) this;
     }
 
 
@@ -166,8 +155,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
             alpha.setFillAfter(true);
             retrieveView(viewId).startAnimation(alpha);
         }
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     /**
@@ -179,8 +167,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
     public T setVisible(@IdRes int viewId, int visibility) {
         View view = retrieveView(viewId);
         view.setVisibility(visibility);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     /**
@@ -190,8 +177,8 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
         TextView view = retrieveView(viewId);
         view.setTypeface(typeface);
         view.setPaintFlags(view.getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
-        checkChild();
-        return child;
+
+        return (T) this;
     }
 
     /**
@@ -203,15 +190,13 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
             view.setTypeface(typeface);
             view.setPaintFlags(view.getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
         }
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     public T setProgress(@IdRes int viewId, int progress) {
         ProgressBar view = retrieveView(viewId);
         view.setProgress(progress);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     /**
@@ -226,8 +211,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
         ProgressBar view = retrieveView(viewId);
         view.setMax(max);
         view.setProgress(progress);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     /**
@@ -240,8 +224,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
     public T setMax(@IdRes int viewId, int max) {
         ProgressBar view = retrieveView(viewId);
         view.setMax(max);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
 
@@ -255,8 +238,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
     public T setTag(@IdRes int viewId, Object tag) {
         View view = retrieveView(viewId);
         view.setTag(tag);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     /**
@@ -270,8 +252,8 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
     public T setTag(@IdRes int viewId, int key, Object tag) {
         View view = retrieveView(viewId);
         view.setTag(key, tag);
-        checkChild();
-        return child;
+
+        return (T) this;
     }
 
     /**
@@ -284,15 +266,14 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
     public T setChecked(@IdRes int viewId, boolean checked) {
         Checkable view = (Checkable) retrieveView(viewId);
         view.setChecked(checked);
-        checkChild();
-        return child;
+
+        return (T) this;
     }
 
     public T setHtml(@IdRes int viewId, String source) {
         TextView view = getView(viewId);
         view.setText(Html.fromHtml(source));
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     /**
@@ -305,8 +286,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
     public T setAdapter(@IdRes int viewId, Adapter adapter) {
         AdapterView view = retrieveView(viewId);
         view.setAdapter(adapter);
-        checkChild();
-        return child;
+        return (T) this;
     }
 
     /**
@@ -315,11 +295,12 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
      * @param l   监听器
      * @param ids view 的 id
      */
-    public void setOnClickListener(View.OnClickListener l, int... ids) {
+    public T setOnClickListener(View.OnClickListener l, int... ids) {
         if (ids == null)
-            return;
+            return (T) this;
         for (int id : ids)
             getView(id).setOnClickListener(l);
+        return (T) this;
     }
 
     /**
@@ -347,7 +328,7 @@ public class Holder<T extends Holder> extends RecyclerView.ViewHolder {
 
     public T restore() {
         views.clear();
-        return child;
+        return (T) this;
     }
 
 
