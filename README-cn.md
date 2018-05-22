@@ -247,7 +247,7 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
 
-## 1.0.8
+## 1.0.8(未发布到jitpack)
 
   * 支持onbind 第四个参数
   * 增加ViewDelegates#getLayoutHolder方法实现 创建时 setOnclick的一些逻辑，和其他人的习惯

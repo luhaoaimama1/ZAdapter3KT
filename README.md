@@ -247,7 +247,7 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
 # Update log
 
-## 1.0.8
+## 1.0.8(not push jitpack)
 
   * Support onbind payloads
   * Support ViewDelegates#getLayoutHolder Method to implement some of the logic of setOnclick when it was created, and the habits of others
