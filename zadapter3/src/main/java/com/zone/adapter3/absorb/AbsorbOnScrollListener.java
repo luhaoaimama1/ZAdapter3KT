@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import com.zone.adapter3.QuickConfig;
 
 /**
- * todo 这个无法应付 快速滑动的问题。 慢慢来还行 ，快速滑动会丢失一些计算 暂时不清楚
+ * todo 这个无法应付 快速滑动的问题。 慢慢来还行 ，快速滑动会丢失一些位置findFirstVisibleItemPosition 暂时不清楚
  * 所以要是用到断头吸附的功能还是，用 两个view 同步显示吧 。不要用一个了
  */
 public class AbsorbOnScrollListener extends RecyclerView.OnScrollListener {

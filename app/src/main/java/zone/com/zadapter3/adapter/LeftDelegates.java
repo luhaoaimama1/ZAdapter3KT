@@ -44,7 +44,7 @@ public class LeftDelegates extends ViewDelegates<String> {
                 });
 
         ExtraHelperV2.wrapperV2(holder)
-                .setText(R.id.tv, "a")
+                .setText(R.id.tv, data)
                 .heihei()
                 .heihei2()
                 .gaga()

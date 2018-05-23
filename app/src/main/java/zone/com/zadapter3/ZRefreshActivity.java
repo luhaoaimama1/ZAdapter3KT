@@ -42,7 +42,7 @@ public class ZRefreshActivity extends Activity implements Handler.Callback {
         ButterKnife.bind(this);
 
         rv.setLayoutManager(new GridLayoutManager(this, 3));
-        for (int i = 'A'; i <= 'Z'; i++) {
+        for (int i = 'A'; i <= 'z'; i++) {
             mDatas.add("" + (char) i);
         }
         //base test
