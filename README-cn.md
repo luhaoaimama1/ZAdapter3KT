@@ -233,12 +233,11 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
                     return 0;
             }
         };
-        muliAdapter
-                .addViewHolder(new LeftDelegates())//默认
-                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
-                .addViewHolder(1, new AbsorbDelegates())//多部剧 注释开启即可
-                .addViewHolder(2, new AbsorbDelegates2())//多部剧 注释开启即可
-                .addViewHolder(3, new AbsorbDelegates())//多部剧 注释开启即可
+             muliAdapter
+                     .addViewHolder(new LeftDelegates())//默认
+                     .addEmptyHold(R.layout.empty)
+                     .relatedList(rv)
+                    .addSticky(vp, 3, 6, 9)//这里
 ```
 
 
@@ -246,6 +245,9 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
+
+## 1.0.9(未发布到jitpack)
+  * 修复断头吸附 支持断头吸附功能了
 
 ## 1.0.8(未发布到jitpack)
 

@@ -235,17 +235,19 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
                     return 0;
             }
         };
-        muliAdapter
-                .addViewHolder(new LeftDelegates())//default
-                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
-                .addViewHolder(1, new AbsorbDelegates())//多部剧 注释开启即可
-                .addViewHolder(2, new AbsorbDelegates2())//多部剧 注释开启即可
-                .addViewHolder(3, new AbsorbDelegates())//多部剧 注释开启即可
+             muliAdapter
+                     .addViewHolder(new LeftDelegates())//默认
+                     .addEmptyHold(R.layout.empty)
+                     .relatedList(rv)
+                    .addSticky(vp, 3, 6, 9)//这里
 ```
 
 
 
 # Update log
+
+## 1.0.9(not push jitpack)
+  * Support break absorb effect
 
 ## 1.0.8(not push jitpack)
 
