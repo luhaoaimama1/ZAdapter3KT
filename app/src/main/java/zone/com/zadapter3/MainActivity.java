@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.bt_Linear, R.id.bt_Grid, R.id.bt_Staggered})
     public void onClick(View view) {
-
         Intent intent = new Intent(this, RecyclerActivity.class);
         switch (view.getId()) {
             case R.id.bt_Linear:
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("type", "StaggeredGrid");
                 break;
         }
-        startActivity(intent);
+         startActivity(intent);
     }
 
     @OnClick(R.id.bt_Link)

@@ -33,6 +33,8 @@ import android.util.DisplayMetrics;
 /**
  * 支持快速返回的 LinerLayoutManager
  * http://blog.csdn.net/a86261566/article/details/50906456
+ *
+ * https://blog.csdn.net/u014099894/article/details/51855129
  */
 public class SpeedyLinearLayoutManager extends LinearLayoutManager {
 

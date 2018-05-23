@@ -76,6 +76,7 @@ public class MarginItemDecoration extends RecyclerView.ItemDecoration {
                 Rect outRect = null;
                 Rect reduceDectorRect = null;
                 if (!(isHeader && isFooter)) {
+                    //todo  对于 添加了自定义那个data  Count 如何解决 ?
                     Header2FooterRcvAdapter headerAdapter = (Header2FooterRcvAdapter) adapter;
                     for (int j = 0; j < headerAdapter.getDataWraps().size(); j++) {
                         List<Wrapper> warps = headerAdapter.getDataWraps();
