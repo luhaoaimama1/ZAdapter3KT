@@ -1,6 +1,7 @@
 package com.zone.adapter3.base;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -108,6 +109,8 @@ public interface IAdapter<T> {
     // =======================================
 
      IAdapter addSticky(FrameLayout vpShow, int... stickyPostions);
+
+     IAdapter addSticky(@ColorInt int color,FrameLayout vpShow, int... stickyPostions);
 
     IAdapter setContentDataMapListener(Header2FooterRcvAdapter.ContentDataMapListener contentDataMapListener);
 

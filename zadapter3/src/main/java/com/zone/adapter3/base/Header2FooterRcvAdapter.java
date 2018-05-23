@@ -1,6 +1,7 @@
 package com.zone.adapter3.base;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,6 +19,7 @@ import com.zone.adapter3.absorb.StickyOnScrollListener;
 import com.zone.adapter3.bean.EHFViewDelegates;
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ResViewDelegates;
+import com.zone.adapter3.bean.StickyViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
 import com.zone.adapter3.decoration.MarginItemDecoration;
@@ -172,14 +174,14 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     private int[] stickyPostions;
     //我的通过Postion找到原始的EHFViewDelegates 然后clone一份 去try
-    private EHFViewDelegates[] mStickyViews;
+    private StickyViewDelegates[] mStickyViews;
 
     /**
      * @return layoutid
      * 因为getItemViewType不同 导致 头部底部view不会被重用!
      */
-    public EHFViewDelegates findStickyDelegates(int position) {
-        EHFViewDelegates stickyDelegates;
+    public StickyViewDelegates findStickyDelegates(int position) {
+        StickyViewDelegates stickyDelegates;
 
         if (position >= mHeaderViews.size() && position < mHeaderViews.size() + getContentCount()) {
             Wrapper wrapper = getWrapper(getItemViewType2(getDataPosition(position)));
@@ -187,13 +189,13 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
         } else if (position < mHeaderViews.size()) {
             QuickConfig.e("bind header position:" + position);
-            stickyDelegates = mHeaderViews.get(position);
+            stickyDelegates = (StickyViewDelegates) mHeaderViews.get(position);
         } else {
             QuickConfig.e("bind footer position:" + position);
-            stickyDelegates = mFooterViews.get(position - getHeaderViewsCount() - getContentCount());
+            stickyDelegates = (StickyViewDelegates) mFooterViews.get(position - getHeaderViewsCount() - getContentCount());
         }
         try {
-            stickyDelegates = (EHFViewDelegates) stickyDelegates.clone();
+            stickyDelegates = (StickyViewDelegates) stickyDelegates.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
             throw new IllegalStateException("不支持clone!");
@@ -207,10 +209,17 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     @Override
     public IAdapter addSticky(FrameLayout vpShow, int... stickyPostions) {
         this.stickyPostions = stickyPostions;
-        mStickyViews = new EHFViewDelegates[stickyPostions.length];
+        mStickyViews = new StickyViewDelegates[stickyPostions.length];
         if (stickyOnScrollListener != null)
             getRecyclerView().removeOnScrollListener(stickyOnScrollListener);
         getRecyclerView().addOnScrollListener(stickyOnScrollListener = new StickyOnScrollListener(vpShow, stickyPostions, mStickyViews));
+        return this;
+    }
+
+    @Override
+    public IAdapter addSticky(@ColorInt int color, FrameLayout vpShow, int... stickyPostions) {
+        addSticky(vpShow,stickyPostions);
+        stickyOnScrollListener.setPlaceColor(color);
         return this;
     }
 
@@ -222,7 +231,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
      * @param viewDelegates
      * @param data
      */
-    private void bindStickyView(int position, Holder holder, EHFViewDelegates viewDelegates, T data) {
+    private void bindStickyView(int position, Holder holder, StickyViewDelegates viewDelegates, T data) {
         ViewGroup parent = (ViewGroup) holder.itemView;
         View child;
         if(viewDelegates.getPlaceholderView()!=null)

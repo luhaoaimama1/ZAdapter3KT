@@ -11,7 +11,7 @@ import com.zone.adapter3.base.IAdapter;
  * [2017] by Zone
  *
  */
-public abstract class ViewDelegates<T> extends EHFViewDelegates<T> {
+public abstract class ViewDelegates<T> extends StickyViewDelegates<T> {
 
     public static final int ORG_DECTOR=Integer.MAX_VALUE;
 

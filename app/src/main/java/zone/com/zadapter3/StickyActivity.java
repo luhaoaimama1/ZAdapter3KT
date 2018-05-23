@@ -1,11 +1,15 @@
 package zone.com.zadapter3;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
 import com.zone.adapter3.QuickRcvAdapter;
@@ -29,7 +33,7 @@ public class StickyActivity extends Activity {
     private RecyclerView rv;
     private IAdapter<String> muliAdapter;
     private FrameLayout vp;
-
+    private CheckBox cb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class StickyActivity extends Activity {
         for (int i = 1; i <= 100; i++) {
             mDatas.add("" + i);
         }
-//        rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
+
 
         muliAdapter = new QuickRcvAdapter(this, mDatas) {
             @Override
@@ -66,7 +70,7 @@ public class StickyActivity extends Activity {
 //                .addFooterHolder(R.layout.footer_simple)
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv)
-                .addSticky(vp,3,6,9)
+//                .addSticky(vp, 3, 6, 9)
                 .addItemDecoration(70)
                 .setOnItemClickListener(new IAdapter.OnItemClickListener() {
                     @Override
@@ -81,5 +85,25 @@ public class StickyActivity extends Activity {
                         return true;
                     }
                 });
+
+
+        cb = (CheckBox) findViewById(R.id.cb);
+        if ("debug".equals(getIntent().getStringExtra("type"))) {
+            muliAdapter.addSticky(Color.BLUE, vp, 3, 6, 9);
+            vp.getLayoutParams().width = 700;
+            cb.performClick();
+        } else {
+            muliAdapter.addSticky(vp, 3, 6, 9);
+        }
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Intent intent = new Intent(StickyActivity.this, StickyActivity.class);
+                if (isChecked)
+                    intent.putExtra("type", "debug");
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
