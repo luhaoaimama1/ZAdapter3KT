@@ -1,10 +1,11 @@
 package com.zone.adapter3.bean;
 
 
+import com.zone.adapter3.base.Header2FooterRcvAdapter;
+
 public class Wrapper {
-    public static final int DEFAULT_VALUE = -1;
-    public static final int EMPTY_VALUE = -2;
-    int style = DEFAULT_VALUE;
+
+    int style = Header2FooterRcvAdapter.DEFAULT_VALUE;
     ViewDelegates viewDelegates;
 
     public Wrapper(int style, ViewDelegates viewDelegates) {

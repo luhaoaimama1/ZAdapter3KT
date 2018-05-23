@@ -12,5 +12,5 @@
         android:background="#ffa9a9"
         android:gravity="center"
         android:padding="10dp"
-        android:text="断头效果11111111" />
+        android:text="--------断头效果3333--------" />
 </FrameLayout>

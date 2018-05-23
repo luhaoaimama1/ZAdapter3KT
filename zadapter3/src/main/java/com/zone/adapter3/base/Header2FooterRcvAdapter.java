@@ -2,6 +2,7 @@ package com.zone.adapter3.base;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,14 +10,18 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import com.zone.adapter.R;
 import com.zone.adapter3.QuickConfig;
+import com.zone.adapter3.absorb.StickyOnScrollListener;
 import com.zone.adapter3.bean.EHFViewDelegates;
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ResViewDelegates;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.bean.Wrapper;
 import com.zone.adapter3.decoration.MarginItemDecoration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +32,10 @@ import java.util.List;
  */
 public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
+    public static final int DEFAULT_VALUE = -1;
+    public static final int EMPTY_VALUE = -2;
     public static final int ITEM_VIEW_TYPE_HEADER_OR_FOOTER = -3;
+    public static final int STICKY_VALUE = -4;
 
     //Limit one thousand
     private List<EHFViewDelegates> mHeaderViews = new ArrayList<>();
@@ -46,30 +54,22 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public Holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-         Holder holder;
+        Holder holder;
         if (viewType == ITEM_VIEW_TYPE_HEADER_OR_FOOTER) {
             QuickConfig.e("onCreateViewHolder header or footer :" + viewType);
-            holder=new Holder(setFullspan(LayoutInflater.from(context)
+            holder = new Holder(setFullspan(LayoutInflater.from(context)
                     .inflate(R.layout.base_vp, mRecyclerView, false)));
-        } else if (viewType == Wrapper.EMPTY_VALUE) {
+        } else if (viewType == EMPTY_VALUE) {
             QuickConfig.e("onCreateViewHolder Empty:" + viewType);
-            holder=mEmptyView.tryEHFCreateView(context, this);
+            holder = mEmptyView.tryEHFCreateView(context, this);
             setFullspan(holder.itemView);
+        } else if (viewType == STICKY_VALUE) {
+            QuickConfig.e("onCreateViewHolder Sticky :" + viewType);
+            holder = new Holder(setFullspan(LayoutInflater.from(context)
+                    .inflate(R.layout.base_vp, mRecyclerView, false)));
         } else {
             QuickConfig.e("onCreateViewHolder views:" + viewType);
-            Wrapper targetWarpper = null;
-            for (Wrapper mView : mViews) {
-                if (mView.getStyle() == Wrapper.DEFAULT_VALUE) {
-                    //default
-                    targetWarpper = mView;
-                }
-                if (viewType == mView.getStyle()) {
-                    targetWarpper = mView;
-                    break;
-                }
-            }
-            if (targetWarpper == null)
-                throw new IllegalStateException("请设置默认o.style.switch的默认viewHold");
+            Wrapper targetWarpper = getWrapper(viewType);
             //这里 必须创建 而不能try try的含义是 仅仅能创建一次 用于头和脚  因为我是通过 ViewDelegates的类型去创建的
             holder = getContentHolder(targetWarpper, targetWarpper.getViewDelegates());
 
@@ -77,9 +77,27 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         return holder;
     }
 
+    @NonNull
+    private Wrapper getWrapper(int viewType) {
+        Wrapper targetWarpper = null;
+        for (Wrapper mView : mViews) {
+            if (mView.getStyle() == DEFAULT_VALUE) {
+                //default
+                targetWarpper = mView;
+            }
+            if (viewType == mView.getStyle()) {
+                targetWarpper = mView;
+                break;
+            }
+        }
+        if (targetWarpper == null)
+            throw new IllegalStateException("请设置默认o.style.switch的默认viewHold");
+        return targetWarpper;
+    }
+
     protected Holder getContentHolder(Wrapper targetWarpper, ViewDelegates viewDelegates) {
         Holder holder;
-        holder=viewDelegates.reallyCreateView(context, this);
+        holder = viewDelegates.reallyCreateView(context, this);
         holder.setViewDelegates(viewDelegates);
         if (targetWarpper.getViewDelegates().isFullspan())
             setFullspan(holder.itemView);
@@ -110,40 +128,123 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        if (isEmptyData()){
-            mEmptyView.fillData(position,null,holder);
+        if (isEmptyData()) {
+            mEmptyView.fillData(position, null, holder);
             return;
         }
 
-        if (position >= mHeaderViews.size() && position < mHeaderViews.size() + getContentCount()) {
-            if (holder.getViewDelegates() != null) {
-                T obj = null;
-                if (contentDataMapListener != null)
-                    obj = contentDataMapListener.getData(data, getDataPosition(position));
-                else
-                    obj = data.get(getDataPosition(position));
-                holder.getViewDelegates().fillData(position, obj, holder);
+        //sticky 判断优先
+        if(stickyPostions!=null){
+            for (int i = 0; i < stickyPostions.length; i++) {
+                if (stickyPostions[i] == position) {
+                    //todo
+                    if (mStickyViews[i] == null)
+                        mStickyViews[i] = findStickyDelegates(position);
 
+                    mStickyViews[i].setParentHolder(holder);
+                    QuickConfig.e("bind Sticky position:" + position);
+                    bindStickyView(position, holder, mStickyViews[i], getFinalDataByPos(position));
+                    return;
+                }
             }
+        }
 
+        if (position >= mHeaderViews.size() && position < mHeaderViews.size() + getContentCount()) {
+            if (holder.getViewDelegates() != null)
+                holder.getViewDelegates().fillData(position, getFinalDataByPos(position), holder);
         } else if (position < mHeaderViews.size()) {
             QuickConfig.e("bind header position:" + position);
-            bindHFView(position,holder, mHeaderViews.get(position));
+            bindHFView(position, holder, mHeaderViews.get(position));
         } else {
             QuickConfig.e("bind footer position:" + position);
-            bindHFView(position,holder, mFooterViews.get(position - getHeaderViewsCount() - getContentCount()));
+            bindHFView(position, holder, mFooterViews.get(position - getHeaderViewsCount() - getContentCount()));
         }
     }
 
-    private void bindHFView(int position, Holder holder, EHFViewDelegates viewDelegates) {
-        ViewGroup parent= (ViewGroup) holder.itemView;
-        View child=viewDelegates.getEHFHolder().itemView;
+    private T getFinalDataByPos(int position) {
+        T obj = null;
+        if (contentDataMapListener != null)
+            obj = contentDataMapListener.getData(data, getDataPosition(position));
+        else
+            obj = data.get(getDataPosition(position));
+        return obj;
+    }
+
+    private int[] stickyPostions;
+    //我的通过Postion找到原始的EHFViewDelegates 然后clone一份 去try
+    private EHFViewDelegates[] mStickyViews;
+
+    /**
+     * @return layoutid
+     * 因为getItemViewType不同 导致 头部底部view不会被重用!
+     */
+    public EHFViewDelegates findStickyDelegates(int position) {
+        EHFViewDelegates stickyDelegates;
+
+        if (position >= mHeaderViews.size() && position < mHeaderViews.size() + getContentCount()) {
+            Wrapper wrapper = getWrapper(getItemViewType2(getDataPosition(position)));
+            stickyDelegates = wrapper.getViewDelegates();
+
+        } else if (position < mHeaderViews.size()) {
+            QuickConfig.e("bind header position:" + position);
+            stickyDelegates = mHeaderViews.get(position);
+        } else {
+            QuickConfig.e("bind footer position:" + position);
+            stickyDelegates = mFooterViews.get(position - getHeaderViewsCount() - getContentCount());
+        }
+        try {
+            stickyDelegates = (EHFViewDelegates) stickyDelegates.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new IllegalStateException("不支持clone!");
+        }
+        stickyDelegates.tryEHFCreateView(context, this);
+        return stickyDelegates;
+    }
+
+    StickyOnScrollListener stickyOnScrollListener;
+
+    @Override
+    public IAdapter addSticky(FrameLayout vpShow, int... stickyPostions) {
+        this.stickyPostions = stickyPostions;
+        mStickyViews = new EHFViewDelegates[stickyPostions.length];
+        if (stickyOnScrollListener != null)
+            getRecyclerView().removeOnScrollListener(stickyOnScrollListener);
+        getRecyclerView().addOnScrollListener(stickyOnScrollListener = new StickyOnScrollListener(vpShow, stickyPostions, mStickyViews));
+        return this;
+    }
+
+    /**
+     * 仅仅初始化 的时候是他 ,剩下的操作都用滚动来 控制 add和remove。
+     * 但是呢  本身的其他 还需要用到它的Holder去add和remove;
+     * @param position
+     * @param holder
+     * @param viewDelegates
+     * @param data
+     */
+    private void bindStickyView(int position, Holder holder, EHFViewDelegates viewDelegates, T data) {
+        ViewGroup parent = (ViewGroup) holder.itemView;
+        View child;
+        if(viewDelegates.getPlaceholderView()!=null)
+            child = viewDelegates.getPlaceholderView();
+        else
+            child = viewDelegates.getEHFHolder().itemView;
         parent.removeAllViews();
         ViewGroup vp = (ViewGroup) child.getParent();
         if (vp != null)
             vp.removeAllViews();
         parent.addView(child);
-        viewDelegates.fillData(position,null,holder);
+        viewDelegates.fillData(position, data, holder);
+    }
+    private void bindHFView(int position, Holder holder, EHFViewDelegates viewDelegates) {
+        ViewGroup parent = (ViewGroup) holder.itemView;
+        View child = viewDelegates.getEHFHolder().itemView;
+        parent.removeAllViews();
+        ViewGroup vp = (ViewGroup) child.getParent();
+        if (vp != null)
+            vp.removeAllViews();
+        parent.addView(child);
+        viewDelegates.fillData(position, data, holder);
     }
 
     private int getDataPosition(int mapPosition) {
@@ -198,13 +299,24 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
      */
     @Override
     public int getItemViewType(int position) {
+
         if (mHeaderViews.size() > 1000 || mFooterViews.size() > 1000)
             throw new RuntimeException("viewHolder or footer  max size is 1000!");
 
         if (position == 0 && isEmptyData()) {
             QuickConfig.e("getItemViewType empty:" + position);
-            return Wrapper.EMPTY_VALUE;
+            return EMPTY_VALUE;
         }
+
+
+        //sticky 检查优先
+        if(stickyPostions!=null){
+            for (int stickyPostion : stickyPostions) {
+                if (position == stickyPostion)
+                    return STICKY_VALUE;
+            }
+        }
+
         if (position >= getHeaderViewsCount() && position < getHeaderViewsCount() + getContentCount()) {
             QuickConfig.e("getItemViewType views:" + position);
             int result = getItemViewType2(getDataPosition(position));
@@ -260,10 +372,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
      */
     @Override
     public IAdapter addViewHolder(ViewDelegates viewDelegates) {
-        if (mViews.size() == 0 || mViews.get(0).getStyle() != Wrapper.DEFAULT_VALUE)
-            mViews.add(0, new Wrapper(Wrapper.DEFAULT_VALUE, viewDelegates));
+        if (mViews.size() == 0 || mViews.get(0).getStyle() != DEFAULT_VALUE)
+            mViews.add(0, new Wrapper(DEFAULT_VALUE, viewDelegates));
         else
-            mViews.set(0, new Wrapper(Wrapper.DEFAULT_VALUE, viewDelegates));
+            mViews.set(0, new Wrapper(DEFAULT_VALUE, viewDelegates));
         return this;
     }
 
@@ -271,11 +383,11 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public IAdapter addViewHolder(int style, ViewDelegates viewDelegates) {
-        if (Wrapper.DEFAULT_VALUE == style
-                || Wrapper.EMPTY_VALUE == style
+        if (DEFAULT_VALUE == style
+                || EMPTY_VALUE == style
                 || style == ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
             throw new IllegalStateException(String.format("style不能为内设的值:%d,%d,%d"
-                    , Wrapper.DEFAULT_VALUE, Wrapper.EMPTY_VALUE, ITEM_VIEW_TYPE_HEADER_OR_FOOTER));
+                    , DEFAULT_VALUE, EMPTY_VALUE, ITEM_VIEW_TYPE_HEADER_OR_FOOTER));
         if (!repeatCheckList.contains(style)) {
             repeatCheckList.add(style);
             mViews.add(new Wrapper(style, viewDelegates));
@@ -434,7 +546,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     //多类型 用此方法
     protected int getItemViewType2(int dataPosition) {
-        return Wrapper.DEFAULT_VALUE;
+        return DEFAULT_VALUE;
     }
 
     @Override

@@ -78,18 +78,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, FullyRecyclerActivity.class));
     }
 
-    @OnClick(R.id.bt_Absorb)
-    public void absorbClick() {
-        startActivity(new Intent(this, AdsorbActivity.class));
-    }
-
-    @OnClick(R.id.bt_AbsorbGrid)
-    public void absorbGridClick() {
-        startActivity(new Intent(this, AdsorbGridActivity.class));
-    }
 
     @OnClick(R.id.bt_NineGrid)
     public void nineGridClick() {
         startActivity(new Intent(this, NineRecyclerActivity.class));
+    }
+
+    @OnClick(R.id.bt_Sticky)
+    public void stickyClick() {
+        startActivity(new Intent(this, StickyActivity.class));
     }
 }

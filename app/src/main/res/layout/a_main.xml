@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="Linear" />
 
         <Button
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="Grid" />
 
         <Button
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-             
+
             android:text="Staggered" />
 
         <Button
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="NineGrid" />
 
         <Button
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="HeadFooter添加删除" />
 
         <TextView
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="别人的LayoutManager" />
 
         <Button
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="HexoLayoutManager" />
 
 
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="满布局测试" />
 
 
@@ -105,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="ZRefresh联动" />
 
 
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
+
             android:text="diff" />
 
         <TextView
@@ -126,19 +126,11 @@
             android:text="吸附测试" />
 
         <Button
-            android:id="@+id/bt_Absorb"
+            android:id="@+id/bt_Sticky"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            
-            android:text="吸附效果" />
-
-        <Button
-            android:id="@+id/bt_AbsorbGrid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Grid吸附效果" />
+            android:text="Sticky吸附效果" />
 
 
     </com.zone.view.FlowLayout>

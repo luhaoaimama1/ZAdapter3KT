@@ -5,6 +5,8 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import com.zone.adapter3.bean.Holder;
 import com.zone.adapter3.bean.ViewDelegates;
 import com.zone.adapter3.diff.DiffCallBack;
@@ -104,6 +106,8 @@ public interface IAdapter<T> {
     // =======================================
     // ============ header/footer ==============
     // =======================================
+
+     IAdapter addSticky(FrameLayout vpShow, int... stickyPostions);
 
     IAdapter setContentDataMapListener(Header2FooterRcvAdapter.ContentDataMapListener contentDataMapListener);
 
