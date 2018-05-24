@@ -52,6 +52,9 @@ public class DiffActivity extends Activity implements Handler.Callback, View.OnC
                 .addViewHolder(new LeftDelegates())//默认
                 .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
                 .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
+                .addHeaderHolder(R.layout.header_simple)
+                .addHeaderHolder(R.layout.header_simple2)
+                .addFooterHolder(R.layout.footer_simple)
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv)
                 .addItemDecoration(10);
