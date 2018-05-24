@@ -248,6 +248,7 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
 ## 1.0.9(not push jitpack)
   * Support break absorb effect
+  * Support diff Includes data with the bottom of the head, but only for the data, and the bottom of the head needs to add its own removal
 
 ## 1.0.8(not push jitpack)
 

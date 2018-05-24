@@ -248,6 +248,7 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 
 ## 1.0.9(未发布到jitpack)
   * 修复断头吸附 支持断头吸附功能了
+  * diff支持包括有头底部的数据 ,但是仅仅对数据进行，而头底部则需要自己添加移除
 
 ## 1.0.8(未发布到jitpack)
 
