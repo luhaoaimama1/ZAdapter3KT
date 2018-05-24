@@ -278,17 +278,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
         return data.size();
     }
 
-    ContentDataMapListener contentDataMapListener = new ContentDataMapListener() {
-        @Override
-        public <T> int getContentCount(List<T> datas) {
-            return datas.size();
-        }
-
-        @Override
-        public <T> T getData(List<T> datas, int position) {
-            return datas.get(position);
-        }
-    };
+    ContentDataMapListener contentDataMapListener;
 
     @Override
     public IAdapter setContentDataMapListener(ContentDataMapListener contentDataMapListener) {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zone.com.zadapter3.adapter.LeftDelegates;
+import zone.com.zadapter3.adapter.LeftDiffDelegates;
 import zone.com.zadapter3.adapter.RightDelegates;
+import zone.com.zadapter3.adapter.RightDiffDelegates;
 
 public class DiffActivity extends Activity implements Handler.Callback, View.OnClickListener {
 
@@ -33,25 +36,21 @@ public class DiffActivity extends Activity implements Handler.Callback, View.OnC
         setContentView(R.layout.a_recycler_diff);
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 100; i++)
             mDatas.add("" + i);
-        }
 
-//        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//            rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        rv.setLayoutManager(new GridLayoutManager(this, 3));
         rv.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         rv.setItemAnimator(new DefaultItemAnimator());
         muliAdapter = new QuickRcvAdapter(this, mDatas) {
             @Override
             protected int getItemViewType2(int dataPosition) {
-                return dataPosition % 3 == 0 ? 1 : 0;
+                return 0;
             }
         };
         muliAdapter
                 .addViewHolder(new LeftDelegates())//默认
-                .addViewHolder(0, new LeftDelegates()) //多部剧 注释开启即可
-                .addViewHolder(1, new RightDelegates())//多部剧 注释开启即可
+                .addViewHolder(0, new LeftDiffDelegates()) //多部剧 注释开启即可
+//                .addViewHolder(1, new RightDiffDelegates())//多部剧 注释开启即可
                 .addHeaderHolder(R.layout.header_simple)
                 .addHeaderHolder(R.layout.header_simple2)
                 .addFooterHolder(R.layout.footer_simple)
@@ -76,7 +75,13 @@ public class DiffActivity extends Activity implements Handler.Callback, View.OnC
                     public boolean areContentsTheSame(String oldItem, String newItem) {
                         return oldItem.equals(newItem);
                     }
-                });//计算 最好卸载线程中
+
+                    @Nullable
+                    @Override
+                    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
+                        return "ChangePayload";
+                    }
+                });//计算 最好写在子线程中
                 muliAdapter.diffNotifyDataSetChanged();//通知
                 break;
         }

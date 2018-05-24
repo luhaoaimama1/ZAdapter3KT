@@ -6,8 +6,12 @@ import android.support.v7.util.DiffUtil;
 
 import java.util.List;
 
-
+/**
+ * todo  防止闪烁： 对于change类型的通知 会调用{@link #getChangePayload(int, int)} ，在onbind里处理payLoad 从而防止某一些数据重新加载。
+ * @param <T>
+ */
 public abstract class DiffCallBack<T> extends DiffUtil.Callback {
+
     private List<T> mOldDatas, mNewDatas;//看名字
 
     public void setDatas(List<T> mOldDatas, List<T> mNewDatas) {
@@ -73,34 +77,4 @@ public abstract class DiffCallBack<T> extends DiffUtil.Callback {
 
     public abstract boolean areContentsTheSame(T oldItem, T newItem);
 
-    /**
-     * When {@link #areItemsTheSame(int, int)} returns {@code true} for two items and
-     * {@link #areContentsTheSame(int, int)} returns false for them, DiffUtil
-     * calls this method to getView a payload about the change.
-     * <p>
-     * 当{@link #areItemsTheSame(int, int)} 返回true，且{@link #areContentsTheSame(int, int)} 返回false时，DiffUtils会回调此方法，
-     * 去得到这个Item（有哪些）改变的payload。
-     * <p>
-     * For example, if you are using DiffUtil with {@link android.support.v7.widget.RecyclerView}, you can return the
-     * particular field that changed in the item and your
-     * {@link android.support.v7.widget.RecyclerView.ItemAnimator ItemAnimator} can use that
-     * information to run the correct animation.
-     * <p>
-     * 例如，如果你用RecyclerView配合DiffUtils，你可以返回  这个Item改变的那些字段，
-     * {@link android.support.v7.widget.RecyclerView.ItemAnimator ItemAnimator} 可以用那些信息去执行正确的动画
-     * <p>
-     * Default implementation returns {@code null}.\
-     * 默认的实现是返回null
-     *
-     * @param oldItemPosition The position of the item in the old list
-     * @param newItemPosition The position of the item in the new list
-     * @return A payload object that represents the change between the two items.
-     * 返回 一个 代表着新老item的改变内容的 payload对象，
-     * //实现这个方法 就没有了ItemChange的白光一闪动画，（反正我也觉得不太重要）
-     */
-    @Nullable
-    @Override
-    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        return null;
-    }
 }

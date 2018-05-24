@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zone.adapter3.base.DiffRcvAdapter;
 import com.zone.adapter3.base.Header2FooterRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
 import com.zone.adapter3.bean.Holder;
@@ -20,7 +21,7 @@ import java.util.List;
  * [2017] by Zone
  * 多类型 使用{@link #getItemViewType2(int)}
  */
-public class QuickRcvAdapter<T> extends Header2FooterRcvAdapter<T> {
+public class QuickRcvAdapter<T> extends DiffRcvAdapter<T> {
 
     protected OnItemClickListener onItemClickListener;
     protected OnItemLongClickListener onItemLongClickListener;

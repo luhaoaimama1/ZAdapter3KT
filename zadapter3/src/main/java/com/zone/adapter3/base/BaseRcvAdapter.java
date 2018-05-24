@@ -75,29 +75,4 @@ public abstract class BaseRcvAdapter<T> extends RecyclerView.Adapter<Holder> imp
         notifyItemRangeRemoved(dataPositionStart + getHeaderViewsCount(), itemCount);
     }
 
-    private List<T> dataBackUp;
-    private DiffUtil.DiffResult diffResult;
-
-    @Override
-    public void diffSetKeyframe() {
-        dataBackUp = new ArrayList<>();
-        dataBackUp.addAll(data);
-        diffResult = null;
-    }
-
-    @Override
-    public void diffCalculate(DiffCallBack<T> diffCallBack) {
-        if (dataBackUp == null)
-            throw new IllegalStateException("please first use diffSetKeyframe()!");
-        diffCallBack.setDatas(dataBackUp, data);
-        diffResult = DiffUtil.calculateDiff(diffCallBack, true);
-    }
-
-    @Override
-    public void diffNotifyDataSetChanged() {
-        if (diffResult != null)
-            diffResult.dispatchUpdatesTo(this);
-        else
-            throw new IllegalStateException("please first use diffCalculate(diffCallBack)!");
-    }
 }
