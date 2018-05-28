@@ -142,9 +142,6 @@ public interface IAdapter<T> {
 
     IAdapter addFooterHolder(ViewDelegates footer,boolean notify);
 
-    IAdapter setLoadFooterViewHold(@LayoutRes int layout);
-
-    IAdapter setLoadFooterViewHold(ILoadMoreDelegates loadFooterView);
 
     IAdapter addHeaderHolder(@LayoutRes int layout);
 
@@ -153,6 +150,31 @@ public interface IAdapter<T> {
     IAdapter addHeaderHolder(ViewDelegates header);
 
     IAdapter addHeaderHolder(ViewDelegates header,boolean notify);
+
+
+//        mHeaderViews.add(0,header);  //即可！
+    IAdapter addHeaderHolder(int index,@LayoutRes int layout);
+
+    IAdapter addHeaderHolder(int index,@LayoutRes int layout,boolean notify);
+
+    IAdapter addHeaderHolder(int index,ViewDelegates header);
+
+    IAdapter addHeaderHolder(int index,ViewDelegates header,boolean notify);
+
+
+    IAdapter addFooterHolder(int index,@LayoutRes int layout);
+
+    IAdapter addFooterHolder(int index,@LayoutRes int layout,boolean notify);
+
+    IAdapter addFooterHolder(int index,ViewDelegates footer);
+
+    IAdapter addFooterHolder(int index,ViewDelegates footer,boolean notify);
+
+
+    IAdapter setLoadFooterViewHold(@LayoutRes int layout);
+
+    IAdapter setLoadFooterViewHold(ILoadMoreDelegates loadFooterView);
+
 
     //允许style重复 重复的话 就覆盖之前的
     IAdapter addViewHolder(int style, ViewDelegates viewDelegates);

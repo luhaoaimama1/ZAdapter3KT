@@ -403,10 +403,18 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public IAdapter addHeaderHolder(ViewDelegates header, boolean notify) {
+        addHeaderHolder(mHeaderViews.size(),header,notify);
+        return this;
+    }
+
+    @Override
+    public IAdapter addHeaderHolder(int index,ViewDelegates header, boolean notify) {
+        if(index<0||index>mHeaderViews.size())
+            throw new IllegalStateException("超出列表位置");
         if (header == null)
             throw new RuntimeException("viewHolder is null");
         if (!mHeaderViews.contains(header)) {
-            mHeaderViews.add(header);
+            mHeaderViews.add(index,header);
             header.tryEHFCreateView(context, this);
             hfItemInserted(header, notify);
         }
@@ -426,6 +434,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public IAdapter addHeaderHolder(@LayoutRes int layout) {
         return addHeaderHolder(new ResViewDelegates(layout));
     }
+    @Override
+    public IAdapter addHeaderHolder(int index,@LayoutRes int layout) {
+        return addHeaderHolder(new ResViewDelegates(layout));
+    }
 
     @Override
     public IAdapter addHeaderHolder(@LayoutRes int layout, boolean notify) {
@@ -433,8 +445,17 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
+    public IAdapter addHeaderHolder(int index,@LayoutRes int layout, boolean notify) {
+        return addHeaderHolder(index,new ResViewDelegates(layout), true);
+    }
+
+    @Override
     public IAdapter addHeaderHolder(ViewDelegates header) {
         return addHeaderHolder(header, false);
+    }
+    @Override
+    public IAdapter addHeaderHolder(int index,ViewDelegates header) {
+        return addHeaderHolder(index,header, false);
     }
 
     @Override
@@ -455,6 +476,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public IAdapter addFooterHolder(@LayoutRes int layout, boolean notify) {
         return addFooterHolder(new ResViewDelegates(layout), notify);
     }
+    @Override
+    public IAdapter addFooterHolder(int index,@LayoutRes int layout, boolean notify) {
+        return addFooterHolder(index,new ResViewDelegates(layout), notify);
+    }
 
     @Override
     public IAdapter addFooterHolder(ViewDelegates footer) {
@@ -462,17 +487,33 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
+    public IAdapter addFooterHolder(int index,ViewDelegates footer) {
+        return addFooterHolder(index,footer, false);
+    }
+
+    @Override
     public IAdapter addFooterHolder(@LayoutRes int layout) {
         return addFooterHolder(new ResViewDelegates(layout));
     }
-
+    @Override
+    public IAdapter addFooterHolder(int index,@LayoutRes int layout) {
+        return addFooterHolder(index,new ResViewDelegates(layout));
+    }
 
     @Override
     public IAdapter addFooterHolder(ViewDelegates footer, boolean notify) {
+        return addFooterHolder(mFooterViews.size(),footer,notify);
+    }
+
+    @Override
+    public IAdapter addFooterHolder(int index,ViewDelegates footer, boolean notify) {
+        if(index<0||index>mFooterViews.size())
+            throw new IllegalStateException("超出列表位置");
+
         if (footer == null)
             throw new RuntimeException("footer is null");
         if (!mFooterViews.contains(footer)) {
-            mFooterViews.add(footer);
+            mFooterViews.add(mFooterViews.size(),footer);
             //todo?
             footer.tryEHFCreateView(context, this);
             hfItemInserted(footer, notify);
