@@ -20,7 +20,8 @@ import java.util.List;
 /**
  * Generic adapter must implement the interface, as a method of unified standard
  */
-public interface IAdapter<T> {
+public interface IAdapter<T> extends  IAdapterProxy.UnActive<Holder>
+        ,IAdapterProxy.Active<Holder> {
 
     // =======================================
     // ============baseMethod ==============
@@ -195,24 +196,20 @@ public interface IAdapter<T> {
     // ============ notify ==============
     // =======================================
 
-    void notifyDataSetChanged();
-
-    void notifyItemChanged(int position);
-
-    void notifyItemInserted(int position);
-
-    void notifyItemRemoved(int position);
-
-    void notifyItemRangeChanged(int positionStart, int itemCount);
-
-    void notifyItemRangeInserted(int positionStart, int itemCount);
-
-    void notifyItemRangeRemoved(int positionStart, int itemCount);
-
-
-    //todo
-    void notifyItemInsertedEmpty(int dataPosition);
-//    void notifyItemRangeInsertedAgainstEmpty(int positionStart, int itemCount)
+//    void notifyDataSetChanged();
+//
+//    void notifyItemChanged(int position);
+//
+//    void notifyItemInserted(int position);
+//
+//    void notifyItemRemoved(int position);
+//
+//    void notifyItemRangeChanged(int positionStart, int itemCount);
+//
+//    void notifyItemRangeInserted(int positionStart, int itemCount);
+//
+//    void notifyItemRangeRemoved(int positionStart, int itemCount);
+//
 
 
     void notifyItemChangedEx(int dataPosition);
@@ -237,34 +234,34 @@ public interface IAdapter<T> {
     // =======================================
     // ============adapter原生方法 ==============
     // =======================================
-    int getItemCount();
-
-    int getItemViewType(int position);
-
-    void onBindViewHolder(Holder holder, int position, List<Object> payloads);
-
-    void setHasStableIds(boolean hasStableIds);
-
-    long getItemId(int position);
-
-    void onViewRecycled(Holder holder);
-
-    boolean onFailedToRecycleView(Holder holder);
-
-    void onViewAttachedToWindow(Holder holder);
-
-    void onViewDetachedFromWindow(Holder holder);
-
-    void registerAdapterDataObserver(RecyclerView.AdapterDataObserver observer);
-
-    void unregisterAdapterDataObserver(RecyclerView.AdapterDataObserver observer);
-
-    void onAttachedToRecyclerView(RecyclerView recyclerView);
-
-    void onDetachedFromRecyclerView(RecyclerView recyclerView);
-
-    Holder onCreateViewHolder(ViewGroup parent, int viewType);
-
-    void onBindViewHolder(Holder holder, int position);
+//    int getItemCount();
+//
+//    int getItemViewType(int position);
+//
+//    void setHasStableIds(boolean hasStableIds);
+//
+//    long getItemId(int position);
+//
+//    void onViewRecycled(Holder holder);
+//
+//    boolean onFailedToRecycleView(Holder holder);
+//
+//    void onViewAttachedToWindow(Holder holder);
+//
+//    void onViewDetachedFromWindow(Holder holder);
+//
+//    void registerAdapterDataObserver(RecyclerView.AdapterDataObserver observer);
+//
+//    void unregisterAdapterDataObserver(RecyclerView.AdapterDataObserver observer);
+//
+//    void onAttachedToRecyclerView(RecyclerView recyclerView);
+//
+//    void onDetachedFromRecyclerView(RecyclerView recyclerView);
+//
+//    Holder onCreateViewHolder(ViewGroup parent, int viewType);
+//
+//    void onBindViewHolder(Holder holder, int position);
+//
+//    void onBindViewHolder(Holder holder, int position, List<Object> payloads);
 
 }

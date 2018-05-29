@@ -125,9 +125,8 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public void onBindViewHolder(Holder holder, int position, List<Object> payloads) {
-        super.onBindViewHolder(holder.setPayloads(payloads), position, payloads);
+        holder.setPayloads(payloads);
     }
-
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         if (isEmptyData()) {
@@ -334,7 +333,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     public IAdapter relatedList(RecyclerView mRecyclerView) {
         this.mRecyclerView = mRecyclerView;
         gridSetLookup();
-        this.mRecyclerView.setAdapter(this);
+        this.mRecyclerView.setAdapter(innerAdapter);
         return this;
     }
 

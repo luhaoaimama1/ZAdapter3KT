@@ -88,10 +88,7 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
             case R.id.bt_add:
                 String str="insert one no ani";
                 mDatas.add(str);
-//                muliAdapter.notifyDataSetChanged();
-                //todo 如果有empty的话 就会有问题 因为默认是有一个东西的；
-                muliAdapter.notifyItemInsertedEmpty(mDatas.indexOf(str));
-//                muliAdapter.notifyItemInserted();
+                muliAdapter.notifyItemInsertedEx(mDatas.size()-1);
                 break;
             case R.id.bt_aniAdd:
                 mDatas.add(1, "insert one with ani");
