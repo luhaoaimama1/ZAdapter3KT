@@ -304,9 +304,10 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
         if (position == 0 && isEmptyData()) {
             QuickConfig.e("getItemViewType empty:" + position);
+            isEmpty=true;
             return EMPTY_VALUE;
         }
-
+        isEmpty=false;
 
         //sticky 检查优先
         if(stickyPostions!=null){
@@ -441,12 +442,12 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
     @Override
     public IAdapter addHeaderHolder(@LayoutRes int layout, boolean notify) {
-        return addHeaderHolder(new ResViewDelegates(layout), true);
+        return addHeaderHolder(new ResViewDelegates(layout), notify);
     }
 
     @Override
     public IAdapter addHeaderHolder(int index,@LayoutRes int layout, boolean notify) {
-        return addHeaderHolder(index,new ResViewDelegates(layout), true);
+        return addHeaderHolder(index,new ResViewDelegates(layout), notify);
     }
 
     @Override

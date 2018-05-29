@@ -75,4 +75,14 @@ public abstract class BaseRcvAdapter<T> extends RecyclerView.Adapter<Holder> imp
         notifyItemRangeRemoved(dataPositionStart + getHeaderViewsCount(), itemCount);
     }
 
+
+    protected boolean isEmpty;
+
+    @Override
+    public void notifyItemInsertedEmpty(int dataPosition) {
+        if(dataPosition==0&&isEmpty)
+            notifyItemRemoved(0);
+        notifyItemInserted(dataPosition);
+    }
+
 }

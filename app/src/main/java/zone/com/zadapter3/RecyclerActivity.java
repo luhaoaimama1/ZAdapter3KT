@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
 import java.util.ArrayList;
@@ -75,6 +77,8 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
                         return true;
                     }
                 });
+        muliAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -82,8 +86,12 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_add:
-                mDatas.add("insert one no ani");
-                muliAdapter.notifyDataSetChanged();
+                String str="insert one no ani";
+                mDatas.add(str);
+//                muliAdapter.notifyDataSetChanged();
+                //todo 如果有empty的话 就会有问题 因为默认是有一个东西的；
+                muliAdapter.notifyItemInsertedEmpty(mDatas.indexOf(str));
+//                muliAdapter.notifyItemInserted();
                 break;
             case R.id.bt_aniAdd:
                 mDatas.add(1, "insert one with ani");
@@ -142,6 +150,12 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
             case R.id.bt_clearHeader:
                 muliAdapter.clearHeaderHolder();
                 muliAdapter.notifyDataSetChanged();
+                break;
+            case R.id.bt_addHeaderFirst:
+                //todo   addHeaderHolder(0,id,true) 的话就有问题  如果没有数据就没有问题
+//                muliAdapter.addHeaderHolder(0,R.layout.header_simple3);
+                muliAdapter.addHeaderHolder(0,R.layout.header_simple3,true);
+                muliAdapter.scrollToPosition(0);
                 break;
         }
     }

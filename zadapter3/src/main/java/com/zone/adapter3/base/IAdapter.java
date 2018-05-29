@@ -210,6 +210,11 @@ public interface IAdapter<T> {
     void notifyItemRangeRemoved(int positionStart, int itemCount);
 
 
+    //todo
+    void notifyItemInsertedEmpty(int dataPosition);
+//    void notifyItemRangeInsertedAgainstEmpty(int positionStart, int itemCount)
+
+
     void notifyItemChangedEx(int dataPosition);
 
     void notifyItemInsertedEx(int dataPosition);

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.bt_Linear, R.id.bt_Grid, R.id.bt_Staggered})
     public void onClick(View view) {
         Intent intent = new Intent(this, RecyclerActivity.class);
+//        Intent intent = new Intent(this, Recycler2Activity.class);
         switch (view.getId()) {
             case R.id.bt_Linear:
                 intent.putExtra("type", "Linear");
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.bt_Link)
     public void onClick() {
         startActivity(new Intent(this, ZRefreshActivity.class));
+    }
+    @OnClick(R.id.bt_LinearBen)
+    public void bt_LinearBen() {
+        startActivity(new Intent(this, Recycler2Activity.class));
     }
 
     @OnClick(R.id.bt_HeadFooter)

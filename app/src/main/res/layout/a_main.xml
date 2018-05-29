@@ -25,6 +25,13 @@
             android:layout_gravity="center_vertical"
 
             android:text="Linear" />
+        <Button
+            android:id="@+id/bt_LinearBen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+            android:text="Linear本身" />
 
         <Button
             android:id="@+id/bt_Grid"
