@@ -313,7 +313,8 @@ public class Holder<T extends Holder<T>> extends RecyclerView.ViewHolder {
     // =======================================
     // ============ 快捷方法  ==============
     // =======================================
-    public <V extends View> V getView(int viewId) {
+    @SuppressWarnings("unchecked")
+    public <V extends View> V getView(@IdRes int viewId) {
         return (V) retrieveView(viewId);
     }
 

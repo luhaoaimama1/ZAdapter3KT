@@ -1,6 +1,7 @@
 package zone.com.zadapter3.adapter;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.zone.adapter3.QuickConfig;
 import com.zone.adapter3.bean.Holder;
@@ -24,7 +25,6 @@ public class LeftDiffDelegates extends ViewDelegates<String> {
     @Override
     public void fillData(int postion, String data, final Holder holder) {
         if (!"ChangePayload".equals(holder.getPayloads())) {
-
             holder.setText(R.id.tv, data);
             holder.itemView.post(new Runnable() {
                 @Override
