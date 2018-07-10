@@ -17,7 +17,7 @@ import com.zone.adapter3.bean.ViewDelegates;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import zone.com.zadapter3.adapter.LeftDelegates;
@@ -25,7 +25,7 @@ import zone.com.zadapter3.adapter.RightDelegates;
 
 public class HeadFooterRecyclerActivity extends Activity implements Handler.Callback {
 
-    @Bind(R.id.rv)
+    @BindView(R.id.rv)
     RecyclerView rv;
     private List<String> mDatas = new ArrayList<String>();
     private IAdapter<String> muliAdapter;

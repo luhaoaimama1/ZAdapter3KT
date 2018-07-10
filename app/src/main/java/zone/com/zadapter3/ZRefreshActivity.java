@@ -17,7 +17,7 @@ import com.zone.adapter3.base.IAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import zone.com.zadapter3.adapter.LeftDelegates;
 import zone.com.zadapter3.adapter.RightDelegates;
@@ -26,9 +26,9 @@ import zone.com.zrefreshlayout.ZRefreshLayout;
 
 public class ZRefreshActivity extends Activity implements Handler.Callback {
 
-    @Bind(R.id.rv)
+    @BindView(R.id.rv)
     RecyclerView rv;
-    @Bind(R.id.refresh)
+    @BindView(R.id.refresh)
     ZRefreshLayout refresh;
     private List<String> mDatas = new ArrayList<String>();
     private IAdapter<String> mAdapter;

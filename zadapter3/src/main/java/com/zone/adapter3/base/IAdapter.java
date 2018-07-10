@@ -39,11 +39,11 @@ public interface IAdapter<T> extends  IAdapterProxy.UnActive<Holder>
     // ============Listener ==============
     // =======================================
 
-    IAdapter setOnItemClickListener(OnItemClickListener listener);
+    IAdapter<T> setOnItemClickListener(OnItemClickListener listener);
 
     OnItemClickListener getOnItemClickListener();
 
-    IAdapter setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener);
+    IAdapter<T> setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener);
 
     OnItemLongClickListener getOnItemLongClickListener();
 
@@ -61,13 +61,13 @@ public interface IAdapter<T> extends  IAdapterProxy.UnActive<Holder>
 
     RecyclerView getRecyclerView();
 
-    IAdapter addOnScrollListener(OnScrollRcvListener listener);
+    IAdapter<T> addOnScrollListener(OnScrollRcvListener listener);
 
     OnScrollRcvListener getOnScrollListener();
 
-    IAdapter addItemDecoration(int space);
+    IAdapter<T> addItemDecoration(int space);
 
-    IAdapter addItemDecoration(MarginItemDecoration itemDecoration);
+    IAdapter<T> addItemDecoration(MarginItemDecoration itemDecoration);
 
     void scrollToData(T o);
 
@@ -90,11 +90,11 @@ public interface IAdapter<T> extends  IAdapterProxy.UnActive<Holder>
     // ============加载更多==============
     // =======================================
 
-    IAdapter loadMoreComplete();
+    IAdapter<T> loadMoreComplete();
 
-    IAdapter loadMoreFail();
+    IAdapter<T> loadMoreFail();
 
-    IAdapter end();
+    IAdapter<T> end();
 
     /**
      * 重footerDelegates清除LoadMoreDelegates
@@ -102,87 +102,87 @@ public interface IAdapter<T> extends  IAdapterProxy.UnActive<Holder>
      *
      * @return
      */
-    IAdapter removeLoadMoreDelegates();
+    IAdapter<T> removeLoadMoreDelegates();
 
 
     // =======================================
     // ============ header/footer ==============
     // =======================================
 
-     IAdapter addSticky(FrameLayout vpShow, int... stickyPostions);
+    IAdapter<T> addSticky(FrameLayout vpShow, int... stickyPostions);
 
-     IAdapter addSticky(@ColorInt int color,FrameLayout vpShow, int... stickyPostions);
+    IAdapter<T> addSticky(@ColorInt int color,FrameLayout vpShow, int... stickyPostions);
 
-    IAdapter setContentDataMapListener(Header2FooterRcvAdapter.ContentDataMapListener contentDataMapListener);
+    IAdapter<T> setContentDataMapListener(Header2FooterRcvAdapter.ContentDataMapListener contentDataMapListener);
 
-    IAdapter removeHeaderHolder(ViewDelegates header);
+    IAdapter<T> removeHeaderHolder(ViewDelegates header);
 
-    IAdapter removeHeaderHolder(ViewDelegates header,boolean notify);
+    IAdapter<T> removeHeaderHolder(ViewDelegates header,boolean notify);
 
-    IAdapter removeFooterHolder(ViewDelegates footer);
+    IAdapter<T> removeFooterHolder(ViewDelegates footer);
 
-    IAdapter removeFooterHolder(ViewDelegates footer,boolean notify);
+    IAdapter<T> removeFooterHolder(ViewDelegates footer,boolean notify);
 
-    IAdapter clearHeaderHolder();
+    IAdapter<T> clearHeaderHolder();
 
-    IAdapter clearFooterHolder();
+    IAdapter<T> clearFooterHolder();
 
     boolean containHeaderHolder(ViewDelegates header);
 
     boolean containFooterHolder(ViewDelegates footer);
 
-    IAdapter addEmptyHold(@LayoutRes int layout);
+    IAdapter<T> addEmptyHold(@LayoutRes int layout);
 
-    IAdapter addEmptyHold(ViewDelegates footer);
+    IAdapter<T> addEmptyHold(ViewDelegates footer);
 
-    IAdapter addFooterHolder(@LayoutRes int layout);
+    IAdapter<T> addFooterHolder(@LayoutRes int layout);
 
-    IAdapter addFooterHolder(@LayoutRes int layout,boolean notify);
+    IAdapter<T> addFooterHolder(@LayoutRes int layout,boolean notify);
 
-    IAdapter addFooterHolder(ViewDelegates footer);
+    IAdapter<T> addFooterHolder(ViewDelegates footer);
 
-    IAdapter addFooterHolder(ViewDelegates footer,boolean notify);
+    IAdapter<T> addFooterHolder(ViewDelegates footer,boolean notify);
 
 
-    IAdapter addHeaderHolder(@LayoutRes int layout);
+    IAdapter<T> addHeaderHolder(@LayoutRes int layout);
 
-    IAdapter addHeaderHolder(@LayoutRes int layout,boolean notify);
+    IAdapter<T> addHeaderHolder(@LayoutRes int layout,boolean notify);
 
-    IAdapter addHeaderHolder(ViewDelegates header);
+    IAdapter<T> addHeaderHolder(ViewDelegates header);
 
-    IAdapter addHeaderHolder(ViewDelegates header,boolean notify);
+    IAdapter<T> addHeaderHolder(ViewDelegates header,boolean notify);
 
 
 //        mHeaderViews.add(0,header);  //即可！
-    IAdapter addHeaderHolder(int index,@LayoutRes int layout);
+    IAdapter<T> addHeaderHolder(int index,@LayoutRes int layout);
 
-    IAdapter addHeaderHolder(int index,@LayoutRes int layout,boolean notify);
+    IAdapter<T> addHeaderHolder(int index,@LayoutRes int layout,boolean notify);
 
-    IAdapter addHeaderHolder(int index,ViewDelegates header);
+    IAdapter<T> addHeaderHolder(int index,ViewDelegates header);
 
-    IAdapter addHeaderHolder(int index,ViewDelegates header,boolean notify);
-
-
-    IAdapter addFooterHolder(int index,@LayoutRes int layout);
-
-    IAdapter addFooterHolder(int index,@LayoutRes int layout,boolean notify);
-
-    IAdapter addFooterHolder(int index,ViewDelegates footer);
-
-    IAdapter addFooterHolder(int index,ViewDelegates footer,boolean notify);
+    IAdapter<T> addHeaderHolder(int index,ViewDelegates header,boolean notify);
 
 
-    IAdapter setLoadFooterViewHold(@LayoutRes int layout);
+    IAdapter<T> addFooterHolder(int index,@LayoutRes int layout);
 
-    IAdapter setLoadFooterViewHold(ILoadMoreDelegates loadFooterView);
+    IAdapter<T> addFooterHolder(int index,@LayoutRes int layout,boolean notify);
+
+    IAdapter<T> addFooterHolder(int index,ViewDelegates footer);
+
+    IAdapter<T> addFooterHolder(int index,ViewDelegates footer,boolean notify);
+
+
+    IAdapter<T> setLoadFooterViewHold(@LayoutRes int layout);
+
+    IAdapter<T> setLoadFooterViewHold(ILoadMoreDelegates loadFooterView);
 
 
     //允许style重复 重复的话 就覆盖之前的
-    IAdapter addViewHolder(int style, ViewDelegates viewDelegates);
+    IAdapter<T> addViewHolder(int style, ViewDelegates viewDelegates);
 
-    IAdapter addViewHolder(ViewDelegates viewDelegates);
+    IAdapter<T> addViewHolder(ViewDelegates viewDelegates);
 
-    IAdapter relatedList(RecyclerView mRecyclerView);
+    IAdapter<T> relatedList(RecyclerView mRecyclerView);
 
     int getHeaderViewsCount();
 

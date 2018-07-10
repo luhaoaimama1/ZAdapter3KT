@@ -206,7 +206,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     StickyOnScrollListener stickyOnScrollListener;
 
     @Override
-    public IAdapter addSticky(FrameLayout vpShow, int... stickyPostions) {
+    public IAdapter<T> addSticky(FrameLayout vpShow, int... stickyPostions) {
         this.stickyPostions = stickyPostions;
         mStickyViews = new StickyViewDelegates[stickyPostions.length];
         if (stickyOnScrollListener != null)
@@ -216,7 +216,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addSticky(@ColorInt int color, FrameLayout vpShow, int... stickyPostions) {
+    public IAdapter<T> addSticky(@ColorInt int color, FrameLayout vpShow, int... stickyPostions) {
         addSticky(vpShow,stickyPostions);
         stickyOnScrollListener.setPlaceColor(color);
         return this;
@@ -280,7 +280,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     ContentDataMapListener contentDataMapListener;
 
     @Override
-    public IAdapter setContentDataMapListener(ContentDataMapListener contentDataMapListener) {
+    public IAdapter<T> setContentDataMapListener(ContentDataMapListener contentDataMapListener) {
         this.contentDataMapListener = contentDataMapListener;
         return this;
     }
@@ -330,7 +330,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
 
 
     @Override
-    public IAdapter relatedList(RecyclerView mRecyclerView) {
+    public IAdapter<T> relatedList(RecyclerView mRecyclerView) {
         this.mRecyclerView = mRecyclerView;
         gridSetLookup();
         this.mRecyclerView.setAdapter(innerAdapter);
@@ -370,7 +370,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
      * @return
      */
     @Override
-    public IAdapter addViewHolder(ViewDelegates viewDelegates) {
+    public IAdapter<T> addViewHolder(ViewDelegates viewDelegates) {
         if (mViews.size() == 0 || mViews.get(0).getStyle() != DEFAULT_VALUE)
             mViews.add(0, new Wrapper(DEFAULT_VALUE, viewDelegates));
         else
@@ -381,7 +381,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     List<Integer> repeatCheckList = new ArrayList<>();
 
     @Override
-    public IAdapter addViewHolder(int style, ViewDelegates viewDelegates) {
+    public IAdapter<T> addViewHolder(int style, ViewDelegates viewDelegates) {
         if (DEFAULT_VALUE == style
                 || EMPTY_VALUE == style
                 || style == ITEM_VIEW_TYPE_HEADER_OR_FOOTER)
@@ -402,13 +402,13 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addHeaderHolder(ViewDelegates header, boolean notify) {
+    public IAdapter<T> addHeaderHolder(ViewDelegates header, boolean notify) {
         addHeaderHolder(mHeaderViews.size(),header,notify);
         return this;
     }
 
     @Override
-    public IAdapter addHeaderHolder(int index,ViewDelegates header, boolean notify) {
+    public IAdapter<T> addHeaderHolder(int index,ViewDelegates header, boolean notify) {
         if(index<0||index>mHeaderViews.size())
             throw new IllegalStateException("超出列表位置");
         if (header == null)
@@ -431,30 +431,30 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addHeaderHolder(@LayoutRes int layout) {
+    public IAdapter<T> addHeaderHolder(@LayoutRes int layout) {
         return addHeaderHolder(new ResViewDelegates(layout));
     }
     @Override
-    public IAdapter addHeaderHolder(int index,@LayoutRes int layout) {
+    public IAdapter<T> addHeaderHolder(int index,@LayoutRes int layout) {
         return addHeaderHolder(new ResViewDelegates(layout));
     }
 
     @Override
-    public IAdapter addHeaderHolder(@LayoutRes int layout, boolean notify) {
+    public IAdapter<T> addHeaderHolder(@LayoutRes int layout, boolean notify) {
         return addHeaderHolder(new ResViewDelegates(layout), notify);
     }
 
     @Override
-    public IAdapter addHeaderHolder(int index,@LayoutRes int layout, boolean notify) {
+    public IAdapter<T> addHeaderHolder(int index,@LayoutRes int layout, boolean notify) {
         return addHeaderHolder(index,new ResViewDelegates(layout), notify);
     }
 
     @Override
-    public IAdapter addHeaderHolder(ViewDelegates header) {
+    public IAdapter<T> addHeaderHolder(ViewDelegates header) {
         return addHeaderHolder(header, false);
     }
     @Override
-    public IAdapter addHeaderHolder(int index,ViewDelegates header) {
+    public IAdapter<T> addHeaderHolder(int index,ViewDelegates header) {
         return addHeaderHolder(index,header, false);
     }
 
@@ -473,40 +473,40 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addFooterHolder(@LayoutRes int layout, boolean notify) {
+    public IAdapter<T> addFooterHolder(@LayoutRes int layout, boolean notify) {
         return addFooterHolder(new ResViewDelegates(layout), notify);
     }
     @Override
-    public IAdapter addFooterHolder(int index,@LayoutRes int layout, boolean notify) {
+    public IAdapter<T> addFooterHolder(int index,@LayoutRes int layout, boolean notify) {
         return addFooterHolder(index,new ResViewDelegates(layout), notify);
     }
 
     @Override
-    public IAdapter addFooterHolder(ViewDelegates footer) {
+    public IAdapter<T> addFooterHolder(ViewDelegates footer) {
         return addFooterHolder(footer, false);
     }
 
     @Override
-    public IAdapter addFooterHolder(int index,ViewDelegates footer) {
+    public IAdapter<T> addFooterHolder(int index,ViewDelegates footer) {
         return addFooterHolder(index,footer, false);
     }
 
     @Override
-    public IAdapter addFooterHolder(@LayoutRes int layout) {
+    public IAdapter<T> addFooterHolder(@LayoutRes int layout) {
         return addFooterHolder(new ResViewDelegates(layout));
     }
     @Override
-    public IAdapter addFooterHolder(int index,@LayoutRes int layout) {
+    public IAdapter<T> addFooterHolder(int index,@LayoutRes int layout) {
         return addFooterHolder(index,new ResViewDelegates(layout));
     }
 
     @Override
-    public IAdapter addFooterHolder(ViewDelegates footer, boolean notify) {
+    public IAdapter<T> addFooterHolder(ViewDelegates footer, boolean notify) {
         return addFooterHolder(mFooterViews.size(),footer,notify);
     }
 
     @Override
-    public IAdapter addFooterHolder(int index,ViewDelegates footer, boolean notify) {
+    public IAdapter<T> addFooterHolder(int index,ViewDelegates footer, boolean notify) {
         if(index<0||index>mFooterViews.size())
             throw new IllegalStateException("超出列表位置");
 
@@ -522,7 +522,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter removeHeaderHolder(ViewDelegates header, boolean notify) {
+    public IAdapter<T> removeHeaderHolder(ViewDelegates header, boolean notify) {
         return hfItemRemoved(mHeaderViews, header, notify);
     }
 
@@ -538,28 +538,28 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter removeHeaderHolder(ViewDelegates header) {
+    public IAdapter<T> removeHeaderHolder(ViewDelegates header) {
         return removeHeaderHolder(header, false);
     }
 
     @Override
-    public IAdapter removeFooterHolder(ViewDelegates footer) {
+    public IAdapter<T> removeFooterHolder(ViewDelegates footer) {
         return removeFooterHolder(footer, false);
     }
 
     @Override
-    public IAdapter removeFooterHolder(ViewDelegates footer, boolean notify) {
+    public IAdapter<T> removeFooterHolder(ViewDelegates footer, boolean notify) {
         return hfItemRemoved(mFooterViews, footer, notify);
     }
 
     @Override
-    public IAdapter clearHeaderHolder() {
+    public IAdapter<T> clearHeaderHolder() {
         mHeaderViews.clear();
         return this;
     }
 
     @Override
-    public IAdapter clearFooterHolder() {
+    public IAdapter<T> clearFooterHolder() {
         mFooterViews.clear();
         return this;
     }
@@ -590,13 +590,13 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addEmptyHold(ViewDelegates emptyView) {
+    public IAdapter<T> addEmptyHold(ViewDelegates emptyView) {
         mEmptyView = emptyView;
         return this;
     }
 
     @Override
-    public IAdapter addEmptyHold(@LayoutRes int layout) {
+    public IAdapter<T> addEmptyHold(@LayoutRes int layout) {
         return addEmptyHold(new ResViewDelegates(layout));
     }
 
@@ -648,12 +648,12 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addItemDecoration(int space) {
+    public IAdapter<T> addItemDecoration(int space) {
         return addItemDecoration(new MarginItemDecoration(space, this));
     }
 
     @Override
-    public IAdapter addItemDecoration(MarginItemDecoration itemDecoration) {
+    public IAdapter<T> addItemDecoration(MarginItemDecoration itemDecoration) {
         if (mRecyclerView == null)
             throw new IllegalStateException("please first use relatedList(RecyclerView mRecyclerView)!");
         mRecyclerView.addItemDecoration(itemDecoration);

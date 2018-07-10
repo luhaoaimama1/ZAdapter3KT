@@ -78,13 +78,13 @@ public class QuickRcvAdapter<T> extends DiffRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public IAdapter<T> setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
         return this;
     }
 
     @Override
-    public IAdapter setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+    public IAdapter<T> setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
         this.onItemLongClickListener = onItemLongClickListener;
         return this;
     }
@@ -105,7 +105,7 @@ public class QuickRcvAdapter<T> extends DiffRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter addOnScrollListener(OnScrollRcvListener listener) {
+    public IAdapter<T> addOnScrollListener(OnScrollRcvListener listener) {
         if(getRecyclerView()==null)
             throw new IllegalStateException("please first use method: relatedList(rv)!");
         this.listener = listener;
@@ -117,19 +117,19 @@ public class QuickRcvAdapter<T> extends DiffRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter setLoadFooterViewHold(@LayoutRes int layout) {
+    public IAdapter<T> setLoadFooterViewHold(@LayoutRes int layout) {
         loadFooterViewHold = new NullLoadMoreDelegates(layout);
         return this;
     }
 
     @Override
-    public IAdapter setLoadFooterViewHold(ILoadMoreDelegates loadFooterView) {
+    public IAdapter<T> setLoadFooterViewHold(ILoadMoreDelegates loadFooterView) {
         loadFooterViewHold = loadFooterView;
         return this;
     }
 
     @Override
-    public IAdapter loadMoreComplete() {
+    public IAdapter<T> loadMoreComplete() {
         checkScrollerListener();
         listener.loadMoreComplete();
         return this;
@@ -141,21 +141,21 @@ public class QuickRcvAdapter<T> extends DiffRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter loadMoreFail() {
+    public IAdapter<T> loadMoreFail() {
         checkScrollerListener();
         listener.loadMoreFail();
         return this;
     }
 
     @Override
-    public IAdapter end() {
+    public IAdapter<T> end() {
         checkScrollerListener();
         listener.end();
         return this;
     }
 
     @Override
-    public IAdapter removeLoadMoreDelegates() {
+    public IAdapter<T> removeLoadMoreDelegates() {
         checkScrollerListener();
         listener.clearLoadMoreDelegates();
         return this;
