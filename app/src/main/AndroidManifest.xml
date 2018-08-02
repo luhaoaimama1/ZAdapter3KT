@@ -27,6 +27,8 @@
         <activity android:name=".NineRecyclerActivity"></activity>
         <activity android:name=".StickyActivity"></activity>
         <activity android:name=".Recycler2Activity"></activity>
+        <activity android:name=".RecyclerActivityAnimator"></activity>
+        <activity android:name=".RecyclerActivityScroll"></activity>
     </application>
 
 </manifest>

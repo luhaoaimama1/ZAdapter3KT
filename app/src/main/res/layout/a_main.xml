@@ -140,6 +140,20 @@
             android:layout_gravity="center_vertical"
             android:text="Sticky吸附效果" />
 
+        <Button
+            android:id="@+id/bt_animator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="动画研究" />
+
+        <Button
+            android:id="@+id/bt_scroll2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="scroll研究" />
+
 
     </com.zone.view.FlowLayout>
 

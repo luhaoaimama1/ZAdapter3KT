@@ -97,4 +97,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, StickyActivity.class));
     }
 
+    @OnClick(R.id.bt_animator)
+    public void animatorClick() {
+        startActivity(new Intent(this, RecyclerActivityAnimator.class));
+    }
+
+    @OnClick(R.id.bt_scroll2)
+    public void scrollClick() {
+        startActivity(new Intent(this, RecyclerActivityScroll.class));
+    }
+
 }
