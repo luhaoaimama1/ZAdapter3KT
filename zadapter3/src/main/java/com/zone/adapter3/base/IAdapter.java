@@ -109,9 +109,9 @@ public interface IAdapter<T> extends  IAdapterProxy.UnActive<Holder>
     // ============ header/footer ==============
     // =======================================
 
-    IAdapter<T> addSticky(FrameLayout vpShow, int... stickyPostions);
+    IAdapter<T> setSticky(FrameLayout vpShow, int... stickyPostions);
 
-    IAdapter<T> addSticky(@ColorInt int color,FrameLayout vpShow, int... stickyPostions);
+    IAdapter<T> setSticky(@ColorInt int color, FrameLayout vpShow, int... stickyPostions);
 
     IAdapter<T> setContentDataMapListener(Header2FooterRcvAdapter.ContentDataMapListener contentDataMapListener);
 

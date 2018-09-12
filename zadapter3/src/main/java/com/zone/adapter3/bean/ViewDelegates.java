@@ -9,11 +9,10 @@ import com.zone.adapter3.base.IAdapter;
 
 /**
  * [2017] by Zone
- *
  */
 public abstract class ViewDelegates<T> extends StickyViewDelegates<T> {
 
-    public static final int ORG_DECTOR=Integer.MAX_VALUE;
+    public static final int ORG_DECTOR = Integer.MAX_VALUE;
 
 
     // =======================================
@@ -27,7 +26,7 @@ public abstract class ViewDelegates<T> extends StickyViewDelegates<T> {
 
     public Holder reallyCreateView(Context context, IAdapter adapter) {
         this.context = context;
-        this.adapter= adapter;
+        this.adapter = adapter;
         return getLayoutHolder();
     }
 
@@ -37,12 +36,13 @@ public abstract class ViewDelegates<T> extends StickyViewDelegates<T> {
     /**
      * super.getLayoutView() 就是通过id创建布局了。
      * 想要通过view的方式前后插入 东西的话用这种方式
+     *
      * @return
      */
-    public  Holder getLayoutHolder(){
-        return  new Holder(LayoutInflater.from(context).inflate(getLayoutId(), adapter.getRecyclerView()
+    protected Holder getLayoutHolder() {
+        return new Holder(LayoutInflater.from(context).inflate(getLayoutId(), adapter.getRecyclerView()
                 , false));
-    };
+    }
 
 
     public boolean isFullspan() {

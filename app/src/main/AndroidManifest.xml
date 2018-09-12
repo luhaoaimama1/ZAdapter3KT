@@ -15,6 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="zone.com.zadapter3kt.RecyclerKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.NineRecyclerKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.ZRefreshKTActivity"></activity>
         <activity android:name=".RecyclerActivity"></activity>
         <activity android:name=".RecyclerLeftPaddingActivity"></activity>
         <activity android:name=".RecyclerActivityKotlin"></activity>

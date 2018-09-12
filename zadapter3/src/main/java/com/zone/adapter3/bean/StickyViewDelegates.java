@@ -12,8 +12,6 @@ import com.zone.adapter3.base.IAdapter;
  */
 public abstract class StickyViewDelegates<T> extends EHFViewDelegates<T>{
 
-
-    //todo  放到子类中
     private Holder parentHolder;
     private View placeholderView;
 

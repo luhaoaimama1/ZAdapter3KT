@@ -15,6 +15,11 @@ import android.widget.Toast;
 
 import com.zone.adapter3.QuickRcvAdapter;
 import com.zone.adapter3.base.IAdapter;
+import com.zone.adapter3kt.StickyAdapter;
+import com.zone.adapter3kt.adapter.OnItemClickListener;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import zone.com.zadapter3.adapter.LeftDelegates;
@@ -78,6 +83,14 @@ public class RecyclerActivity extends Activity implements Handler.Callback, View
                     }
                 });
         muliAdapter.notifyDataSetChanged();
+
+        StickyAdapter  muliAdapter = new StickyAdapter<String>(this);
+        muliAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NotNull ViewGroup parent, @NotNull View view, int position) {
+
+            }
+        });
 
     }
 

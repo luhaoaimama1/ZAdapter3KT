@@ -70,7 +70,7 @@ public class StickyActivity extends Activity {
 //                .addFooterHolder(R.layout.footer_simple)
                 .addEmptyHold(R.layout.empty)
                 .relatedList(rv)
-//                .addSticky(vp, 3, 6, 9)
+//                .setSticky(vp, 3, 6, 9)
                 .addItemDecoration(70)
                 .setOnItemClickListener(new IAdapter.OnItemClickListener() {
                     @Override
@@ -89,11 +89,11 @@ public class StickyActivity extends Activity {
 
         cb = (CheckBox) findViewById(R.id.cb);
         if ("debug".equals(getIntent().getStringExtra("type"))) {
-            muliAdapter.addSticky(Color.BLUE, vp, 3, 6, 9);
+            muliAdapter.setSticky(Color.BLUE, vp, 3, 6, 9);
             vp.getLayoutParams().width = 700;
             cb.performClick();
         } else {
-            muliAdapter.addSticky(vp, 3, 6, 9);
+            muliAdapter.setSticky(vp, 3, 6, 9);
         }
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

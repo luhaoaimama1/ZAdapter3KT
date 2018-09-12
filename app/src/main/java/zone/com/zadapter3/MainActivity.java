@@ -7,6 +7,8 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import zone.com.zadapter3kt.RecyclerKTActivity;
+import zone.com.zadapter3kt.ZRefreshKTActivity;
 import zone.com.zrefreshlayout.Config;
 import zone.com.zrefreshlayout.footer.MeterialFooter;
 import zone.com.zrefreshlayout.header.MeterialHead;
@@ -33,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.bt_Linear, R.id.bt_Grid, R.id.bt_Staggered})
     public void onClick(View view) {
-        Intent intent = new Intent(this, RecyclerActivity.class);
+//        Intent intent = new Intent(this, RecyclerActivity.class);
+        Intent intent = new Intent(this, RecyclerKTActivity.class);
 //        Intent intent = new Intent(this, RecyclerActivityKotlin.class);
 //        Intent intent = new Intent(this, RecyclerLeftPaddingActivity.class);
 //        Intent intent = new Intent(this, Recycler2Activity.class);
@@ -53,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_Link)
     public void onClick() {
-        startActivity(new Intent(this, ZRefreshActivity.class));
+//        startActivity(new Intent(this, ZRefreshActivity.class));
+        startActivity(new Intent(this, ZRefreshKTActivity.class));
     }
 
     @OnClick(R.id.bt_LinearBen)
@@ -89,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_NineGrid)
     public void nineGridClick() {
-        startActivity(new Intent(this, NineRecyclerActivity.class));
+//        startActivity(new Intent(this, NineRecyclerActivity.class));
+        startActivity(new Intent(this, zone.com.zadapter3kt.NineRecyclerKTActivity.class));
     }
 
     @OnClick(R.id.bt_Sticky)

@@ -206,7 +206,7 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     StickyOnScrollListener stickyOnScrollListener;
 
     @Override
-    public IAdapter<T> addSticky(FrameLayout vpShow, int... stickyPostions) {
+    public IAdapter<T> setSticky(FrameLayout vpShow, int... stickyPostions) {
         this.stickyPostions = stickyPostions;
         mStickyViews = new StickyViewDelegates[stickyPostions.length];
         if (stickyOnScrollListener != null)
@@ -216,8 +216,8 @@ public abstract class Header2FooterRcvAdapter<T> extends BaseRcvAdapter<T> {
     }
 
     @Override
-    public IAdapter<T> addSticky(@ColorInt int color, FrameLayout vpShow, int... stickyPostions) {
-        addSticky(vpShow,stickyPostions);
+    public IAdapter<T> setSticky(@ColorInt int color, FrameLayout vpShow, int... stickyPostions) {
+        setSticky(vpShow,stickyPostions);
         stickyOnScrollListener.setPlaceColor(color);
         return this;
     }
