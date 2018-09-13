@@ -1,4 +1,4 @@
-package zone.com.zadapter3.core;
+package zone.com.zadapter3kt.core;
 
 import android.support.v4.util.SparseArrayCompat;
 

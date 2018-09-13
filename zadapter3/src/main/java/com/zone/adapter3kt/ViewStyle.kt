@@ -20,7 +20,7 @@ open class ViewStyleDefault<T> : ViewStyle<T> {
     }
 }
 
-enum class Part { HEADER, FOOTER, CONTENT,OTHER }
+enum class Part { HEADER, FOOTER, CONTENT, OTHER }
 
 class ViewStyleOBJ {
     var viewStyle: Int = -1
@@ -29,6 +29,7 @@ class ViewStyleOBJ {
     var isSticky: Boolean = false
     var section: Section? = null
     var part: Part = Part.CONTENT
+    var tag: Any? = null
     internal var isGenerate = false
 
     fun part(part: Part): ViewStyleOBJ {
@@ -58,6 +59,11 @@ class ViewStyleOBJ {
 
     fun isSticky(isSticky: Boolean): ViewStyleOBJ {
         this@ViewStyleOBJ.isSticky = isSticky
+        return this
+    }
+    
+    fun tag(tag: Any?): ViewStyleOBJ {
+        this@ViewStyleOBJ.tag = tag
         return this
     }
 

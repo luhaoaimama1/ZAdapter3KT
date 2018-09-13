@@ -13,7 +13,7 @@ import com.zone.adapter3kt.data.HFMode
  *[2018] by Zone
  * 空 头 尾部 load 都是 默认占一行的
  */
-open class EHFAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
+open class EHFAdapter<T>(context: Context, tag: Any? = null) : ScrollToAdapter<T>(context, tag) {
 
     val emptyData by lazy {
         val dataWarpTemp = DataWarp<T>(null)

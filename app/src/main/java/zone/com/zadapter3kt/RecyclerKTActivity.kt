@@ -10,17 +10,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
-import android.view.ViewGroup
 import com.zone.adapter3.QuickConfig
 import com.zone.adapter3kt.*
-import com.zone.adapter3kt.adapter.OnItemClickListener
-import com.zone.adapter3kt.data.HFMode
 import zone.com.zadapter3.R
-import zone.com.zadapter3kt.adapter.LeftDelegates
-import zone.com.zadapter3kt.adapter.RightDelegates
+import zone.com.zadapter3kt.common.CommonAdapter
 import kotlin.collections.ArrayList
 
 class RecyclerKTActivity : Activity(), Handler.Callback, View.OnClickListener {
+    companion object {
+        @JvmStatic
+        var addIndex = 0
+    }
 
     private lateinit var rv: RecyclerView
     private val mDatas = ArrayList<String>()
@@ -39,59 +39,11 @@ class RecyclerKTActivity : Activity(), Handler.Callback, View.OnClickListener {
             else -> LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         rv.itemAnimator = DefaultItemAnimator()
-//        return if (dataPosition % 3 == 0) 1 else 0
-        muliAdapter = StickyAdapter<String>(this@RecyclerKTActivity)
-        muliAdapter.registerDelegate(LeftDelegates())
-        muliAdapter.registerDelegate(0, LeftDelegates())
-        muliAdapter.registerDelegate(1, RightDelegates())
-
-        muliAdapter.registerDelegate(3, R.layout.header_simple)
-        muliAdapter.registerDelegate(4, R.layout.header_simple2)
-        muliAdapter.registerDelegate(5, R.layout.header_simple3)
-
-        muliAdapter.registerDelegate(6, R.layout.footer_simple)
-        muliAdapter.registerDelegate(7, R.layout.footer_simple_img2)
-        muliAdapter.registerDelegate(8, R.layout.footer_simple_img)
-        muliAdapter.defineHeaderOrder(HFMode.ADD, 3, 4, 5)
-        muliAdapter.defineFooterOrder(HFMode.ADD, 6, 7, 8)
-
-        muliAdapter.registerEmpytDelegate(R.layout.empty)
-
-        muliAdapter.onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(parent: ViewGroup, view: View, position: Int) {
-                println("被点击->onItemClick" + position)
-            }
+        muliAdapter = CommonAdapter(this@RecyclerKTActivity).apply {
+            add(mDatas)
         }
-        muliAdapter.add(mDatas)
-        muliAdapter.setStyleExtra(object : ViewStyleDefault<String>() {
-            override fun generateViewStyleOBJ(item: String): ViewStyleOBJ? {
-                var viewStyle = when (item) {
-                    "header1" -> 3
-                    "header2" -> 4
-                    "header3" -> 5
-                    "footer1" -> 6
-                    "footer2" -> 7
-                    "footer3" -> 8
-                    else -> -1
-                }
-                if (item.contains("insert one")) {
-                    val index = item.substring("insert one item!+".length, item.length).toInt()
-                    viewStyle = if (index % 3 == 0) 1 else 0
-                }
-                return ViewStyleOBJ().viewStyle(viewStyle)
-            }
-
-            override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
-            }
-        })
-        muliAdapter.enableHistory(true)
         rv.adapter = muliAdapter
         addListMethod()//init 的时候能看到empty吗
-    }
-
-    companion object {
-        @JvmStatic
-        var addIndex = 0
     }
 
     override fun onClick(v: View) {

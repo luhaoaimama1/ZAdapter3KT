@@ -26,15 +26,6 @@
             android:onClick="onClick"
             android:text="addFooter" />
 
-
-        <Button
-            android:id="@+id/bt_change"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="onChange" />
-
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

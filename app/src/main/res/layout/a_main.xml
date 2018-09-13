@@ -23,16 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:text="Linear" />
-
-        <Button
-            android:id="@+id/bt_LinearBen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Linear本身"
-            android:visibility="gone" />
 
         <Button
             android:id="@+id/bt_Grid"
@@ -47,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:text="Staggered" />
 
         <Button
@@ -55,16 +45,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:text="NineGrid" />
 
         <Button
-            android:id="@+id/bt_HeadFooter"
+            android:id="@+id/bt_Link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
-            android:text="HeadFooter添加删除" />
+            android:text="ZRefresh联动" />
 
         <TextView
             android:layout_width="match_parent"
@@ -79,7 +67,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:text="别人的LayoutManager" />
 
         <Button
@@ -87,7 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:text="HexoLayoutManager" />
 
 
@@ -96,7 +82,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:text="满布局测试" />
 
 
@@ -106,32 +91,7 @@
             android:background="#D7F679"
             android:gravity="center"
             android:padding="10dp"
-            android:text="其他测试" />
-
-        <Button
-            android:id="@+id/bt_Link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-
-            android:text="ZRefresh联动" />
-
-
-        <Button
-            android:id="@+id/bt_diff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-
-            android:text="diff" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#D7F679"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="吸附测试" />
+            android:text="其他测试-old框架" />
 
         <Button
             android:id="@+id/bt_Sticky"

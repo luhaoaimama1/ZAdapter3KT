@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="zone.com.zadapter3kt.MainKTActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,20 +18,12 @@
         <activity android:name="zone.com.zadapter3kt.RecyclerKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.NineRecyclerKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.ZRefreshKTActivity"></activity>
-        <activity android:name=".RecyclerActivity"></activity>
-        <activity android:name=".RecyclerLeftPaddingActivity"></activity>
-        <activity android:name=".RecyclerActivityKotlin"></activity>
-        <activity android:name=".ZRefreshActivity"></activity>
-        <activity android:name=".HeadFooterRecyclerActivity"></activity>
-        <activity android:name=".DiffActivity"></activity>
-        <activity android:name=".LayoutActivity"></activity>
-        <activity android:name=".HexoLayoutActivity"></activity>
-        <activity android:name=".FullyRecyclerActivity"></activity>
-        <activity android:name=".NineRecyclerActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.FullyRecyclerKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.HexoLayoutKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.LayoutKTActivity"></activity>
         <activity android:name=".StickyActivity"></activity>
-        <activity android:name=".Recycler2Activity"></activity>
-        <activity android:name=".RecyclerActivityAnimator"></activity>
-        <activity android:name=".RecyclerActivityScroll"></activity>
+        <activity android:name="zone.com.zadapter3kt.RecyclerActivityAnimator"></activity>
+        <activity android:name="zone.com.zadapter3kt.RecyclerActivityScroll"></activity>
     </application>
 
 </manifest>

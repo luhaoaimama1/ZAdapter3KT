@@ -8,6 +8,7 @@ import com.zone.adapter3kt.delegate.DelegatesManager
 import com.zone.adapter3kt.delegate.LoadMoreViewDelegate
 import com.zone.adapter3kt.delegate.ResDelegate
 import com.zone.adapter3kt.delegate.ViewDelegate
+import com.zone.adapter3kt.loadmore.LoadingSetting
 
 
 /**
@@ -15,12 +16,9 @@ import com.zone.adapter3kt.delegate.ViewDelegate
  */
 
 
-enum class LoadMode { LOAD, PRE_LOAD; }
-
-abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
+abstract class DelegatesAdapter<T>(context: Context, tag: Any? = null) : BaseAdapter<T>(context, tag) {
 
     val delegatesManager = DelegatesManager(this)
-    var loadMode: LoadMode? = null
 
     fun registerDelegate(viewType: Int, delegate: ViewDelegate<*>) {
         if (viewType < 0 && viewType >= -100) throw IllegalStateException("view type -1 to -100 use by inner！")
@@ -49,9 +47,10 @@ abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
         registerEmpytDelegate(ResDelegate<Any>(layoutId))
     }
 
+    protected var loadingSetting: LoadingSetting = LoadingSetting()
     //loading
-    fun registerLoadingDelegate(loadMode: LoadMode, delegate: LoadMoreViewDelegate) {
-        this@DelegatesAdapter.loadMode = loadMode
+    fun registerLoadingDelegate(delegate: LoadMoreViewDelegate, loadingSetting: LoadingSetting? = null) {
+        if (loadingSetting != null) this@DelegatesAdapter.loadingSetting = loadingSetting
         delegatesManager.registerDelegate(LOADING_VALUE, delegate)
     }
 
@@ -60,6 +59,7 @@ abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return delegatesManager.onCreateViewHolder(parent, viewType)
     }
+
     override fun onBindViewHolder(holder: Holder?, position: Int) {}
 
     // =======================================分割线=====================================

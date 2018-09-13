@@ -17,30 +17,12 @@
             android:text="add " />
 
         <Button
-            android:id="@+id/bt_aniAdd"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="add ani"
-            android:visibility="gone" />
-
-        <Button
             android:id="@+id/bt_remove"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="onClick"
             android:text="remove  " />
-
-        <Button
-            android:id="@+id/bt_removeAni"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="remove ani"
-            android:visibility="gone" />
 
         <Button
             android:id="@+id/bt_clear"
@@ -58,43 +40,6 @@
             android:onClick="onClick"
             android:text="addHeader" />
 
-        <Button
-            android:id="@+id/bt_addFooter"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="addFooter" />
-
-        <Button
-            android:id="@+id/bt_clearHeader"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="clearHeader" />
-
-        <Button
-            android:id="@+id/bt_clearFooter"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="clearFooter" />
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/bt_addHeaderFirst"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="addHeader在第一个位置" />
     </LinearLayout>
 
     <!--<zone.com.zrefreshlayout.ZRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"-->

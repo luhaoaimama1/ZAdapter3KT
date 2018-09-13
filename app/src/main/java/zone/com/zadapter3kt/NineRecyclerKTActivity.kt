@@ -8,7 +8,6 @@ import android.view.View
 import com.zone.adapter3kt.StickyAdapter
 import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.ImgDelegates
-import zone.com.zadapter3kt.adapter.LeftDelegates
 
 class NineRecyclerKTActivity : Activity() {
 
@@ -20,7 +19,7 @@ class NineRecyclerKTActivity : Activity() {
         rv = findViewById<View>(R.id.rv) as RecyclerView
         rv!!.layoutManager = GridLayoutManager(this, 3)
 
-        rv!!.adapter = StickyAdapter<String>(this).apply {
+        rv!!.adapter = StickyAdapter<String>(this,"NineRecyclerKTActivity").apply {
             enableHistory(true)
             registerDelegate( ImgDelegates())
             add("add")

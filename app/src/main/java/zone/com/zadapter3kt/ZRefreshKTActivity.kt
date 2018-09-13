@@ -12,8 +12,8 @@ import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
-import com.zone.adapter3kt.adapter.LoadMode
 import com.zone.adapter3kt.delegate.done.BaseLoadMoreDelegates
+import com.zone.adapter3kt.loadmore.LoadingSetting
 import kotlinx.android.synthetic.main.a_recycler_zrefresh.*
 import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.LeftDelegates
@@ -39,16 +39,16 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
 //        for (i in 0..5) {
 //            mDatas.add("" + i)
 //        }
-//        for (i in 0..25) {
-//            mDatas.add("" + i)
-//        }
-        for (i in 0..50) {
+        for (i in 0..25) {
             mDatas.add("" + i)
         }
+//        for (i in 0..50) {
+//            mDatas.add("" + i)
+//        }
 
         //base test
-//        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rv.layoutManager = GridLayoutManager(this, 3)
+        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//        rv.layoutManager = GridLayoutManager(this, 3)
         mAdapter = StickyAdapter<String>(this@ZRefreshKTActivity).apply {
             setStyleExtra(object : ViewStyleDefault<String>() {
                 override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
@@ -60,9 +60,11 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
             registerDelegate(0, LeftDelegates())
             registerDelegate(1, RightDelegates())
             registerEmpytDelegate(R.layout.empty)
-            registerLoadingDelegate(LoadMode.PRE_LOAD, BaseLoadMoreDelegates())
+            registerLoadingDelegate(BaseLoadMoreDelegates(), LoadingSetting().apply {
+                isScrollToLoadData=true
+            })
+
             loadOnScrollListener = OnScrollRcvListenerExZRefresh(refresh)
-            loadingSetting.isScrollToLoadData=true
             add(mDatas)
         }
         rv.adapter = mAdapter

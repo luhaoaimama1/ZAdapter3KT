@@ -23,7 +23,7 @@ abstract class OnLoadingAdapterListener : OnLoadingListener {
 /**
  * 这个与数据 独立出来。 这里的加载更多 与 empty一样用占位控制
  */
-open class LoadMoreAdapter<T>(context: Context) : EventAdapter<T>(context) {
+open class LoadMoreAdapter<T>(context: Context, tag: Any? = null) : EventAdapter<T>(context, tag) {
 
 
     val loadData by lazy {
@@ -36,7 +36,6 @@ open class LoadMoreAdapter<T>(context: Context) : EventAdapter<T>(context) {
 
     private var hasLoadScrollListener: Boolean = false
     var loadDelegate: LoadMoreViewDelegate? = null
-    var loadingSetting: LoadingSetting = LoadingSetting()
 
     internal var onLoadingListener: OnLoadingAdapterListener? = null
 
@@ -55,7 +54,7 @@ open class LoadMoreAdapter<T>(context: Context) : EventAdapter<T>(context) {
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        if (!hasLoadScrollListener) {
+        if (delegatesManager.getDelegate(LOADING_VALUE) != null && !hasLoadScrollListener) {
             if (loadOnScrollListener == null) loadOnScrollListener = OnScrollRcvListener()
             loadOnScrollListener!!.setting = loadingSetting
             recyclerView.addOnScrollListener(loadOnScrollListener)

@@ -48,7 +48,7 @@ open class HFList<T>() {
 
     // ======================================= Config系列=====================================
 
-    private fun generateConfig(item: DataWarp<T>): ViewStyleOBJ =
+    protected open fun generateConfig(item: DataWarp<T>): ViewStyleOBJ =
         (styleExtra.generateViewStyleOBJ(item.data!!) ?: ViewStyleOBJ()).setNowValue(item.extraConfig)
 
     fun getItemViewType(position: Int): Int {

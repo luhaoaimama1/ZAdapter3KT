@@ -10,7 +10,7 @@ import com.zone.adapter3kt.data.DataWarp
  */
 
 //todo 总结成一个 真正的remove方法 这样覆盖好处理
-open class StickyAdapter<T>(context: Context) : LoadMoreAdapter<T>(context) {
+open class StickyAdapter<T>(context: Context, tag: Any? = null) : LoadMoreAdapter<T>(context, tag) {
 
     lateinit var stickList: List<DataWarp<T>>
 
