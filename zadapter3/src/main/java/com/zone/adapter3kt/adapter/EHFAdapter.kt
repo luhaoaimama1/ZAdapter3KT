@@ -31,8 +31,7 @@ open class EHFAdapter<T>(context: Context, tag: Any? = null) : ScrollToAdapter<T
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         if (viewType == EMPTY_VALUE || viewType == LOADING_VALUE ||
             mHFList.footerViewStyleOrder.indexOf(viewType) != -1 ||
-            mHFList.headerViewStyleOrder.indexOf(viewType) != -1
-        ) {
+            mHFList.headerViewStyleOrder.indexOf(viewType) != -1) {
             return Holder(super.onCreateViewHolder(parent, viewType).view)
         }
         return super.onCreateViewHolder(parent, viewType)

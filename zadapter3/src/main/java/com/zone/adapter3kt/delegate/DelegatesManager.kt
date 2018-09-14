@@ -14,7 +14,7 @@ import com.zone.adapter3kt.Holder
  */
 class DelegatesManager(val adapter: DelegatesAdapter<*>) {
     var delegates = SparseArray<ViewDelegate<*>>()
-    private val FULLUPDATE_PAYLOADS = Collections.EMPTY_LIST
+    internal val FULLUPDATE_PAYLOADS = Collections.EMPTY_LIST
 
     fun registerDelegate(viewType: Int, delegate: ViewDelegate<*>) {
         delegates.put(viewType, delegate)

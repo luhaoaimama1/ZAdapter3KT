@@ -50,11 +50,11 @@ public class StickyActivity extends Activity {
         muliAdapter = new QuickRcvAdapter(this, mDatas) {
             @Override
             protected int getItemViewType2(int dataPosition) {
-                if (dataPosition == 3)
+                if (dataPosition == 13)
                     return 1;
-                else if (dataPosition == 6)
+                else if (dataPosition == 16)
                     return 2;
-                else if (dataPosition == 9)
+                else if (dataPosition == 19)
                     return 3;
                 else
                     return 0;
@@ -89,11 +89,11 @@ public class StickyActivity extends Activity {
 
         cb = (CheckBox) findViewById(R.id.cb);
         if ("debug".equals(getIntent().getStringExtra("type"))) {
-            muliAdapter.setSticky(Color.BLUE, vp, 3, 6, 9);
+            muliAdapter.setSticky(Color.BLUE, vp, 13, 16, 19);
             vp.getLayoutParams().width = 700;
             cb.performClick();
         } else {
-            muliAdapter.setSticky(vp, 3, 6, 9);
+            muliAdapter.setSticky(vp, 13, 16, 19);
         }
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

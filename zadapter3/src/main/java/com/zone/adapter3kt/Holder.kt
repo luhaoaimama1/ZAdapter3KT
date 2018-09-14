@@ -30,7 +30,7 @@ import com.zone.adapter3kt.utils.ExtensionDelegate
  * .setText(R.id.tvNumbers, contact.getNumbers().toString())
  * .getView();
  */
-class Holder(val view: View) : RecyclerView.ViewHolder(view) {
+open class Holder(val view: View) : RecyclerView.ViewHolder(view) {
 
     // =======================================
     // ============ 内部使用属性  ==============

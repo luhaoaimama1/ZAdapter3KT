@@ -52,7 +52,6 @@ public class StickyOnScrollListener extends RecyclerView.OnScrollListener {
             e.printStackTrace();
             throw new IllegalStateException("仅仅支持继承LinearLayoutManager与GridLayoutManager的布局!");
         }
-
         int showStickyPos = findShowPos(pos);
         //找到对应的 数组位置  用他去找view
 
