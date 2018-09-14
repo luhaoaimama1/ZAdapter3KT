@@ -144,7 +144,7 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
                     else {
                         val targetView = recyclerView.findViewHolderForLayoutPosition(nextStickyView).itemView
                         if (targetView.top <= stickyView.height) stickyView.translationY = (targetView.top - stickyView.height).toFloat()
-                        else print("what?")
+                        else stickyView.translationY = 0f
                     }
                 }
 
