@@ -52,8 +52,8 @@ open class EHFAdapter<T>(context: Context, tag: Any? = null) : ScrollToAdapter<T
         super.checkAddEmptyData()
         if (mHFList.mListCollection.count() == 0) {
             mHFList.otherDatas.add(emptyData)
-            notifyItemInserted(0)
             dataWithConfigChanged()
+            notifyItemInserted(0)
         }
     }
 
@@ -62,8 +62,8 @@ open class EHFAdapter<T>(context: Context, tag: Any? = null) : ScrollToAdapter<T
         if (mHFList.mListCollection.count() == 1 &&
             mHFList.otherDatas.indexOf(emptyData) != -1) {
             mHFList.otherDatas.remove(emptyData)
-            notifyItemRemoved(0)
             dataWithConfigChanged()
+            notifyItemRemoved(0)
         }
     }
 
@@ -87,7 +87,7 @@ open class EHFAdapter<T>(context: Context, tag: Any? = null) : ScrollToAdapter<T
     }
 
     protected open fun isEmptyDelegates(): Boolean {
-        return delegatesManager.getDelegate(EMPTY_VALUE) != null &&
+        return delegatesManager.getDelegateNoMap(EMPTY_VALUE) != null &&
                 mHFList.mListCollection.count() == 1 &&
                 mHFList.otherDatas.indexOf(emptyData) != -1
     }

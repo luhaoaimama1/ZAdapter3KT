@@ -9,18 +9,20 @@ import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.adapter.OnItemClickListener
 import com.zone.adapter3kt.data.HFMode
 import zone.com.zadapter3.R
+import zone.com.zadapter3kt.adapter.LeftDelegates
+import zone.com.zadapter3kt.adapter.RightDelegates
 
 /**
  * Copyright (c) 2018 BiliBili Inc.
  * [2018/9/13] by Zone
  */
-class CommonAdapter(context: Context, tag: Any? = null) : StickyAdapter<String>(context ) {
+class CommonAdapter(context: Context, tag: Any? = null) : StickyAdapter<String>(context) {
     init {
         enableHistory(true)
 
-        registerDelegate(zone.com.zadapter3kt.adapter.LeftDelegates())
-        registerDelegate(0, zone.com.zadapter3kt.adapter.LeftDelegates())
-        registerDelegate(1, zone.com.zadapter3kt.adapter.RightDelegates())
+        registerDelegate(LeftDelegates())
+        registerDelegate(0, LeftDelegates())
+        registerDelegate(1, RightDelegates())
 
         registerDelegate(3, R.layout.header_simple)
         registerDelegate(4, R.layout.header_simple2)

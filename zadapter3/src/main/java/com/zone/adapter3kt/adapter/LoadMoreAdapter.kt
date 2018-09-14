@@ -6,8 +6,6 @@ import com.zone.adapter3.QuickConfig
 import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.delegate.LoadMoreViewDelegate
-import com.zone.adapter3kt.loadmore.LoadingSetting
-import com.zone.adapter3kt.loadmore.LoadingState
 import com.zone.adapter3kt.loadmore.OnLoadingListener
 import com.zone.adapter3kt.loadmore.OnScrollRcvListener
 
@@ -42,7 +40,7 @@ open class LoadMoreAdapter<T>(context: Context, tag: Any? = null) : EventAdapter
     private fun getLoadDelegate(method: (LoadMoreViewDelegate) -> Unit) {
         if (loadDelegate != null) method(loadDelegate!!)
         else {
-            val delegate2 = delegatesManager.getDelegate(LOADING_VALUE)
+            val delegate2 = delegatesManager.getDelegateNoMap(LOADING_VALUE)
             if (delegate2 != null && delegate2 is LoadMoreViewDelegate) {
                 loadDelegate = delegate2
                 method(delegate2)
@@ -54,7 +52,7 @@ open class LoadMoreAdapter<T>(context: Context, tag: Any? = null) : EventAdapter
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        if (delegatesManager.getDelegate(LOADING_VALUE) != null && !hasLoadScrollListener) {
+        if (delegatesManager.getDelegateNoMap(LOADING_VALUE) != null && !hasLoadScrollListener) {
             if (loadOnScrollListener == null) loadOnScrollListener = OnScrollRcvListener()
             loadOnScrollListener!!.setting = loadingSetting
             recyclerView.addOnScrollListener(loadOnScrollListener)

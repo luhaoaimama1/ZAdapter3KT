@@ -1,10 +1,10 @@
 package com.zone.adapter3kt
 
 import android.content.Context
+import android.graphics.Color
+import android.support.annotation.ColorInt
 import android.support.v7.widget.RecyclerView
-import android.util.SparseArray
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.zone.adapter.R
@@ -28,54 +28,11 @@ open class StickyAdapter<T>(context: Context, tag: Any? = null) : LoadMoreAdapte
     //  用getViewForPosition 去获取  对于scrollto 定位的那种 他可能还没生成。所以用他
 //    var stickMap: HashMap<Int, DataWarp<T>> = HashMap()
     var nowStickyViewType = STICKY_VALUE
-
-    internal val mAttachedStickyMuliScrap = SparseArray<ArrayList<RecyclerView.ViewHolder>>()
-    internal val mCachedStickyMuliViews = SparseArray<ArrayList<RecyclerView.ViewHolder>>()
-
     var stickyScroller: StickyOnScrollListener<T>? = null
-    fun setStickyShowFrameLayout(vpShow: FrameLayout) {
-        stickyScroller = StickyOnScrollListener(vpShow, this)
-    }
 
-    /**
-     * 创建与复用？  上面可以复用。 下面也可以复用。  上面最多只能存在一个view 而这个view 可能在下面已经被回收了。
-     *
-     * 要明白一件事： 上面其实什么都没有。缓存 其实不用管。 就是狸猫换太子
-     *
-     * 上面:StickyView/null
-     * scrollerListenter: 可能  创建 StickyView、replace recyclerView中的StickyView
-     *
-     * onCreate: FrameLayout, 占位View/StickyView : 顺序：StickyView  逆序：nowStickyView?
-     * bindView: StickyView 回归。
-     */
-    fun findStickyPosi(posi: Int, viewGroup: ViewGroup): View {
-        val viewType = getItemViewType(posi)
-        var delegeteItemView: View? = null
-        for (entry in stickyViewTypeMap.entries) {
-            if (entry.value == viewType) {
-                val delegate = delegatesManager.getDelegate(entry.key) //原始viewtype生成对应的delegate
-                if (delegate == null) throw IllegalStateException(" No delegate found for item ")
-                val cachedList = mCachedStickyMuliViews.get(entry.key)
-                if (cachedList != null && cachedList.size != 0) {
-                    delegeteItemView = cachedList[0].itemView
-                } else {
-                    delegeteItemView = delegate.onCreateViewHolder(viewGroup).itemView
-                }
-            }
-        }
-        return delegeteItemView!!
-    }
-
-    override fun onViewAttachedToWindow(holder: Holder) {
-        super.onViewAttachedToWindow(holder)
-    }
-
-    override fun onViewDetachedFromWindow(holder: Holder) {
-        super.onViewDetachedFromWindow(holder)
-    }
-
-    override fun onViewRecycled(holder: Holder) {
-        super.onViewRecycled(holder)
+    fun setStickyShowFrameLayout(vpShow: FrameLayout, @ColorInt color: Int = Color.TRANSPARENT) {
+        stickyScroller = StickyOnScrollListener(vpShow, this, color)
+        addScrollerListener(recyclerView)
     }
 
     override fun dataWithConfigChanged() {
@@ -84,19 +41,28 @@ open class StickyAdapter<T>(context: Context, tag: Any? = null) : LoadMoreAdapte
             if (item.extraConfig.isSticky) {
                 if (stickyViewTypeMap.get(item.extraConfig.viewStyle) == null) {
                     stickyViewTypeMap.put(item.extraConfig.viewStyle, nowStickyViewType)
+                    delegatesManager.oriViewTypeMap.put(item.extraConfig.viewStyle, nowStickyViewType)
                     if (nowStickyViewType == STICKY_VALUE_END) {
                         throw IllegalStateException("sticky count 超过限定个数")
-                    } else nowStickyViewType++
+                    } else nowStickyViewType--
                 }
                 stickyList.add(StickyEntity(index, item))
             }
             false
         }
+        stickyScroller?.onScrolled(recyclerView, 0, 0)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        if (stickyScroller != null) recyclerView.addOnScrollListener(stickyScroller)
+        addScrollerListener(recyclerView)
+    }
+
+    fun addScrollerListener(recyclerView: RecyclerView?) {
+        if (stickyScroller != null) { //安全使用
+            recyclerView?.removeOnScrollListener(stickyScroller)
+            recyclerView?.addOnScrollListener(stickyScroller)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -111,16 +77,15 @@ open class StickyAdapter<T>(context: Context, tag: Any? = null) : LoadMoreAdapte
 
     //todo stick 按照满行算吗？
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        if (viewType <= STICKY_VALUE || viewType >= STICKY_VALUE_END) {
+        if (viewType <= STICKY_VALUE && viewType >= STICKY_VALUE_END) {
             //stickyViewTypeMap 获得对应的值 然后生成 delegete
             for (entry in stickyViewTypeMap.entries) {
                 if (entry.value == viewType) {
-                    val delegate = delegatesManager.getDelegate(entry.key)
-                    if (delegate == null) throw IllegalStateException(" No delegate found for item ")
+                    val createHolder = delegatesManager.onCreateViewHolder(parent, viewType)
                     val viewGroup = LayoutInflater.from(context).inflate(R.layout.base_vp, parent, false) as FrameLayout
-                    val stickyChildHolder=StickyChildHolder(delegate.onCreateViewHolder(parent).itemView, entry.key)
+                    val stickyChildHolder = StickyChildHolder(createHolder.itemView, entry.key)
                     viewGroup.addView(stickyChildHolder.itemView)
-                    return StickyHolder(viewGroup, delegate, stickyChildHolder.itemView,stickyChildHolder)
+                    return StickyHolder(viewGroup, stickyChildHolder.itemView, stickyChildHolder)
                 }
             }
             throw IllegalStateException(" 未找到 对应的 viewType")
@@ -128,27 +93,21 @@ open class StickyAdapter<T>(context: Context, tag: Any? = null) : LoadMoreAdapte
         return super.onCreateViewHolder(parent, viewType)
     }
 
+
     override fun onBindViewHolder(holder: Holder, position: Int, payloads: MutableList<Any>?) {
-        if (holder is StickyHolder) {
-            //承载的FrameLayout  移除里面的view
-            (holder.itemView as (ViewGroup)).removeAllViews()
-            //找到里面的 view 把他的父亲移除
-            val delegateParent = holder.delegateView.parent
-            if (delegateParent != null) (delegateParent as ViewGroup).removeAllViews()
-            //然后holder承载FrameLayout 安全的添加他
-            holder.itemView.addView(holder.delegateView)
+        // 如果bind 的时候 发现 外面的posi与内部的pos一样那么把站位拿过来 不用加载资源！！！
+        if (holder is StickyHolder && stickyScroller != null && stickyScroller!!.preStickyIndex == position) {
+            stickyScroller!!.adapterAddPlaceHolder(holder)
+            return
+        }
 
-            //bind view
-            onBindViewHolderSticky(position, holder, payloads)
+        if (holder is StickyHolder) { //绝对是先有 才会被站位的可能 那么先有就代表onBind的时候一定 不是站位view
+            val childIsPlaceHolder = stickyScroller != null && stickyScroller!!.childIsPlaceholderView(holder.itemView as FrameLayout)
+            if (!childIsPlaceHolder) { //bind view
+                super.onBindViewHolder(holder.stickyChildHolder, position, payloads)
+            }
+        } else if (holder is StickyChildHolder) { //scroller 里创建与绑定的
+            super.onBindViewHolder(holder, position, payloads)
         } else super.onBindViewHolder(holder, position, payloads)
-    }
-
-    fun onBindViewHolderSticky(position: Int, holder: StickyHolder, payloads: MutableList<Any>?) {
-        val item = mHFList.mListCollection.getItem(position)
-        if (item == null) return
-        onBindViewHolderWithData(holder, position, item, payloads)
-        if (item.data == null) return
-        holder.delegate.onBindViewHolderInner(position, item, holder, payloads
-                ?: delegatesManager.FULLUPDATE_PAYLOADS)
     }
 }

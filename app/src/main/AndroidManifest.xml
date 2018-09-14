@@ -19,6 +19,7 @@
         <activity android:name="zone.com.zadapter3kt.NineRecyclerKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.ZRefreshKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.FullyRecyclerKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.StickyKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.HexoLayoutKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.LayoutKTActivity"></activity>
         <activity android:name=".StickyActivity"></activity>

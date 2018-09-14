@@ -61,7 +61,8 @@ class MainKTActivity : AppCompatActivity() {
 
 
     @OnClick(R.id.bt_Sticky)
-    fun stickyClick() = startActivity(Intent(this, StickyActivity::class.java))
+    fun stickyClick() = startActivity(Intent(this, StickyKTActivity::class.java))
+//    fun stickyClick() = startActivity(Intent(this, StickyActivity::class.java))
 
     @OnClick(R.id.bt_animator)
     fun animatorClick() = startActivity(Intent(this, RecyclerActivityAnimator::class.java))
