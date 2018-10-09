@@ -99,6 +99,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Sticky吸附效果" />
+        <Button
+            android:id="@+id/bt_Tags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="tags过滤位置" />
+        <Button
+            android:id="@+id/bt_Divder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="divders测试" />
 
         <Button
             android:id="@+id/bt_animator"

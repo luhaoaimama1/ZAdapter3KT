@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
-import com.zone.adapter3kt.StickyAdapter
+import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
 import kotlinx.android.synthetic.main.a_recycler_absorb.*
@@ -30,11 +30,10 @@ class StickyKTActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_recycler_absorb)
         rv.layoutManager = LinearLayoutManager(this)
-        for (i in 1..100) {
-            mDatas.add("" + i)
-        }
+        for (i in 1..100) mDatas.add("" + i)
 
         muliAdapter = StickyAdapter<String>(this).apply {
+            enableSticky = true
             registerDelegate(RightDelegates())
             registerDelegate(0, RightDelegates())
             registerDelegate(1, R.layout.item_absorb)
@@ -66,12 +65,12 @@ class StickyKTActivity : Activity() {
         }
         muliAdapter.add(mDatas)
         rv.adapter = muliAdapter
-        rv.addItemDecoration(object : RecyclerView.ItemDecoration(){
+        rv.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
                 super.getItemOffsets(outRect, view, parent, state)
-                outRect?.left=10
-                outRect?.right=10
-                outRect?.bottom=10
+                outRect?.left = 10
+                outRect?.right = 10
+                outRect?.bottom = 10
             }
         })
 

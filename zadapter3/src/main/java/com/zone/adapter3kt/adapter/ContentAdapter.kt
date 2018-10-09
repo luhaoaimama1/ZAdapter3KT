@@ -7,6 +7,8 @@ import com.zone.adapter3kt.*
 import com.zone.adapter3kt.ViewStyle
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.data.HFListHistory
+import com.zone.adapter3kt.divder.BaseDivder
+import com.zone.adapter3kt.holder.Holder
 
 /**
  *[2018] by Zone
@@ -14,15 +16,17 @@ import com.zone.adapter3kt.data.HFListHistory
  *
  * Tips:绝对以数据操控 而不用占位符！因为动画 等好多都不好处理
  */
-open class ContentAdapter<T>(context: Context, tag: Any? = null) : DelegatesAdapter<T>(context, tag) {
+open class ContentAdapter<T>(context: Context, userage: Any? = null) : DelegatesAdapter<T>(context, userage) {
 
+    var divderManager: BaseDivder<T>? = null
     protected var recyclerView: RecyclerView? = null
     var dataChangeHasAnimator = true
 
     internal var mHFList = object : HFListHistory<T>() {
         override fun generateConfig(item: DataWarp<T>): ViewStyleOBJ {
-            return super.generateConfig(item).tag(tag)
+            return super.generateConfig(item).useage(userage)
         }
+
         override fun checkAddEmptyData() {
             super.checkAddEmptyData()
             this@ContentAdapter.checkAddEmptyData()
@@ -84,6 +88,9 @@ open class ContentAdapter<T>(context: Context, tag: Any? = null) : DelegatesAdap
     override fun getItemCount(): Int = mHFList.mListCollection.count()
     override fun getItemViewType(position: Int): Int = mHFList.getItemViewType(position)
     override fun onBindViewHolder(holder: Holder, position: Int, payloads: MutableList<Any>?) {
+        //测试 sticky  如果bind的时候 发现 外面的posi与内部的pos一样,那么把占位拿过来  从而不用走BindViewHolder了
+        QuickConfig.e("onBindViewHolder ->posi${position}")
+
         val item = mHFList.mListCollection.getItem(position)
         if (item == null) return
         onBindViewHolderWithData(holder, position, item, payloads)
@@ -104,6 +111,8 @@ open class ContentAdapter<T>(context: Context, tag: Any? = null) : DelegatesAdap
 
     // =======================================额外的方法=====================================
     fun getItem(position: Int): T? = mHFList.mListCollection.getItem(position)?.data
+
+    fun getRealItem(position: Int): DataWarp<T>? = mHFList.mListCollection.getItem(position)
 
     fun getDatas(): List<DataWarp<T>> = mHFList.getDatas()
     fun indexOfItem(item: T): Int = mHFList.indexOfItem(item)

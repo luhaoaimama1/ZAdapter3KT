@@ -8,7 +8,6 @@ import android.view.View
 import butterknife.ButterKnife
 import butterknife.OnClick
 import zone.com.zadapter3.R
-import zone.com.zadapter3.StickyActivity
 import zone.com.zrefreshlayout.Config
 import zone.com.zrefreshlayout.footer.MeterialFooter
 import zone.com.zrefreshlayout.header.MeterialHead
@@ -62,7 +61,12 @@ class MainKTActivity : AppCompatActivity() {
 
     @OnClick(R.id.bt_Sticky)
     fun stickyClick() = startActivity(Intent(this, StickyKTActivity::class.java))
-//    fun stickyClick() = startActivity(Intent(this, StickyActivity::class.java))
+
+    @OnClick(R.id.bt_Tags)
+    fun tagsClick() = startActivity(Intent(this, TagsKTActivity::class.java))
+
+    @OnClick(R.id.bt_Divder)
+    fun divderClick() = startActivity(Intent(this, DivderKTActivity::class.java))
 
     @OnClick(R.id.bt_animator)
     fun animatorClick() = startActivity(Intent(this, RecyclerActivityAnimator::class.java))

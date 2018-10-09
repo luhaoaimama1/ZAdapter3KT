@@ -7,7 +7,6 @@ import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.adapter.BaseAdapter
 
 /**
- * Copyright (c) 2018 BiliBili Inc.
  *[2018/9/10] by Zone
  */
 class DataWarp<T>(var data: T?, var extraConfig: ViewStyleOBJ = ViewStyleOBJ())

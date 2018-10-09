@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.zone.adapter.R
-import com.zone.adapter3kt.Holder
+import com.zone.adapter3kt.holder.Holder
 import com.zone.adapter3kt.adapter.LoadMoreAdapter
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.delegate.LoadMoreViewDelegate

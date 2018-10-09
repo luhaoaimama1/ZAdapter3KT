@@ -1,12 +1,6 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import com.zone.adapter3.QuickConfig
-import com.zone.adapter3kt.*
-import com.zone.adapter3kt.ViewStyle
-import com.zone.adapter3kt.data.DataWarp
-import com.zone.adapter3kt.data.HFListHistory
 
 /**
  *[2018] by Zone
@@ -14,8 +8,12 @@ import com.zone.adapter3kt.data.HFListHistory
  *
  * Tips:绝对以数据操控 而不用占位符！因为动画 等好多都不好处理
  */
-abstract class ScrollToAdapter<T>(context: Context, tag: Any? = null) : ContentAdapter<T>(context, tag) {
+abstract class ScrollToAdapter<T>(context: Context, tag: Any? = null) : EventAdapter<T>(context, tag) {
+    // =======================================
+    // ============scroll 系列 ==============
+    // =======================================
     fun scrollToLast() = recyclerView?.scrollToPosition(itemCount - 1)
+
     fun scrollTo(item: T) {
         val posi = mHFList.indexOfItem(item)
         if (posi != -1) recyclerView?.scrollToPosition(posi)

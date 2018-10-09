@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import com.zone.adapter3.QuickConfig
-import com.zone.adapter3kt.Holder
+import com.zone.adapter3kt.holder.Holder
 
 /**
  *[2018] by Zone

@@ -4,8 +4,6 @@ import android.util.Log;
 
 import com.zone.adapter3.loadmore.callback.BaseLoadMoreDelegates;
 import com.zone.adapter3.loadmore.callback.ILoadMoreDelegates;
-import com.zone.adapter3.loadmore.callback.NullLoadMoreDelegates;
-
 
 /**
  * Created by Administrator on 2016/3/24.

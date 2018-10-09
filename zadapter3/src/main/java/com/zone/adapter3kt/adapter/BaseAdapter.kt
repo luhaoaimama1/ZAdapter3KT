@@ -2,8 +2,7 @@ package com.zone.adapter3kt.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import com.zone.adapter3.QuickConfig
-import com.zone.adapter3kt.Holder
+import com.zone.adapter3kt.holder.Holder
 
 /**
  *[2018] by Zone
@@ -24,5 +23,8 @@ abstract class BaseAdapter<T>(protected var context: Context, var tag: Any? = nu
         val STICKY_VALUE_END = -30
         @JvmField
         val VIEW_TYPE_NONE_VALUE = -100
+
+        @JvmField
+        val PAYLOADS_DIVDER_INVALIDATE = -101
     }
 }

@@ -20,9 +20,10 @@
         <activity android:name="zone.com.zadapter3kt.ZRefreshKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.FullyRecyclerKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.StickyKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.TagsKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.DivderKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.HexoLayoutKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.LayoutKTActivity"></activity>
-        <activity android:name=".StickyActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.RecyclerActivityAnimator"></activity>
         <activity android:name="zone.com.zadapter3kt.RecyclerActivityScroll"></activity>
     </application>

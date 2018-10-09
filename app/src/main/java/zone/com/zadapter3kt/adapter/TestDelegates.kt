@@ -1,6 +1,6 @@
 package zone.com.zadapter3kt.adapter
 
-import com.zone.adapter3kt.Holder
+import com.zone.adapter3kt.holder.Holder
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.delegate.ViewDelegate
 

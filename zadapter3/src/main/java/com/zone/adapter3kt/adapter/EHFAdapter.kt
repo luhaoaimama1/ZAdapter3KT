@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import com.zone.adapter3kt.*
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.data.HFMode
+import com.zone.adapter3kt.holder.Holder
 
 /**
  *[2018] by Zone
  * 空 头 尾部 load 都是 默认占一行的
  */
-open class EHFAdapter<T>(context: Context, tag: Any? = null) : ScrollToAdapter<T>(context, tag) {
+open class EHFAdapter<T>(context: Context, tag: Any? = null) : ContentAdapter<T>(context, tag) {
 
     val emptyData by lazy {
         val dataWarpTemp = DataWarp<T>(null)

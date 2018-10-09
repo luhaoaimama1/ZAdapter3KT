@@ -8,7 +8,8 @@ import android.support.v7.widget.DefaultItemAnimator
 import java.util.ArrayList
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.zone.adapter3kt.StickyAdapter
+import com.zone.adapter3kt.QuickAdapter
+import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.data.HFMode
@@ -20,7 +21,7 @@ import zone.com.zadapter3kt.adapter.RightDelegates
 
 class FullyRecyclerKTActivity : Activity(), Handler.Callback {
 
-    private lateinit var muliAdapter: StickyAdapter<String>
+    private lateinit var muliAdapter: QuickAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,7 @@ class FullyRecyclerKTActivity : Activity(), Handler.Callback {
         for (i in 1..5) {
             mDatas.add("" + i)
         }
-        muliAdapter = StickyAdapter<String>(this@FullyRecyclerKTActivity).apply {
+        muliAdapter = QuickAdapter<String>(this@FullyRecyclerKTActivity).apply {
             registerDelegate(LeftDelegates())
             registerDelegate(0, LeftDelegates())
             registerDelegate(1, RightDelegates())

@@ -4,12 +4,12 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import java.util.ArrayList
 import butterknife.ButterKnife
 import com.zone.adapter3kt.Part
-import com.zone.adapter3kt.StickyAdapter
+import com.zone.adapter3kt.QuickAdapter
+import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.delegate.done.BaseLoadMoreDelegates
@@ -24,7 +24,7 @@ import zone.com.zrefreshlayout.ZRefreshLayout
 class ZRefreshKTActivity : Activity(), Handler.Callback {
 
     private val mDatas = ArrayList<String>()
-    lateinit var mAdapter: StickyAdapter<String>
+    lateinit var mAdapter: QuickAdapter<String>
     private var handler: Handler? = null
 
     var loadMoreCount = 1
@@ -49,7 +49,7 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
         //base test
         rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 //        rv.layoutManager = GridLayoutManager(this, 3)
-        mAdapter = StickyAdapter<String>(this@ZRefreshKTActivity).apply {
+        mAdapter = QuickAdapter<String>(this@ZRefreshKTActivity).apply {
             setStyleExtra(object : ViewStyleDefault<String>() {
                 override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
                     super.getItemViewType(position, itemConfig)

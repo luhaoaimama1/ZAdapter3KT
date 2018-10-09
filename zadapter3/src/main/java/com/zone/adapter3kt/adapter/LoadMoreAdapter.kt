@@ -21,7 +21,7 @@ abstract class OnLoadingAdapterListener : OnLoadingListener {
 /**
  * 这个与数据 独立出来。 这里的加载更多 与 empty一样用占位控制
  */
-open class LoadMoreAdapter<T>(context: Context, tag: Any? = null) : EventAdapter<T>(context, tag) {
+open class LoadMoreAdapter<T>(context: Context, tag: Any? = null) : ScrollToAdapter<T>(context, tag) {
 
 
     val loadData by lazy {

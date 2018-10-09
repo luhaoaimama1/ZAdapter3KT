@@ -2,7 +2,7 @@ package com.zone.adapter3kt.delegate
 
 import android.support.annotation.LayoutRes
 
-import com.zone.adapter3kt.Holder
+import com.zone.adapter3kt.holder.Holder
 import com.zone.adapter3kt.data.DataWarp
 
 /**

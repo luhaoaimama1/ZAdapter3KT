@@ -38,9 +38,9 @@ task makeJar(type: Copy) {
 makeJar.dependsOn(build)
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api 'com.android.support:recyclerview-v7:24.2.0'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 //    compile 'com.android.support:recyclerview-v7:23.2.1'
 }
 
@@ -150,7 +150,6 @@ repositories {
 //    archives javadocJar
 //    archives sourcesJar
 //}
-
 
 //-------------------------导出jar-----------------
 //task deleteOldJar(type: Delete) {

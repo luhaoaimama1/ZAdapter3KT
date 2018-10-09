@@ -7,7 +7,7 @@ import android.os.Message
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSmoothScroller
-import com.zone.adapter3kt.StickyAdapter
+import com.zone.adapter3kt.adapter.StickyAdapter
 import kotlinx.android.synthetic.main.a_scroll_recycler.*
 import zone.com.zadapter3.R
 import java.util.ArrayList

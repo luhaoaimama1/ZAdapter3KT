@@ -1,7 +1,6 @@
 package com.zone.adapter3kt.data
 
 /**
- * Copyright (c) 2018 BiliBili Inc.
  *[2018/9/5] by Zone
  */
 

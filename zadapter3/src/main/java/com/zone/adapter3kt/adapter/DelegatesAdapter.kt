@@ -3,7 +3,7 @@ package com.zone.adapter3kt.adapter
 import android.content.Context
 import android.support.annotation.LayoutRes
 import android.view.ViewGroup
-import com.zone.adapter3kt.Holder
+import com.zone.adapter3kt.holder.Holder
 import com.zone.adapter3kt.delegate.DelegatesManager
 import com.zone.adapter3kt.delegate.LoadMoreViewDelegate
 import com.zone.adapter3kt.delegate.ResDelegate

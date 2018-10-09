@@ -1,22 +1,24 @@
 package zone.com.zadapter3kt.common
 
 import android.content.Context
+import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
-import com.zone.adapter3kt.StickyAdapter
+import com.zone.adapter3kt.QuickAdapter
+import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.adapter.OnItemClickListener
 import com.zone.adapter3kt.data.HFMode
+import com.zone.adapter3kt.divder.StandardDivder
 import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.LeftDelegates
 import zone.com.zadapter3kt.adapter.RightDelegates
 
 /**
- * Copyright (c) 2018 BiliBili Inc.
  * [2018/9/13] by Zone
  */
-class CommonAdapter(context: Context, tag: Any? = null) : StickyAdapter<String>(context) {
+class CommonAdapter(context: Context, tag: Any? = null) : QuickAdapter<String>(context) {
     init {
         enableHistory(true)
 

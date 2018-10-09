@@ -1,12 +1,16 @@
 package com.zone.adapter3kt.delegate
 
+import android.graphics.Rect
 import android.util.SparseArray
 import android.support.annotation.NonNull
 import java.util.*
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import com.zone.adapter.R
 import com.zone.adapter3kt.adapter.BaseAdapter
+import com.zone.adapter3kt.adapter.ContentAdapter
 import com.zone.adapter3kt.adapter.DelegatesAdapter
-import com.zone.adapter3kt.Holder
+import com.zone.adapter3kt.holder.Holder
 import com.zone.adapter3kt.sticky.StickyChildHolder
 
 
@@ -31,7 +35,7 @@ class DelegatesManager(val adapter: DelegatesAdapter<*>) {
 
     fun registerDelegate(viewType: Int, delegate: ViewDelegate<*>) {
         delegates.put(viewType, delegate)
-        delegate.adapter = adapter
+        if (adapter is ContentAdapter<*>) delegate.adapter = adapter
     }
 
     // =======================================分割线=====================================
@@ -46,11 +50,12 @@ class DelegatesManager(val adapter: DelegatesAdapter<*>) {
     }
 
     fun onBindViewHolder(position: Int, @NonNull item: Any, viewHolder: Holder, payloads: List<Any>?) {
-
         val viewType = findOriViewType(viewHolder.itemViewType, viewHolder)
-        val delegate = getDelegateNoMap(viewType) ?: throw NullPointerException("No delegate found for  "+viewType)
+        val delegate = getDelegateNoMap(viewType) ?: throw NullPointerException("No delegate found for  " + viewType)
         delegate.onBindViewHolderInner(position, item, viewHolder, payloads ?: FULLUPDATE_PAYLOADS)
     }
+
+
 
     // =======================================分割线=====================================
 
@@ -84,5 +89,9 @@ class DelegatesManager(val adapter: DelegatesAdapter<*>) {
 
     fun getDelegateNoMap(viewType: Int): ViewDelegate<*>? {
         return delegates.get(viewType)
+    }
+
+    fun getDelegateMap(itemViewType: Int, viewHolder: Holder? = null): ViewDelegate<*>? {
+        return delegates.get(findOriViewType(itemViewType, viewHolder))
     }
 }
