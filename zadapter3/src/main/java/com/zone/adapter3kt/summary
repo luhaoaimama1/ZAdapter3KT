@@ -1,0 +1,21 @@
+
+
+# Pass:
+
+* 头尾自定义空间 类似 scrollView
+    因为可见性生命周期的问题，协调折叠头 下面 recyclerview不就是吗 ,明明是不可见的。而且生命周期确实可见的。因为折叠头不的原因
+recyclerview在屏幕上显示不出来 但是他的高度 却还是那么高.
+
+* databinding
+    * 没有自己灵活. 而且据说容易发生 循环触发的问题
+    * 并且生成的类 增加代码的容量。如果多种嵌套解析 会生成好多类吧
+
+# Todo
+
+* index 有效无效问题  在onclick 与 onbind 还有 onAttatch onDetch上的自动检查 确保代码中不用检查index
+
+* click 不要在onbind设置的问题. 仅仅设置一次 .
+    * 解决方案  view.setTag(ClickTag) 不要占用默认的因为图片库可能会用到吧
+
+* 吸附问题  给一些回调？
+    *  onattch ondetch 头部（index）
