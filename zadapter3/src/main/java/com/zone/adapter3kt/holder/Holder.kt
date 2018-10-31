@@ -19,6 +19,7 @@ import android.widget.Checkable
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.zone.adapter.R
 
 /**
  * Allows an abstraction of the ViewHolder pattern.<br></br>
@@ -184,8 +185,8 @@ open class Holder(val view: View) : RecyclerView.ViewHolder(view) {
 
 
     /**
-     * Sets the userage of the view.
-     * @param tag    The userage;
+     * Sets the useage of the view.
+     * @param tag    The useage;
      * @return The T for chaining.
      */
     fun setTag(@IdRes viewId: Int, tag: Any): Holder {
@@ -195,9 +196,9 @@ open class Holder(val view: View) : RecyclerView.ViewHolder(view) {
     }
 
     /**
-     * Sets the userage of the view.
+     * Sets the useage of the view.
      * @param viewId The view id.
-     * @param tag    The userage;
+     * @param tag    The useage;
      * @return The T for chaining.
      */
     fun setTag(@IdRes viewId: Int, key: Int, tag: Any): Holder {
@@ -206,6 +207,14 @@ open class Holder(val view: View) : RecyclerView.ViewHolder(view) {
 
         return this
     }
+
+    fun setClickTag(@IdRes viewId: Int, tag: Any): Holder {
+        val view = retrieveView<View>(viewId)
+        view?.setTag(R.id.OnClickListener_KEY, tag)
+        return this
+    }
+
+    fun getClickTag(@IdRes viewId: Int): Any? = retrieveView<View>(viewId)?.getTag (R.id.OnClickListener_KEY)
 
     /**
      * Sets the checked status of a checkable.
@@ -231,11 +240,25 @@ open class Holder(val view: View) : RecyclerView.ViewHolder(view) {
      * @param l   监听器
      * @param ids view 的 id
      */
-    fun setOnClickListener(l: View.OnClickListener?, vararg ids: Int): Holder {
+    fun setOnClickListener(l: View.OnClickListener?,@IdRes vararg ids: Int): Holder {
         for (id in ids)
             getView<View>(id).setOnClickListener(l)
         return this
     }
+
+    /**
+     * 设置监听器
+     * @param l   监听器
+     * @param ids view 的 id
+     */
+    fun setOnHolderClickListener(l: HolderClickListener, @IdRes vararg ids: Int): Holder {
+        for (id in ids)
+            getView<View>(id).setOnClickListener {
+                l.onClick(it,this@Holder)
+            }
+        return this
+    }
+
 
     // =======================================
     // ============ 快捷方法  ==============

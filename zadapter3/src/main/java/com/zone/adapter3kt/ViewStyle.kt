@@ -30,7 +30,7 @@ class ViewStyleOBJ {
     var isSticky: Boolean = false
     var section: Section? = null
     var part: Part = Part.CONTENT
-    var userage: Any? = null
+    var useage: Any? = null
     var divderRect: Rect? = null
     //控制前面的是否隐藏
     var isHideBeforeDivder = false
@@ -72,7 +72,7 @@ class ViewStyleOBJ {
     }
 
     fun useage(useage: Any?): ViewStyleOBJ {
-        this@ViewStyleOBJ.userage = useage
+        this@ViewStyleOBJ.useage = useage
         return this
     }
 

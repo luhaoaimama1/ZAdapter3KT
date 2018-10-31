@@ -13,6 +13,7 @@ import com.zone.adapter3kt.adapter.ContentAdapter
 import com.zone.adapter3kt.adapter.DelegatesAdapter
 import com.zone.adapter3kt.holder.Holder
 import com.zone.adapter3kt.data.DataWarp
+import com.zone.adapter3kt.holder.HolderClickListener
 
 /**
  * [2018] by Zone
@@ -27,14 +28,16 @@ abstract class ViewDelegate<T> {
         val divderFrameLayout = addParentDivderFrameLayout(parent, inflate)
         val holder = Holder(divderFrameLayout)
         initData(divderFrameLayout, parent)
+        val clickIds = registerClickListener()
+        setOnClickListener(clickIds, holder)
         setListener(holder)
         return holder
     }
 
     fun addParentDivderFrameLayout(parent: ViewGroup, inflate: View): FrameLayout {
         val divderFrameLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.divder_vp, parent, false)
-            as FrameLayout
+                .inflate(R.layout.divder_vp, parent, false)
+                as FrameLayout
 
         val onCreateViewLPwidth = inflate.layoutParams.width
         val onCreateViewLPheight = inflate.layoutParams.height
@@ -65,7 +68,11 @@ abstract class ViewDelegate<T> {
             changeDivder(holder, adapter, position)
         } else {
             changeDivder(holder, adapter, position)
-            onBindViewHolder(position, item as DataWarp<T>, holder, payloads)
+            try {
+                onBindViewHolder(position, item as DataWarp<T>, holder, payloads)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -78,17 +85,33 @@ abstract class ViewDelegate<T> {
         }
     }
 
+    open fun initData(convertView: View, parent: ViewGroup) {}
+    open fun registerClickListener(): Array<Int>? = null
+    open fun setListener(holder: Holder) {}
+    open fun onClick(v: View?, viewHolder: Holder, posi: Int,item: DataWarp<T>) {}
+
     abstract fun onBindViewHolder(position: Int, item: DataWarp<T>, holder: Holder, payloads: List<*>)
 
-    fun onViewRecycled(viewHolder: Holder) {}
+    open fun onViewRecycled(viewHolder: Holder) {}
+    open fun onFailedToRecycleView(holder: Holder): Boolean = false
+    open fun onViewAttachedToWindow(holder: Holder) {}
+    open fun onViewDetachedFromWindow(holder: Holder) {}
 
-    fun onFailedToRecycleView(holder: Holder): Boolean = false
+    fun setOnClickListener(clickIds: Array<Int>?, holder: Holder) {
+        clickIds?.forEach {
+            holder.setOnHolderClickListener(object : HolderClickListener {
+                override fun onClick(v: View?, viewHolder: Holder) {
+                    val (pos, item) = getItemByHolder(viewHolder)
+                    item?.apply { onClick(v, viewHolder, pos, it as DataWarp<T>) }
+                }
+            }, it)
+        }
+    }
 
-    fun onViewAttachedToWindow(holder: Holder) {}
+    fun getItemByHolder(viewHolder: Holder): Pair<Int, DataWarp<out Any?>?> {
+        val pos = viewHolder.layoutPosition
+        val item = adapter.mHFList.mListCollection.getItem(pos)
+        return Pair(pos, item)
+    }
 
-    fun onViewDetachedFromWindow(holder: Holder) {}
-
-    fun setListener(holder: Holder) {}
-
-    open fun initData(convertView: View, parent: ViewGroup) {}
 }

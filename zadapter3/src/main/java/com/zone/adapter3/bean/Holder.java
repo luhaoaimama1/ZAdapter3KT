@@ -229,10 +229,10 @@ public class Holder<T extends Holder<T>> extends RecyclerView.ViewHolder {
 
 
     /**
-     * Sets the userage of the view.
+     * Sets the useage of the view.
      *
      * @param viewId The view id.
-     * @param tag    The userage;
+     * @param tag    The useage;
      * @return The T for chaining.
      */
     public T setTag(@IdRes int viewId, Object tag) {
@@ -242,11 +242,11 @@ public class Holder<T extends Holder<T>> extends RecyclerView.ViewHolder {
     }
 
     /**
-     * Sets the userage of the view.
+     * Sets the useage of the view.
      *
      * @param viewId The view id.
-     * @param key    The key of userage;
-     * @param tag    The userage;
+     * @param key    The key of useage;
+     * @param tag    The useage;
      * @return The T for chaining.
      */
     public T setTag(@IdRes int viewId, int key, Object tag) {
