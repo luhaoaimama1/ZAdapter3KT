@@ -16,7 +16,7 @@ import com.zone.adapter3kt.holder.Holder
  *
  * Tips:绝对以数据操控 而不用占位符！因为动画 等好多都不好处理
  */
-open class ContentAdapter<T>(context: Context, userage: Any? = null) : DelegatesAdapter<T>(context, userage) {
+open class ContentAdapter<T>(context: Context) : DelegatesAdapter<T>(context) {
 
     var divderManager: BaseDivder<T>? = null
     protected var recyclerView: RecyclerView? = null
@@ -24,7 +24,7 @@ open class ContentAdapter<T>(context: Context, userage: Any? = null) : Delegates
 
     internal var mHFList = object : HFListHistory<T>() {
         override fun generateConfig(item: DataWarp<T>): ViewStyleOBJ {
-            return super.generateConfig(item).useage(userage)
+            return super.generateConfig(item)
         }
 
         override fun checkAddEmptyData() {

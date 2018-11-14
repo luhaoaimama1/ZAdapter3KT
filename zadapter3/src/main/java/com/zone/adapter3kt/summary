@@ -21,7 +21,6 @@ recyclerview在屏幕上显示不出来 但是他的高度 却还是那么高.
    * [x] onclick
 
 # Todo
-* usage 设计成枚举？
 * item的useage 不要用![viewStyle要用useage请使用构造器传入] 改成otherMaps<String,Any>
 * findFirstPositionByExculdeCardType （int[]types）//找到第一个不是头部的位置
 * setWithClearWithOut(int[]types) //使用需求范例 头部 等一些类型不更新。

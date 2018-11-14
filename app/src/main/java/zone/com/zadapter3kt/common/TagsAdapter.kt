@@ -18,7 +18,7 @@ import zone.com.zadapter3kt.adapter.RightDelegates
  * Copyright (c) 2018 BiliBili Inc.
  * [2018/9/30] by Zone
  */
-class TagsAdapter(context: Context, tag: Any? = null) : QuickAdapter<String>(context) {
+class TagsAdapter(context: Context) : QuickAdapter<String>(context) {
 
     init {
         registerDelegate(LeftDelegates())

@@ -18,7 +18,7 @@ interface OnItemLongClickListener {
     fun onItemLongClick(parent: ViewGroup, view: View, position: Int): Boolean
 }
 
-open class EventAdapter<T>(context: Context, tag: Any? = null) : EHFAdapter<T>(context, tag) {
+open class EventAdapter<T>(context: Context) : EHFAdapter<T>(context) {
 
     var onItemClickListener: OnItemClickListener? = null
     var onItemLongClickListener: OnItemLongClickListener? = null

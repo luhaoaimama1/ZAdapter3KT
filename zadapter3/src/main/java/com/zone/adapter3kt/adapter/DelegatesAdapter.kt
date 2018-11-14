@@ -16,7 +16,7 @@ import com.zone.adapter3kt.loadmore.LoadingSetting
  */
 
 
-abstract class DelegatesAdapter<T>(context: Context, tag: Any? = null) : BaseAdapter<T>(context, tag) {
+abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
 
     val delegatesManager = DelegatesManager(this)
 

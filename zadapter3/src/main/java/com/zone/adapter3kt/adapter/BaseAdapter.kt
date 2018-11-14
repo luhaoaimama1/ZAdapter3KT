@@ -7,7 +7,7 @@ import com.zone.adapter3kt.holder.Holder
 /**
  *[2018] by Zone
  */
-abstract class BaseAdapter<T>(protected var context: Context, var tag: Any? = null)
+abstract class BaseAdapter<T>(protected var context: Context)
     : RecyclerView.Adapter<Holder>() {
 
     companion object {

@@ -27,10 +27,10 @@ class ViewStyleOBJ {
     var viewStyle: Int = -1
     var isFullspan = false
     val tags: HashSet<String> by lazy { HashSet<String>() }
+    val otherMaps:HashMap<String,Any> by lazy { HashMap<String,Any>() }
     var isSticky: Boolean = false
     var section: Section? = null
     var part: Part = Part.CONTENT
-    var useage: Any? = null
     var divderRect: Rect? = null
     //控制前面的是否隐藏
     var isHideBeforeDivder = false
@@ -71,9 +71,8 @@ class ViewStyleOBJ {
         return this
     }
 
-    fun useage(useage: Any?): ViewStyleOBJ {
-        this@ViewStyleOBJ.useage = useage
-        return this
+    fun otherMaps(): HashMap<String,Any> {
+        return this@ViewStyleOBJ.otherMaps
     }
 
     fun divderRect(divderRect: Rect?): ViewStyleOBJ {

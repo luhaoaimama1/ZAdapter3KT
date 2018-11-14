@@ -8,7 +8,7 @@ import com.zone.adapter3kt.data.DataWarp
  * Copyright (c) 2018 BiliBili Inc.
  * [2018/9/30] by Zone
  */
-open class QuickAdapter<T>(context: Context, tag: Any? = null) : StickyAdapter<T>(context, tag) {
+open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
 
     // =====================================================
     // =================== 过滤tags的后的位置=================

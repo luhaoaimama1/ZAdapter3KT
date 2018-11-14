@@ -21,7 +21,7 @@ import com.zone.adapter3kt.sticky.StickyOnScrollListener
  *
  * 默认关闭是因为他 进行了大量了 关于 sticky相关的操作。
  */
-open class StickyAdapter<T>(context: Context, tag: Any? = null) : LoadMoreAdapter<T>(context, tag) {
+open class StickyAdapter<T>(context: Context) : LoadMoreAdapter<T>(context) {
 
     class StickyEntity<T>(val posi: Int, val data: DataWarp<T>)
 

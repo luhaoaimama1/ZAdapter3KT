@@ -18,7 +18,7 @@ import zone.com.zadapter3kt.adapter.RightDelegates
 /**
  * [2018/9/13] by Zone
  */
-class CommonAdapter(context: Context, tag: Any? = null) : QuickAdapter<String>(context) {
+class CommonAdapter(context: Context) : QuickAdapter<String>(context) {
     init {
         enableHistory(true)
 

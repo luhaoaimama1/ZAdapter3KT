@@ -8,7 +8,7 @@ import android.content.Context
  *
  * Tips:绝对以数据操控 而不用占位符！因为动画 等好多都不好处理
  */
-abstract class ScrollToAdapter<T>(context: Context, tag: Any? = null) : EventAdapter<T>(context, tag) {
+abstract class ScrollToAdapter<T>(context: Context) : EventAdapter<T>(context) {
     // =======================================
     // ============scroll 系列 ==============
     // =======================================
