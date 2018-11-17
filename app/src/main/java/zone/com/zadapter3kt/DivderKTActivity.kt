@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.CheckBox
+import android.widget.Toast
 import com.zone.adapter3kt.adapter.StickyAdapter
 import kotlinx.android.synthetic.main.a_recycler_absorb.*
 import java.util.ArrayList
@@ -20,7 +21,7 @@ import zone.com.zadapter3kt.common.DivdersAdapter
 class DivderKTActivity : Activity() {
 
     private val mDatas = ArrayList<String>()
-    private lateinit var muliAdapter: StickyAdapter<String>
+    private lateinit var muliAdapter: DivdersAdapter
     private var cb: CheckBox? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +33,12 @@ class DivderKTActivity : Activity() {
         muliAdapter = DivdersAdapter(this)
         muliAdapter.add(mDatas)
         rv.adapter = muliAdapter
+        rv.postDelayed({
+            val posi = muliAdapter.findFirstPositionByExculdeCardType(0, 2, 3)
+            Toast.makeText(this@DivderKTActivity, "排除头和底部、左边 的第一个位置：$posi", Toast.LENGTH_SHORT).show()
+        }, 500)
 
         cb = findViewById<View>(R.id.cb) as CheckBox
-        cb!!.visibility=View.GONE
+        cb!!.visibility = View.GONE
     }
 }

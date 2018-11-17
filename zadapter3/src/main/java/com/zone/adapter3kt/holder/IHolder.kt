@@ -10,7 +10,6 @@
 //import android.view.View
 //
 ///**
-// * Copyright (c) 2018 BiliBili Inc.
 // *[2018/9/14] by Zone
 // */
 //interface IHolder<B> {

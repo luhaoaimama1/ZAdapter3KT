@@ -219,6 +219,17 @@ open class HFList<T>() {
         return posi
     }
 
+    fun indexOfRealItem(item: DataWarp<T>): Int {
+        var posi = -1
+        mListCollection.loop { index, it ->
+            if (it == item) {
+                posi = index
+                true
+            } else false
+        }
+        return posi
+    }
+
     //头部尾部都是有顺序的所以不能移动
     fun movedContent(fromPosition: Int, toPosition: Int) {
         val beginIndex = mListCollection.beginIndexWithNoHas(contentDatas)

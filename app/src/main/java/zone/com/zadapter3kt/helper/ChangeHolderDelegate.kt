@@ -5,7 +5,6 @@ import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.delegate.ViewDelegate
 
 /**
- * Copyright (c) 2018 BiliBili Inc.
  *[2018/9/14] by Zone
  */
 abstract class ChangeHolderDelegate<T> : ViewDelegate<T>(){

@@ -1,32 +1,16 @@
 package com.zone.adapter3kt.section
 
-import com.zone.adapter3kt.adapter.EHFAdapter
-
+import com.zone.adapter3kt.data.DataWarp
 
 /**
- *[2018] by Zone
+ *[2018/11/15] by Zone
+ *
+ * 写的目的：细分复用 上传位置
+ * section 为一连串的 数据。如果传入不连续的 会出现不可知的问题
+ * 使用注意：section作为一个整体。
+ * 1.移动的话作为一整块移动
+ * 2.要删除的话 ，记得在bindObjList移除obj
  */
-class Section(val obj: Any, val start: Int, val end: Int) {
-
-    val sectionMannager = HashMap<String, Section>()
-
-    fun upgradeTo(objList: List<Any>, adapter: EHFAdapter<Any>) {
-        upgradeTo(objList, adapter, null)
-    }
-
-    fun upgradeTo(objList: List<Any>, adapter: EHFAdapter<Any>, payload: Object?) {
-        val index = adapter.mHFList.indexOfItem(obj)
-        if (index == -1) throw IllegalStateException("列表中 已经不存在item了")
-        else {
-            //0-3 是4个
-            val num = end - start + 1
-            val beginIndex = num + start
-            val endIndex = num + end
-            if (safeCheck(beginIndex, adapter) || safeCheck(endIndex, adapter)) throw IllegalStateException("超出列表 ")
-            else adapter.mHFList.changedRange(beginIndex, objList, payload)
-        }
-    }
-
-    private fun safeCheck(beginIndex: Int, adapter: EHFAdapter<*>) = beginIndex < 0 || beginIndex > adapter.mHFList.mListCollection.count()
-
+class Section(val obj: Any) {
+    val bindObjList: ArrayList<DataWarp<Any>> by lazy { ArrayList<DataWarp<Any>>() }
 }

@@ -4,7 +4,6 @@ import android.graphics.Rect
 import com.zone.adapter3kt.QuickAdapter
 
 /**
- * Copyright (c) 2018 BiliBili Inc.
  *[2018/9/30] by Zone
  * 某个改变会通知上一个
  *

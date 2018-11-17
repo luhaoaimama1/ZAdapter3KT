@@ -1,6 +1,7 @@
 package com.zone.adapter3kt
 
 import android.graphics.Rect
+import com.zone.adapter3kt.section.QuickUpdateSection
 import com.zone.adapter3kt.section.Section
 
 /**
@@ -29,6 +30,7 @@ class ViewStyleOBJ {
     val tags: HashSet<String> by lazy { HashSet<String>() }
     val otherMaps:HashMap<String,Any> by lazy { HashMap<String,Any>() }
     var isSticky: Boolean = false
+    var quickUpdateSection: QuickUpdateSection? = null
     var section: Section? = null
     var part: Part = Part.CONTENT
     var divderRect: Rect? = null
@@ -48,6 +50,11 @@ class ViewStyleOBJ {
 
     fun section(section: Section): ViewStyleOBJ {
         this@ViewStyleOBJ.section = section
+        return this
+    }
+
+    fun quickUpdateSection(quickUpdateSection: QuickUpdateSection): ViewStyleOBJ {
+        this@ViewStyleOBJ.quickUpdateSection = quickUpdateSection
         return this
     }
 
@@ -92,7 +99,7 @@ class ViewStyleOBJ {
         other.isSticky = isSticky
         other.isHideBeforeDivder = isHideBeforeDivder
         other.divderRect = divderRect
-        other.section = section
+        other.quickUpdateSection = quickUpdateSection
         other.part = part
         other.isGenerate = true
         return this

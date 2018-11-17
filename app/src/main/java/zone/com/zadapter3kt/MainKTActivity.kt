@@ -54,16 +54,11 @@ class MainKTActivity : AppCompatActivity() {
     @OnClick(R.id.bt_Fully)
     fun fullyClick() = startActivity(Intent(this, FullyRecyclerKTActivity::class.java))
 
-
     @OnClick(R.id.bt_NineGrid)
     fun nineGridClick() = startActivity(Intent(this, NineRecyclerKTActivity::class.java))
 
-
     @OnClick(R.id.bt_Sticky)
     fun stickyClick() = startActivity(Intent(this, StickyKTActivity::class.java))
-
-    @OnClick(R.id.bt_Tags)
-    fun tagsClick() = startActivity(Intent(this, TagsKTActivity::class.java))
 
     @OnClick(R.id.bt_Divder)
     fun divderClick() = startActivity(Intent(this, DivderKTActivity::class.java))
@@ -73,5 +68,8 @@ class MainKTActivity : AppCompatActivity() {
 
     @OnClick(R.id.bt_scroll2)
     fun scrollClick() = startActivity(Intent(this, RecyclerActivityScroll::class.java))
+
+    @OnClick(R.id.bt_partition)
+    fun partitionClick() = startActivity(Intent(this, PartitionActivity::class.java))
 
 }

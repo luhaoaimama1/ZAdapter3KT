@@ -9,6 +9,7 @@ import com.zone.adapter3kt.delegate.LoadMoreViewDelegate
 import com.zone.adapter3kt.delegate.ResDelegate
 import com.zone.adapter3kt.delegate.ViewDelegate
 import com.zone.adapter3kt.loadmore.LoadingSetting
+import com.zone.adapter3kt.section.Section
 
 
 /**

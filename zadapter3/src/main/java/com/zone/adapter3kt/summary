@@ -20,15 +20,33 @@ recyclerview在屏幕上显示不出来 但是他的高度 却还是那么高.
    * [x] onbind
    * [x] onclick
 
-# Todo
-* item的useage 不要用![viewStyle要用useage请使用构造器传入] 改成otherMaps<String,Any>
+* useage
+    * item的useage 不要用![viewStyle要用useage请使用构造器传入] 改成otherMaps<String,Any>
+    * 去掉useage 又子类去传 useage最终定义在页面中
+
 * findFirstPositionByExculdeCardType （int[]types）//找到第一个不是头部的位置
-* setWithClearWithOut(int[]types) //使用需求范例 头部 等一些类型不更新。
+
+# Todo===>> demo测试
 * 细分复用:用section去处理如何？ 每次写完都设置个section
     > 看来需要一个写一个细分复用的demo 涉及：`整体可见性` `更新其中一个卡片`
     > 单独弄个SectionDelegete去处理生成的section与每个卡片 【好处是可以复用 在好多prestener而且与delege绑定】？？
     > 而delegete 还是处理单个item的问题
     > ps:如果用到细分复用动画 那么 viewStyle就不比用divder了 需要添加一个树形控制divder无效的问题
+
+* section addData 实际
+    * addDatas  结束后 addSection("",obj)  但是每次通过obj 怎么找到section呢？ 然后通过section上传位置
+
+    ``` java
+        addData(obj1)
+        addData(obj2)
+        addData(obj3)
+        Section(realObj)bindSection{obj1,obj2,obj3}//每个obj 附上 secion
+        每次上传位置的时候。从0开始find 重复的 不+1
+
+        每次触发的时候 判断之前触发的与当前是否相同 不相同在触发新的上传
+
+    ```
+
 
 * 吸附问题  给一些回调？
     *  onattch ondetch 头部（index）

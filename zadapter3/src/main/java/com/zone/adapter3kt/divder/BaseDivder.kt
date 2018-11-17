@@ -5,7 +5,6 @@ import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.adapter.BaseAdapter
 
 /**
- * Copyright (c) 2018 BiliBili Inc.
  *[2018/9/30] by Zone
  */
 abstract class BaseDivder<T>(val adapter: QuickAdapter<T>) {

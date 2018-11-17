@@ -6,7 +6,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.zone.adapter3kt.adapter.LoadMoreAdapter
-
+import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView
 enum class CheckLoadMoreMode { SCROLL_STATE_DRAGGING, SCROLL_STATE_IDLE }
 
 enum class LoadingState { NO_SHOW, LOADING, END, COMPLETE, FAIL }
@@ -62,7 +62,10 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
         val adapter = recyclerView.adapter
         // 如果未设置Adapter或者Adapter没有数据可以下拉刷新
         if (adapter == null || adapter.itemCount == 0) return
-        getFirstLastPos(recyclerView)
+//        getFirstLastPos(recyclerView)
+        val pair=recyclerView.getFirstLastPosrecyclerView()
+        firstVisiblePos=pair.first
+        lastVisiblePos=pair.second
         // isCanLoadMore2isRest 能加载更多 并且 状态是处于休息的时候
         // 如果总共个数-浏览过的数据 小于 阈值的量 。就去加载更多
         //代表adapter.itemCount-1 ：是因为 itemCount从1开始 应该和Pos都从0开始才好
@@ -87,31 +90,31 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
         }
     }
 
-    private fun getFirstLastPos(recyclerView: RecyclerView) {
-        when (recyclerView.layoutManager) {
-            is LinearLayoutManager -> {
-                firstVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                lastVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-            }
-            is GridLayoutManager -> {
-                firstVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
-                lastVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
-            }
-            is StaggeredGridLayoutManager -> {
-                var firstVisibleItems: IntArray? = null
-                var lastVisibleItems: IntArray? = null
-                firstVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findFirstVisibleItemPositions(firstVisibleItems)
-                lastVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findLastVisibleItemPositions(lastVisibleItems)
-                if (firstVisibleItems != null && firstVisibleItems.size > 0) {
-                    firstVisiblePos = firstVisibleItems[0]
-                }
-                if (lastVisibleItems != null && lastVisibleItems.size > 0) {
-                    lastVisiblePos = lastVisibleItems[0]
-                }
-            }
-            else -> throw IllegalStateException("不支持其他布局")
-        }
-    }
+//    private fun getFirstLastPos(recyclerView: RecyclerView) {
+//        when (recyclerView.layoutManager) {
+//            is LinearLayoutManager -> {
+//                firstVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+//                lastVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+//            }
+//            is GridLayoutManager -> {
+//                firstVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
+//                lastVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
+//            }
+//            is StaggeredGridLayoutManager -> {
+//                var firstVisibleItems: IntArray? = null
+//                var lastVisibleItems: IntArray? = null
+//                firstVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findFirstVisibleItemPositions(firstVisibleItems)
+//                lastVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findLastVisibleItemPositions(lastVisibleItems)
+//                if (firstVisibleItems != null && firstVisibleItems.size > 0) {
+//                    firstVisiblePos = firstVisibleItems[0]
+//                }
+//                if (lastVisibleItems != null && lastVisibleItems.size > 0) {
+//                    lastVisiblePos = lastVisibleItems[0]
+//                }
+//            }
+//            else -> throw IllegalStateException("不支持其他布局")
+//        }
+//    }
 
     //能加载更多 并且处于rest状态  主要是为了兼容其他的刷新控件
     protected open fun isCanLoadMore2isRest(recyclerView: RecyclerView): Boolean = true

@@ -19,7 +19,7 @@ class NineRecyclerKTActivity : Activity() {
         rv = findViewById<View>(R.id.rv) as RecyclerView
         rv!!.layoutManager = GridLayoutManager(this, 3)
 
-        rv!!.adapter = StickyAdapter<String>(this, "NineRecyclerKTActivity").apply {
+        rv!!.adapter = StickyAdapter<String>(this).apply {
             enableHistory(true)
             registerDelegate( ImgDelegates())
             add("add")

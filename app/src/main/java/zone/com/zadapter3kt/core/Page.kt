@@ -1,7 +1,6 @@
 package zone.com.zadapter3kt.core
 
 /**
- * Copyright (c) 2018 BiliBili Inc.
  *[2018/11/13] by Zone
  */
 enum class Page(val pageIndex: Int, val traceString: String) {
