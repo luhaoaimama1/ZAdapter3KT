@@ -1,5 +1,6 @@
 package com.zone.adapter3kt.delegate
 
+
 /**
  * [2018] by Zone
  * [.complete]
@@ -19,4 +20,7 @@ abstract class LoadMoreViewDelegate : ViewDelegate<Any>() {
 
     //数据到底部了
     open fun end() {}
+
+
+    abstract fun clone_(): LoadMoreViewDelegate
 }

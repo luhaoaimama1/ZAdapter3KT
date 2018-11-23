@@ -1,9 +1,7 @@
 package zone.com.zadapter3kt.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
-
-import com.zone.adapter3.QuickConfig
+import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.delegate.ViewDelegate
 

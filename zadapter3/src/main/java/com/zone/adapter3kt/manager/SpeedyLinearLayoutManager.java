@@ -20,7 +20,7 @@
  * Weibo:   http://weibo.com/GcsSloop
  */
 
-package com.zone.adapter3.manager;
+package com.zone.adapter3kt.manager;
 
 import android.content.Context;
 import android.graphics.PointF;

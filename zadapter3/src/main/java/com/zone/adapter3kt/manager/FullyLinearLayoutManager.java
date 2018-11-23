@@ -1,4 +1,4 @@
-package com.zone.adapter3.manager;
+package com.zone.adapter3kt.manager;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import com.zone.adapter3.QuickConfig;
+import com.zone.adapter3kt.QuickConfig;
 
 /**
  * Created by yutao on 2016/4/26 0026.

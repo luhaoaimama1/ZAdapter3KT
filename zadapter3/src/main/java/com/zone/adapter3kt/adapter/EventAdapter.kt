@@ -3,7 +3,7 @@ package com.zone.adapter3kt.adapter
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import com.zone.adapter3.QuickConfig
+import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.holder.Holder
 
 /**

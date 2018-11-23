@@ -12,6 +12,20 @@ import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView
  * 过滤  查找等 方法
  */
 open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
+    companion object {
+        internal var quickConfig: QuickConfig? = null
+    }
+
+    init {
+        //加载默认头部 ps:回来注册的会被他顶掉
+        initQuickConfig()
+    }
+
+    private fun initQuickConfig() {
+        quickConfig?.apply {
+            registerLoadingDelegate(this.loadMoreDelegates.clone_(), this.loadingSetting)
+        }
+    }
 
     // =====================================================
     // =================== 过滤tags的后的位置=================

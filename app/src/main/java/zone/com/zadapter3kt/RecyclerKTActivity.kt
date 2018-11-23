@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
-import com.zone.adapter3.QuickConfig
+import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.StickyAdapter
 import zone.com.zadapter3.R
 import zone.com.zadapter3kt.common.CommonAdapter

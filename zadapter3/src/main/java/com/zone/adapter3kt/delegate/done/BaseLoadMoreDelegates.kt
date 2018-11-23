@@ -16,6 +16,8 @@ import com.zone.adapter3kt.loadmore.LoadingState
  */
 
 class BaseLoadMoreDelegates : LoadMoreViewDelegate() {
+    override fun clone_(): LoadMoreViewDelegate = BaseLoadMoreDelegates()
+
     override val layoutId: Int = R.layout.vp
     private var loadingView: View? = null
     private var failView: View? = null
@@ -55,7 +57,7 @@ class BaseLoadMoreDelegates : LoadMoreViewDelegate() {
         failView = LayoutInflater.from(convertView.getContext())
             .inflate(R.layout.sample_common_list_footer_network_error, rv, false)
         failView!!.setOnClickListener {
-            if (rv is RecyclerView && rv.adapter is LoadMoreAdapter<*>){
+            if (rv is RecyclerView && rv.adapter is LoadMoreAdapter<*>) {
                 (rv.adapter as LoadMoreAdapter<*>).loadOnScrollListener?.loadMore(rv)
             }
         }

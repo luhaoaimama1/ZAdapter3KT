@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.zone.adapter3.QuickConfig
+import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.StickyAdapter
 
 /**

@@ -1,10 +1,7 @@
 package com.zone.adapter3kt.loadmore
 
 import android.support.v7.widget.RecyclerView
-import com.zone.adapter3.QuickConfig
-import android.support.v7.widget.StaggeredGridLayoutManager
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.LoadMoreAdapter
 import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView
 enum class CheckLoadMoreMode { SCROLL_STATE_DRAGGING, SCROLL_STATE_IDLE }

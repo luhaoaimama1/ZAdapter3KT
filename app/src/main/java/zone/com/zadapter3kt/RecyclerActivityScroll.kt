@@ -1,6 +1,7 @@
 package zone.com.zadapter3kt
 
 import android.app.Activity
+import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -44,11 +45,15 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
                     }
                     R.id.smoothScrollerScroll -> {
                         println("scollType:smoothScrollerScroll")
-                        var smoothScroller = object : LinearSmoothScroller(this@RecyclerActivityScroll) {
-                            override fun getVerticalSnapPreference(): Int = LinearSmoothScroller.SNAP_TO_START
-                        }
-                        smoothScroller.setTargetPosition(scollValue)
-                        rv.getLayoutManager().startSmoothScroll(smoothScroller);
+//                        var smoothScroller = object : LinearSmoothScroller(this@RecyclerActivityScroll) {
+//                            override fun computeScrollVectorForPosition(targetPosition: Int): PointF {
+//
+//                            }
+//
+//                            override fun getVerticalSnapPreference(): Int = LinearSmoothScroller.SNAP_TO_START
+//                        }
+//                        smoothScroller.setTargetPosition(scollValue)
+//                        rv.getLayoutManager().startSmoothScroll(smoothScroller);
                     }
                     R.id.scrollToPositionWithOffset -> {
                         println("scollType:scrollToPositionWithOffset")

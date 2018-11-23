@@ -1,8 +1,8 @@
 package zone.com.zadapter3kt.adapter
 
 import android.view.View
+import com.zone.adapter3kt.QuickConfig
 
-import com.zone.adapter3.QuickConfig
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.delegate.ViewDelegate
 import com.zone.adapter3kt.holder.Holder
