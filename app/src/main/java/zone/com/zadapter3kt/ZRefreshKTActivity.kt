@@ -9,11 +9,8 @@ import java.util.ArrayList
 import butterknife.ButterKnife
 import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.QuickAdapter
-import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
-import com.zone.adapter3kt.delegate.done.BaseLoadMoreDelegates
-import com.zone.adapter3kt.loadmore.LoadingSetting
 import kotlinx.android.synthetic.main.a_recycler_zrefresh.*
 import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.LeftDelegates
@@ -39,6 +36,7 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
 //        for (i in 0..5) {
 //            mDatas.add("" + i)
 //        }
+
         for (i in 0..25) {
             mDatas.add("" + i)
         }
@@ -50,6 +48,7 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
         rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 //        rv.layoutManager = GridLayoutManager(this, 3)
         mAdapter = QuickAdapter<String>(this@ZRefreshKTActivity).apply {
+            enableLoadMore = true
             setStyleExtra(object : ViewStyleDefault<String>() {
                 override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
                     super.getItemViewType(position, itemConfig)
@@ -60,9 +59,10 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
             registerDelegate(0, LeftDelegates())
             registerDelegate(1, RightDelegates())
             registerEmpytDelegate(R.layout.empty)
-            registerLoadingDelegate(BaseLoadMoreDelegates(), LoadingSetting().apply {
-                isScrollToLoadData=true
-            })
+//            registerLoadingDelegate(BaseLoadMoreDelegates(), LoadingSetting().apply {
+//                threshold = 0
+//                isScrollToLoadData = true
+//            })
 
             loadOnScrollListener = OnScrollRcvListenerExZRefresh(refresh)
             add(mDatas)
@@ -71,7 +71,7 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
         initRefresh()
     }
 
-
+    var newDataCount = 0
     private fun initRefresh() {
         //更改第一个参数,可以看到 是否委托给外面的监听
         refresh.setLoadMoreListener(true, object : ZRefreshLayout.LoadMoreListener {
@@ -80,19 +80,19 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
                     when (loadMoreCount) {
                         1 -> {
                             mAdapter.loadMoreFail()
-                            mAdapter.add("loadMore Fail!")
-                            mAdapter.scrollToLast()
                         }
                         2 -> {
+                            //预加载的方式 ，这里可以不用滚动
+                            val items = ArrayList<String>()
+                            for (i in 0..2) {
+                                items.add("new Data${newDataCount++}")
+                            }
+                            mAdapter.add(items)
+                            mAdapter.scrollTo(items[0])
                             mAdapter.loadMoreComplete()
-                            mAdapter.add("loadMore Complete!")
-                            mAdapter.scrollToLast()
                         }
                         else -> {
                             mAdapter.loadMoreEnd()
-                            mAdapter.add("loadMore end!")
-                            mAdapter.scrollToLast()
-                            refresh.isCanLoadMore = false
                         }
                     }
                     loadMoreCount++
@@ -107,17 +107,13 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
             override fun refresh(zRefreshLayout: ZRefreshLayout) {
                 refresh.isCanLoadMore = true
                 loadMoreCount = 1
-                //                mAdapter.removeLoadMoreDelegates();
                 handler!!.postDelayed({
                     mAdapter.add("Refresh Complete!")
-                    //                        mAdapter.end();
                     refresh!!.refreshComplete()
                 }, 2000)
             }
 
-            override fun refreshAnimationComplete(zRefreshLayout: ZRefreshLayout) {
-
-            }
+            override fun refreshAnimationComplete(zRefreshLayout: ZRefreshLayout) {}
         }
     }
 

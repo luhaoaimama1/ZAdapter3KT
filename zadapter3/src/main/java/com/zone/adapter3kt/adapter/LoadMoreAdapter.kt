@@ -49,10 +49,24 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
     }
 
     var loadOnScrollListener: OnScrollRcvListener? = null
+    //如果想要开启 必须刚开始
+    var enableLoadMore = false
+        set(value) {
+            field = value
+            if(value){
+                recyclerView?.apply {
+                    addLoadMoreScrollListener(this)
+                }
+            }
+        }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        if (delegatesManager.getDelegateNoMap(LOADING_VALUE) != null && !hasLoadScrollListener) {
+        addLoadMoreScrollListener(recyclerView)
+    }
+
+    private fun addLoadMoreScrollListener(recyclerView: RecyclerView) {
+        if (enableLoadMore && delegatesManager.getDelegateNoMap(LOADING_VALUE) != null && !hasLoadScrollListener) {
             if (loadOnScrollListener == null) loadOnScrollListener = OnScrollRcvListener()
             loadOnScrollListener!!.setting = loadingSetting
             recyclerView.addOnScrollListener(loadOnScrollListener)

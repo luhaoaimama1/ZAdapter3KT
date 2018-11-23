@@ -7,6 +7,8 @@ import android.view.View
 
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.zone.adapter3kt.QuickConfig
+import com.zone.adapter3kt.loadmore.LoadingSetting
 import zone.com.zadapter3.R
 import zone.com.zrefreshlayout.Config
 import zone.com.zrefreshlayout.footer.MeterialFooter
@@ -19,7 +21,13 @@ class MainKTActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_main)
         ButterKnife.bind(this)
-        //        QuickConfig.build().perform();
+        QuickConfig.build().apply {
+            loadingSetting=LoadingSetting().apply {
+                threshold = 0
+                isScrollToLoadData = true
+            }
+            perform()
+        }
         Config.build()
             .setPinContent(true)
             .setHeader(MeterialHead())
@@ -49,7 +57,7 @@ class MainKTActivity : AppCompatActivity() {
     fun layoutManagerClick() = startActivity(Intent(this, LayoutKTActivity::class.java))
 
     @OnClick(R.id.bt_HexolayoutManager)
-    fun nLayoutManagerClick()= startActivity(Intent(this, HexoLayoutKTActivity::class.java))
+    fun nLayoutManagerClick() = startActivity(Intent(this, HexoLayoutKTActivity::class.java))
 
     @OnClick(R.id.bt_Fully)
     fun fullyClick() = startActivity(Intent(this, FullyRecyclerKTActivity::class.java))

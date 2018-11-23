@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.LoadMoreAdapter
 import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView
+
 enum class CheckLoadMoreMode { SCROLL_STATE_DRAGGING, SCROLL_STATE_IDLE }
 
 enum class LoadingState { NO_SHOW, LOADING, END, COMPLETE, FAIL }
@@ -11,7 +12,7 @@ enum class LoadingState { NO_SHOW, LOADING, END, COMPLETE, FAIL }
 class LoadingSetting {
     //从 0 开始  所以他 4的时候代表的是倒数第五项,非0 则代表预加载
     var threshold = 4
-//    var threshold = 0
+    //    var threshold = 0
 //    var checkLoadMoreMode = CheckLoadMoreMode.SCROLL_STATE_IDLE
     var checkLoadMoreMode = CheckLoadMoreMode.SCROLL_STATE_DRAGGING
     var isScrollToLoadData = false
@@ -23,6 +24,7 @@ interface OnLoadingListener {
     fun fail()
     fun complete()
 }
+
 /**
  * 继承此类关注 这个方法
  * [.isCanLoadMore2isRest]
@@ -40,33 +42,47 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         this@OnScrollRcvListener.recyclerView = recyclerView
-        if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_IDLE &&
-            newState == RecyclerView.SCROLL_STATE_IDLE
-        ) {
-            loadMoreCheck(recyclerView)
+        if(newState == RecyclerView.SCROLL_STATE_IDLE){
+            loadMoreCheck(recyclerView,0)
         }
+
+
+//        if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_IDLE &&
+//            newState == RecyclerView.SCROLL_STATE_IDLE
+//        ) {
+//            loadMoreCheck(recyclerView,0)
+//        }
+        // todo 有bug:下拉到底 在刷新  结果到底部了！
+//        if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_DRAGGING&&
+//            newState == RecyclerView.SCROLL_STATE_IDLE)
+//            loadMoreCheck(recyclerView,0)
     }
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         // 只有在闲置状态情况下检查
         if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_DRAGGING)
-            loadMoreCheck(recyclerView)
+            loadMoreCheck(recyclerView,dy)
     }
 
 
-    private fun loadMoreCheck(recyclerView: RecyclerView) {
-        val adapter = recyclerView.adapter
+    private fun loadMoreCheck(recyclerView: RecyclerView, dy: Int) {
+        //<0 刷新动作  0是onScrollStateChanged 传过来所以包括0
+        if(dy<0) return
+        val adapter = if (recyclerView.adapter is LoadMoreAdapter<*>) {
+            recyclerView.adapter as LoadMoreAdapter<*>
+        }else null
+
         // 如果未设置Adapter或者Adapter没有数据可以下拉刷新
         if (adapter == null || adapter.itemCount == 0) return
 //        getFirstLastPos(recyclerView)
-        val pair=recyclerView.getFirstLastPosrecyclerView()
-        firstVisiblePos=pair.first
-        lastVisiblePos=pair.second
+        val pair = recyclerView.getFirstLastPosrecyclerView()
+        firstVisiblePos = pair.first
+        lastVisiblePos = pair.second
         // isCanLoadMore2isRest 能加载更多 并且 状态是处于休息的时候
         // 如果总共个数-浏览过的数据 小于 阈值的量 。就去加载更多
         //代表adapter.itemCount-1 ：是因为 itemCount从1开始 应该和Pos都从0开始才好
-        if (isCanLoadMore2isRest(recyclerView)) {
+        if (adapter.enableLoadMore && isCanLoadMore2isRest(recyclerView)) {
             //Tips: 为啥要分开写 因为SCROLL_STATE_IDLE 还有非线性 grid那种模式的时候 可能会跨过等于 直接小于的问题
             if (adapter.itemCount - 1 - lastVisiblePos == setting.threshold) { //等于的时候必须贴底
                 //这么写  debug好测~
