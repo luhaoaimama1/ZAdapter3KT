@@ -26,7 +26,7 @@ recyclerview在屏幕上显示不出来 但是他的高度 却还是那么高.
 
 * findFirstPositionByExculdeCardType （int[]types）//找到第一个不是头部的位置
 
-# Todo===>> demo测试
+
 * 细分复用:用section去处理如何？ 每次写完都设置个section
     > 看来需要一个写一个细分复用的demo 涉及：`整体可见性` `更新其中一个卡片`
     > 单独弄个SectionDelegete去处理生成的section与每个卡片 【好处是可以复用 在好多prestener而且与delege绑定】？？
@@ -46,6 +46,9 @@ recyclerview在屏幕上显示不出来 但是他的高度 却还是那么高.
         每次触发的时候 判断之前触发的与当前是否相同 不相同在触发新的上传
 
     ```
+
+# Todo===>> demo测试
+* 细分复用碰到 appbar 的那种 可见性；
 
 
 * 吸附问题  给一些回调？

@@ -9,13 +9,12 @@ import java.util.ArrayList
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.zone.adapter3kt.QuickAdapter
-import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.data.HFMode
+import com.zone.adapter3kt.manager.FullyLinearLayoutManager
 import kotlinx.android.synthetic.main.a_fully_recycler.*
 import zone.com.zadapter3.R
-import zone.com.zadapter3kt.layout.FullyLinearLayoutManager
 import zone.com.zadapter3kt.adapter.LeftDelegates
 import zone.com.zadapter3kt.adapter.RightDelegates
 
