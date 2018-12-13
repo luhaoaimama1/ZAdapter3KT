@@ -80,4 +80,9 @@ class MainKTActivity : AppCompatActivity() {
     @OnClick(R.id.bt_partition)
     fun partitionClick() = startActivity(Intent(this, PartitionActivity::class.java))
 
+    @OnClick(R.id.bt_changeLayout)
+    fun btChangeLayout() = startActivity(Intent(this, ChangeLayoutNestRecyclerActivity::class.java))
+    @OnClick(R.id.bt_fast)
+    fun btFast() = startActivity(Intent(this, FastRecyclerActivity::class.java))
+
 }

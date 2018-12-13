@@ -18,6 +18,7 @@
         <activity android:name="zone.com.zadapter3kt.RecyclerKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.NineRecyclerKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.ZRefreshKTActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.ChangeLayoutNestRecyclerActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.FullyRecyclerKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.StickyKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.DivderKTActivity"></activity>
@@ -26,6 +27,7 @@
         <activity android:name="zone.com.zadapter3kt.LayoutKTActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.RecyclerActivityAnimator"></activity>
         <activity android:name="zone.com.zadapter3kt.RecyclerActivityScroll"></activity>
+        <activity android:name="zone.com.zadapter3kt.FastRecyclerActivity"></activity>
     </application>
 
 </manifest>
