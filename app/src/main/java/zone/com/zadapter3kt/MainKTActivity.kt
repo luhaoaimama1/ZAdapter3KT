@@ -85,4 +85,7 @@ class MainKTActivity : AppCompatActivity() {
     @OnClick(R.id.bt_fast)
     fun btFast() = startActivity(Intent(this, FastRecyclerActivity::class.java))
 
+    @OnClick(R.id.bt_onclick)
+    fun btOnclick() = startActivity(Intent(this, OnclickRecyclerActivity::class.java))
+
 }

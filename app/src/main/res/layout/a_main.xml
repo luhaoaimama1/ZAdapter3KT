@@ -140,6 +140,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="fast一种布局" />
+        <Button
+            android:id="@+id/bt_onclick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="onclick" />
 
     </com.zone.view.FlowLayout>
 

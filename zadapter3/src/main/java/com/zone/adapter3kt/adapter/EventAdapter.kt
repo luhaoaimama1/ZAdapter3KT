@@ -34,15 +34,15 @@ open class EventAdapter<T>(context: Context) : EHFAdapter<T>(context) {
         if (onItemClickListener != null)
             holder.itemView.setOnClickListener { v ->
                 if (onItemClickListener != null) {
-                    QuickConfig.d("OnItemClick: position" + holder.getLayoutPosition())
-                    onItemClickListener!!.onItemClick(holder.itemView.parent as ViewGroup, v, holder.getLayoutPosition())
+                    QuickConfig.d("OnItemClick: position" + holder.layoutPosition)
+                    onItemClickListener!!.onItemClick(holder.itemView.parent as ViewGroup, v, holder.layoutPosition)
                 }
             }
         if (onItemLongClickListener != null)
             holder.itemView.setOnLongClickListener { v ->
                 if (onItemLongClickListener != null) {
-                    QuickConfig.d("OnItemLongClick: position" + holder.getLayoutPosition())
-                    return@setOnLongClickListener onItemLongClickListener!!.onItemLongClick(holder.itemView.parent as ViewGroup, v, holder.getLayoutPosition())
+                    QuickConfig.d("OnItemLongClick: position" + holder.layoutPosition)
+                    return@setOnLongClickListener onItemLongClickListener!!.onItemLongClick(holder.itemView.parent as ViewGroup, v, holder.layoutPosition)
                 }
                 return@setOnLongClickListener false
             }

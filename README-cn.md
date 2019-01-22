@@ -1,26 +1,24 @@
-# ZAdapter3
+# ZAdapter3KT
 
 # 优点
 
--[x] recyclerView链式调用
+-[x] 实体类 配置额外功能
 
 -[x] 支持断头吸附
 
--[x] 可复用,资源id写在复用类里面
+-[x] Holder类的链式调用
 
--[x] Holder类的链式调用与可扩展
+-[x] 支持空数据布局 头部 尾部
 
--[x] 空数据view的支持
+-[x] 支持加载更多
 
--[x] 支持添加快捷方法(滑动 ItemDecoration)
-
--[x] 支持Diff快速
+-[x] 支持 非官方的divder(根据实体类自动更新)
 
 -[x] 支持与ZRefresh联动
 
-> 为什么使用 helper 而不是 bindview?
+-[x] 支持细分复用 ,整体可见与不可以见的监听
 
-> 原因： 可定制封装逻辑,不强转,可连写；
+-[ ] Holder类的 可扩展
 
 # Usage
 
@@ -36,209 +34,137 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 > compile 'com.github.luhaoaimama1:ZAdapter3:[Latest release](https://github.com/luhaoaimama1/ZAdapter3/releases)'
     
+# demo解释：
 
-# Easy use:
+* 简单实用参考FastRecyclerActivity
+* 多布局参考  RecyclerKTActivity（这里写的很多 其实没那么麻烦,但是为了验证很多功能所以写的...）
+* NineRecyclerKTActivity 类似最多添加9张发布图片
+* ViewStyleOBJ扩展类中的divderRect、isHideBeforeDivder 参考 DivderKTActivity
+* ViewStyleOBJ扩展类中的section 参考 PartitionActivity
+* ViewStyleOBJ扩展类中的isSticky 参考 StickyKTActivity
+* 类似最多添加9张发布图片  参考 NineRecyclerKTActivity
+* ZRefresh库上拉下拉的联动  参考 ZRefreshKTActivity
+    > ps:QuickConfig可以全局更改 加载布局的样式,还有加载更多的方式
+* ViewDelegate里使用onclick 参考 OnclickRecyclerActivity
+    > ps:这样做的好处可以override 而世界用view.setonclick的方式不推荐因为那种 继承后,在set容易覆盖掉
+
+# 简要概述:
 
 1.简单使用
 
 ```
-    IAdapter<String> muliAdapter = new QuickRcvAdapter(this, mDatas){
-                @Override
-                protected int getItemViewType2(int dataPosition) {
-                //此方法可以默认 设置不写, 默认值返回Wrapper.DEFAULT_VALUE(-1)
-                    return dataPosition % 2;
+    for (i in 1..30) {
+       mDatas.add("" + i)
+    }
+    //base test
+    rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    rv.itemAnimator = DefaultItemAnimator()
+    muliAdapter = QuickAdapter<String>(this@FastRecyclerActivity).apply {
+       registerDelegate(LeftDelegates())
+       add(mDatas)
+    }
+    rv.adapter = muliAdapter
+```
+
+2.多布局  涉及 ViewDelegate,CommonAdapter配置与ViewStyleOBJ配置扩展类
+
+```
+class LeftDelegates : ViewDelegate<String>() {
+    override val layoutId: Int= R.layout.item_left
+
+    override fun onBindViewHolder(position: Int, item: DataWarp<String>, holder: Holder, payloads: List<*>) {
+        holder.setText(R.id.tv, item.data!!)
+        holder.itemView.post { QuickConfig.e("height" + holder.itemView.height) }
+        //需要泛型补全 holder<holder> 不然里面的泛型会出问题！ 既这行出错
+
+        holder.setText(R.id.tv, item.data!!)
+                .setOnClickListener(View.OnClickListener { println("holder click测试 ") })
+    }
+
+}
+```
+
+```
+class CommonAdapter(context: Context) : QuickAdapter<String>(context) {
+    init {
+        enableHistory(true) //添加删除可以看到操作的历史
+
+        registerDelegate(LeftDelegates()) //默认注册的是-1
+        registerDelegate(0, RightDelegates()) //也可以注册委托处理
+
+        registerDelegate(1, R.layout.header_simple) //可以直接注册布局资源
+        registerDelegate(2, R.layout.header_simple2) //可以直接注册布局资源
+
+        registerDelegate(3, R.layout.footer_simple)
+        registerDelegate(4, R.layout.footer_simple)
+
+        // 注册完毕后 定义那些布局类型是 头部和底部
+        // HFMode.ADD,HFMode.REPLACE 就是当添加这个布局是 找到后继续添加还是替换
+        defineHeaderOrder(HFMode.ADD, 1,2)
+        defineFooterOrder(HFMode.ADD, 3,4)
+
+        // 最后注册空数据的 显示
+        registerEmpytDelegate(R.layout.empty)
+
+        //item注册点击事件  一般没人用~
+        onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(parent: ViewGroup, view: View, position: Int) {
+                println("被点击->onItemClick" + position)
+            }
+        }
+
+        //这里通过获取的数据 修改他的配置扩展类
+        setStyleExtra(object : ViewStyleDefault<String>() {
+            override fun generateViewStyleOBJ(item: String): ViewStyleOBJ? {
+                var viewStyle = when (item) {
+                    "header1" -> 1
+                    "header2" -> 2
+                    "footer1" -> 3
+                    "footer2" -> 4
+                    else -> -1
                 }
-            };
-    muliAdapter
-                .addViewHolder(new LeftDelegates())//默认
-                .addViewHolder(0, new LeftDelegates()) //多部剧
-                .addViewHolder(1, new RightDelegates())//多部剧
-                .addHeaderHolder(R.layout.header_simple)//资源
-                .addHeaderHolder(ViewDelegates footer)//也可以的
-                .addFooterHolder(R.layout.footer_simple)//资源
-                .addFooterHolder(ViewDelegates footer)//也可以的
-                .addEmptyHold(R.layout.empty)//也支持empty 资源
-                .addEmptyHold(ViewDelegates emtpy)//也支持empty
-                .setOnItemClickListener(new IAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(ViewGroup parent, View view, int position) {
-                        System.out.println("被点击->onItemClick" + position);
-                    }
-                })
-                .setOnItemLongClickListener(new IAdapter.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(ViewGroup parent, View view, int position) {
-                        System.out.println("被点击->onItemLongClick:" + position);
-                        return true;
-                    }
-                })
-                .addOnScrollListener(scroller = new OnScrollRcvListenerEx(new OnScrollRcvListenerEx.LoadMoreCallback() {
-                    @Override
-                    public void loadMore() {
-                    //这个类主要是为了和我的ZRefresh库兼容。我会委托上啦加载在这里处理!
-                    }
-                }))
-                .relatedList(rv)
-                /**
-                * 必须先设置layoutManager才能设置此方法。
-                * addItemDecoration(MarginItemDecoration itemDecoration)
-                * 也可以用此方法获取itemDecoration 包含hasRight(boolean hasRight),hasBottom(boolean hasBottom)等方法
-                * 更高级的可以通过setOnTransformListener自定义间隔
-                */
-                .addItemDecoration(10);
-```
-
-2.ViewDelegates的使用与
-
-```
-public class LeftDelegates extends ViewDelegates<String> {
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.item_left;
-    }
-
-    @Override
-    public void fillData(int postion, String data, Helper helper) {
-//        helper.setText(R.id.tv, data);
-
-        ExtraHelper.wrapper(helper).setText(R.id.tv, data).heihei().heihei2()
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        System.out.println("helper click测试 ");
-                    }
-                }, new int[]{R.id.tv, R.id.ll_main});
-        ;
-    }
-}
-
-```
-如果想在创建view的时候插入一些操作 则需要多实现一个方法
-```
-@Override
-public  Holder getLayoutHolder(){
-    Holder holder=super.getLayoutView();
-    //逻辑添加
-    return holder;
-}
-```
-
-
-3.Helper的扩展技巧:扩展技巧是 装饰模式+链式调用
-引用：https://softwareengineering.stackexchange.com/questions/356782/multiple-layers-of-abstraction-and-chain-calls-of-methods-java-functional-like/356802
-
-> ExtraHelper.wrapper(holder).setText(R.id.tv, data).heihei().heihei2();
-
-```
-package zone.com.zadapter3.helper;
-
-/**
- * https://softwareengineering.stackexchange.com/questions/356782/multiple-layers-of-abstraction-and-chain-calls-of-methods-java-functional-like/356802
- * java8 的方式可以 。java7则不可以
- */
-public class ChainCallsCovariant2 {
-
-
-    static class Layer2<T extends Layer2<T>> {
-        public T layer2Method() {
-            return (T) this;
-        }
-
-    }
-
-    static class Layer3<T extends Layer3<T>> extends Layer2<T> {
-        public T layer3Method() {
-            return (T) this;
-        }
-
-        public static final <U extends Layer3<U>> U newLayer3Instance() {
-            return (U) new Layer3();
-        }
-
-    }
-
-    public static void main(String[] args) {
-
-        Layer3.newLayer3Instance().layer2Method()
-                .layer3Method().layer2Method();
-    }
-}
-```
-
-4.全局配置
-
-    //全局替换加载更多
-    QuickConfig.build().setLoadMoreDelegates(ILoadMoreDelegates iLoadMoreDelegates).perform();
-
-5.支持与ZRefresh联动
-
-> 请看demo
-
-6.支持添加快捷方法
-
-```
-    mAdapter.notifyItemInsertedEx(mDatas.size() - 1);
-
-    void scrollToData(T o);
-
-    void scrollToPosition(int position);
-
-    void scrollToLast();//滚动到底
-
-    void scrollToHF(ViewDelegates hf);
-
-    IAdapter removeFooterHolder(ViewDelegates footer);
-
-    IAdapter removeFooterHolder(ViewDelegates footer,boolean notify);
-
-    mAdapter.addItemDecoration(10)
-    ...很多快捷方法
-```
-
-7.支持Diff快速
-
-```
-        muliAdapter.diffSetKeyframe();//打个关键帧
-        mDatas.add(7, "insert diff");
-        for (int i = 0; i < 3; i++) {
-            mDatas.remove(1 + i);
-        }
-        muliAdapter.diffCalculate(new DiffCallBack<String>() {
-            @Override
-            public boolean areContentsTheSame(String oldItem, String newItem) {
-                return oldItem.equals(newItem);
+                //通过数据修改 多部剧类型
+                return ViewStyleOBJ().viewStyle(viewStyle)
             }
-        });//计算 最好写在线程中
-        muliAdapter.diffNotifyDataSetChanged();//通知
-```
 
-8.断头吸附效果的支持
-
-![](https://ww1.sinaimg.cn/large/006tNc79ly1fifdm9jzucg307i0dcal7.gif)
-
-```
-rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
-
-        muliAdapter = new QuickRcvAdapter(this, mDatas) {
-            @Override
-            protected int getItemViewType2(int dataPosition) {
-                if (dataPosition == 3)
-                    return 1;
-                else if (dataPosition == 6)
-                    return 2;
-                else if (dataPosition == 9)
-                    return 3;
-                else
-                    return 0;
+            override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
             }
-        };
-             muliAdapter
-                     .addViewHolder(new LeftDelegates())//默认
-                     .addEmptyHold(R.layout.empty)
-                     .relatedList(rv)
-                    .addSticky(vp, 3, 6, 9)//这里
+        })
+    }
+}
+
 ```
+
+配置扩展类
+
+```
+//实际RV中的数据是DataWarp
+class DataWarp<T>(var data: T?, var extraConfig: ViewStyleOBJ = ViewStyleOBJ())
+// 配置扩展类
+class ViewStyleOBJ {
+    var viewStyle: Int = -1 //布局类型
+    var isFullspan = false //是不是满行 一般用于grid布局和瀑布流布局
+    //配置tags 到时候点击或者浏览的时候可以通过tags是否上报之类的。或者在列表中瞬间找到一中tag的一些item
+    val tags: HashSet<String> by lazy { HashSet<String>() }
+    // 用于存一些obj的,可以到时候通过key取出来用
+    val otherMaps:HashMap<String,Any> by lazy { HashMap<String,Any>() }
+    // 是否吸顶
+    var isSticky: Boolean = false
+    // 用与快速更新Rv某部分的数据
+    var quickUpdateSection: QuickUpdateSection? = null
+    // 用于细分复用
+    var section: Section? = null
+    // 用于区分 是头部 还是底部 还是内容的
+    var part: Part = Part.CONTENT
+    // item 的 根部局FrameLayout 的上下左右间隔  就是divderRect。
+    //并且修改数据的时候都会把上一个item的divder通知变更下
+    var divderRect: Rect? = null
+    //控制前一个item divderRect的bottom强制为0 一般用于当前item上下没有间隔
+    var isHideBeforeDivder = false
+    // 内部属性。 是否生成过。如果生成过 则不生成了
+    internal var isGenerate = false
+```
+
 
 
 # Update log
@@ -246,45 +172,9 @@ rv.addOnScrollListener(new AbsorbOnScrollListener(vp, 3, 6, 9));
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
 
-## 1.0.9(未发布到jitpack)
-  * 修复断头吸附 支持断头吸附功能了
-  * diff支持包括有头底部的数据 ,但是仅仅对数据进行，而头底部则需要自己添加移除
-
-## 1.0.8(未发布到jitpack)
-
-  * 支持onbind 第四个参数
-  * 增加ViewDelegates#getLayoutHolder方法实现 创建时 setOnclick的一些逻辑，和其他人的习惯
-  * 把helper功能移动到holder上 原因： view->holder 而view->helper,helper就是扩展功能的 那么我放到holder里也没问题。
-  * 支持setContentDataMapListener的方法在不影响内部逻辑的情况下。让itemCounts和datas数据解耦 具体就是九图demo
-
-#### 发现的问题
-
-  * 断头吸附无法支持快速滑动的问题。 慢慢来还行 ，快速滑动会丢失一些计算 暂时不清楚 ，所以要是用到断头吸附的功能还是，用 两个view 同步显示吧.不要用一个view的了
-
-## 1.0.71
-
-  * 修复刷新后数据不足显示已经到底 这种错误
-
-## 1.0.7
-
-  * 修复未补全类泛型而导致的getView方法泛型的错误
-
-## 1.0.5
-
-  * 支持断头吸附效果
-  * 修复MarginItemDecoration bug并支持ViewDelegates的reduceDectorRect与dectorRect的dector修改;
-
 ## 1.0.2
 
   * 1. recyclerView链式调用
-  * 2. 可复用,资源id写在复用类里面
-  * 3. Helper类的链式调用与可扩展
-  * 4. 空数据view的支持
-  * 5. 支持Diff快速
-  * 6. 支持添加和滚动的快捷方法
-  * 7. 快速支持四种状态 loading,complete,end,fail 支持与ZRefresh联动
-  * 8. 满布局的支持,与特殊布局的demo,还有滚动速度布局的引用
-  * 9. decoration的快速支持,支持是否包含边界,单独左右上下等,更高级包含自定义监听
 
 
 # Reference&Thanks：

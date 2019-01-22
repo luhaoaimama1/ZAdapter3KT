@@ -99,6 +99,7 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
         isMonitorSection = true
         nowAddSection = section
         method()
+        //notifyItemRangeInsertedInnerMonitor 执行添加section操作后 nowAddSection制空
         nowAddSection = null
     }
 
@@ -123,6 +124,9 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
         for (i in positionStart..(positionStart + itemCount - 1)) {
             val realItem = getRealItem(i)
             realItem?.extraConfig?.section?.bindObjList?.remove(realItem as DataWarp<Any>)
+            realItem?.extraConfig?.apply {
+                this.section=null
+            }
         }
     }
 

@@ -61,21 +61,26 @@ class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
             super.getItemOffsets(outRect, view, parent, state)
             val position = parent.getChildAdapterPosition(view)
             val divider = 30
-            val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
-            outRect.top = divider
-            if (lp.spanIndex == 0) {
-                // left
-                outRect.left = divider;
-                outRect.right = divider / 2;
-            } else {
-                outRect.right = divider;
-                outRect.left = divider / 2;
+            if(rv.layoutManager is StaggeredGridLayoutManager){
+                val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
+                outRect.top = divider
+                if (lp.spanIndex == 0) {
+                    // left
+                    outRect.left = divider;
+                    outRect.right = divider / 2;
+                } else {
+                    outRect.right = divider;
+                    outRect.left = divider / 2;
+                }
+            }
+            if(rv.layoutManager is LinearLayoutManager){
+                outRect.bottom = divider;
             }
         }
     }
 
 
-    public fun changeLayout() {
+    fun changeLayout() {
 //        muliAdapter.clearContentDatas()
         isLinear = !isLinear
         if (isLinear) {

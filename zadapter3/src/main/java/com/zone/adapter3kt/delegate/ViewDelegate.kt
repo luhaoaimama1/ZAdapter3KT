@@ -88,6 +88,7 @@ abstract class ViewDelegate<T> {
     open fun initData(convertView: View, parent: ViewGroup) {}
     open fun registerClickListener(): Array<Int>? = null
     open fun setListener(holder: Holder) {}
+    //为什么这么写 而不用lambda方式设置呢？ 因为是set如果不统一处理或者override处理 。别的地方可能会覆盖并难自知
     open fun onClick(v: View?, viewHolder: Holder, posi: Int,item: DataWarp<T>) {}
 
     abstract fun onBindViewHolder(position: Int, item: DataWarp<T>, holder: Holder, payloads: List<*>)
@@ -102,7 +103,7 @@ abstract class ViewDelegate<T> {
             holder.setOnHolderClickListener(object : HolderClickListener {
                 override fun onClick(v: View?, viewHolder: Holder) {
                     val (pos, item) = getItemByHolder(viewHolder)
-                    item?.apply { onClick(v, viewHolder, pos, it as DataWarp<T>) }
+                    item?.apply { onClick(v, viewHolder, pos, this as DataWarp<T>) }
                 }
             }, it)
         }
