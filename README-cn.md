@@ -32,7 +32,7 @@ Add it in your root build.gradle at the end of repositories:
 		}
 	}
 Step 2. Add the dependency
-> compile 'com.github.luhaoaimama1:ZAdapter3:[Latest release](https://github.com/luhaoaimama1/ZAdapter3/releases)'
+> implementation 'com.github.luhaoaimama1:ZAdapter3KT:[Latest release](https://github.com/luhaoaimama1/ZAdapter3KT/releases)'
     
 # demo解释：
 
@@ -172,9 +172,16 @@ class ViewStyleOBJ {
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
 
-## 1.0.2
+## 1.0.01
 
-  * 1. recyclerView链式调用
+  * 实体类 配置额外功能
+  * 支持断头吸附
+  * Holder类的链式调用
+  * 支持空数据布局 头部 尾部
+  * 支持加载更多
+  * 支持 非官方的divder(根据实体类自动更新)
+  * 支持与ZRefresh联动
+  * 支持细分复用 ,整体可见与不可以见的监听
 
 
 # Reference&Thanks：

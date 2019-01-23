@@ -2,7 +2,7 @@
 
 [中文版文档](README-cn.md)
 
-# 优点
+# Merit
 
 -[x] Configuring additional functionality for entity classes
 
@@ -34,7 +34,7 @@ Add it in your root build.gradle at the end of repositories:
 		}
 	}
 Step 2. Add the dependency
-> compile 'com.github.luhaoaimama1:ZAdapter3:[Latest release](https://github.com/luhaoaimama1/ZAdapter3/releases)'
+> implementation 'com.github.luhaoaimama1:ZAdapter3KT:[Latest release](https://github.com/luhaoaimama1/ZAdapter3KT/releases)'
 
 # demo explain：
 
@@ -171,9 +171,17 @@ class ViewStyleOBJ {
 >Since there are more updates per version, update logs are posted on each version from now on.
 
 
-## 1.0.2
+##  1.0.01
 
-  * 1. recyclerView链式调用
+  * Configuring additional functionality for entity classes
+  * support of decapitation adsorption
+  * Chain call of the Holder class
+  * Support for empty data layout header tail
+  * Support for loading more
+  * Support for unofficial divder (automatically updated by entity class)
+  * Support and ZRefresh linkage
+  * Support for subdivision reuse, overall visible and invisible listening
+
 
 
 # Reference&Thanks：
