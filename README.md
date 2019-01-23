@@ -4,23 +4,23 @@
 
 # Merit
 
--[x] Configuring additional functionality for entity classes
+- [x]   Configuring additional functionality for entity classes
 
--[x] support of decapitation adsorption
+- [x]   support of decapitation adsorption
 
--[x] Chain call of the Holder class
+- [x]   Chain call of the Holder class
 
--[x] Support for empty data layout header tail
+- [x]   Support for empty data layout header tail
 
--[x] Support for loading more
+- [x]   Support for loading more
 
--[x] Support for unofficial divder (automatically updated by entity class)
+- [x]   Support for unofficial divder (automatically updated by entity class)
 
--[x] Support and ZRefresh linkage
+- [x]   Support and ZRefresh linkage
 
--[x] Support for subdivision reuse, overall visible and invisible listening
+- [x]   Support for subdivision reuse, overall visible and invisible listening
 
--[ ] Extensibility of Holder classes
+- [ ] Extensibility of Holder classes
 
 # Usage
 
