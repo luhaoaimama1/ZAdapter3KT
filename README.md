@@ -36,6 +36,13 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 > implementation 'com.github.luhaoaimama1:ZAdapter3KT:[Latest release](https://github.com/luhaoaimama1/ZAdapter3KT/releases)'
 
+
+# design thought
+
+![](http://assets.processon.com/chart_image/5b755300e4b08d3622b16d4d.png)
+
+https://www.processon.com/view/link/5b755300e4b025cf49492260
+
 # demo explain：
 
 * easy use 's ,  Example  -> FastRecyclerActivity
