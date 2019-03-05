@@ -1,22 +1,18 @@
 package zone.com.zadapter3kt.common
 
 import android.content.Context
-import android.graphics.Rect
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.zone.adapter3kt.QuickAdapter
-import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.adapter.OnItemClickListener
-import com.zone.adapter3kt.data.HFMode
 import com.zone.adapter3kt.delegate.ResDelegate
-import com.zone.adapter3kt.divder.StandardDivder
-import com.zone.adapter3kt.holder.Holder
+import com.zone.adapter3kt.holder.BaseHolder
 import com.zone.adapter3kt.section.Section
 import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.LeftDelegates
-import zone.com.zadapter3kt.adapter.RightDelegates
 
 /**
  * [2018/9/13] by Zone
@@ -67,13 +63,13 @@ class PartitionAdapter(context: Context) : QuickAdapter<String>(context) {
         })
     }
 
-    override fun onViewAttachedToWindowForSection(holder: Holder, section: Section, sectionPosi: Int) {
-        super.onViewAttachedToWindowForSection(holder, section, sectionPosi)
+    override fun onViewAttachedToWindowForSection(baseHolder: BaseHolder< RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
+        super.onViewAttachedToWindowForSection(baseHolder, section, sectionPosi)
         println("ForSection---onViewAttached----sectionPosi:${sectionPosi}----sectionObj:${section.obj}")
     }
 
-    override fun onViewDetachedFromWindowForSection(holder: Holder, section: Section, sectionPosi: Int) {
-        super.onViewDetachedFromWindowForSection(holder, section, sectionPosi)
+    override fun onViewDetachedFromWindowForSection(baseHolder: BaseHolder< RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
+        super.onViewDetachedFromWindowForSection(baseHolder, section, sectionPosi)
         println("ForSection---onViewDetached----sectionPosi:${sectionPosi}----sectionObj:${section.obj}")
     }
 }

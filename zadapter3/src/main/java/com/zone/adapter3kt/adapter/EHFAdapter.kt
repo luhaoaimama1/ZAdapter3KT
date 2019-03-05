@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.zone.adapter3kt.*
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.data.HFMode
+import com.zone.adapter3kt.holder.BaseHolder
 import com.zone.adapter3kt.holder.Holder
 
 /**
@@ -29,22 +30,22 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
         mHFList.addFooterEnable = true
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RecyclerView.ViewHolder> {
         if (viewType == EMPTY_VALUE || viewType == LOADING_VALUE ||
             mHFList.footerViewStyleOrder.indexOf(viewType) != -1 ||
             mHFList.headerViewStyleOrder.indexOf(viewType) != -1) {
-            return Holder(super.onCreateViewHolder(parent, viewType).view)
+            return Holder(super.onCreateViewHolder(parent, viewType).itemView)
         }
         return super.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolderWithData(holder: Holder, position: Int, item: DataWarp<T>, payloads: MutableList<Any>?) {
-        super.onBindViewHolderWithData(holder, position, item, payloads)
+    override fun onBindViewHolderWithData(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>?) {
+        super.onBindViewHolderWithData(baseHolder, position, item, payloads)
         if (recyclerView!!.layoutManager is StaggeredGridLayoutManager) {
-            val params = StaggeredGridLayoutManager.LayoutParams(holder.itemView.layoutParams)
+            val params = StaggeredGridLayoutManager.LayoutParams(baseHolder.itemView.layoutParams)
             if (params.isFullSpan != item.extraConfig.isFullspan) {
                 params.isFullSpan = item.extraConfig.isFullspan
-                holder.itemView.layoutParams = params
+                baseHolder.itemView.layoutParams = params
             }
         }
     }

@@ -98,8 +98,8 @@ class ListCollection<T> {
             if (isBreak) break
             for (j in list.get(i).size - 1 downTo 0) {
                 if (iterPos >= positionStart && iterPos < positionStart + itemCount) {
-                    method(list.get(i).get(j))
-                    list.get(i).removeAt(j)
+                    method(list[i][j])
+                    list[i].removeAt(j)
                     if (!removeSuccess) removeSuccess = true
                 }
                 if (iterPos < positionStart) {

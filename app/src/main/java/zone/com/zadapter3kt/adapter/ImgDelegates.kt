@@ -1,27 +1,25 @@
 package zone.com.zadapter3kt.adapter
 
 import android.view.View
-
-import com.zone.adapter3kt.holder.Holder
 import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.data.DataWarp
-import com.zone.adapter3kt.delegate.ViewDelegate
-
 import zone.com.zadapter3.R
+import zone.com.zadapter3kt.adapterimpl.HolderExDemoImpl
+import zone.com.zadapter3kt.adapterimpl.ViewDelegatesDemo
 
 /**
  * [2017] by Zone
  */
 
-class ImgDelegates : ViewDelegate<String>() {
+class ImgDelegates : ViewDelegatesDemo<String>() {
     override val layoutId: Int = R.layout.item_img
 
-    override fun onBindViewHolder(position: Int, item: DataWarp<String>, holder: Holder, payloads: List<*>) {
+    override fun onBindViewHolder(position: Int, item: DataWarp<String>, baseHolder: HolderExDemoImpl, payloads: List<*>) {
         if ("".equals(item.data)) {
-            holder.setImageResource(R.id.img, R.mipmap.ic_launcher)
-            holder.setOnClickListener(null, R.id.img)
+            baseHolder.setImageResource(R.id.img, R.mipmap.ic_launcher)
+            baseHolder.setOnClickListener(null, R.id.img)
         } else {
-            holder.setOnClickListener(View.OnClickListener {
+            baseHolder.setOnClickListener(View.OnClickListener {
                 if (adapter is StickyAdapter){
                     val stickyAdapter = adapter as StickyAdapter<String>
                     if (stickyAdapter.itemCount == 9){

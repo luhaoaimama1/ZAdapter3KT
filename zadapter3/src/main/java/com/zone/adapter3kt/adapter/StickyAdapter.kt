@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.zone.adapter.R
 import com.zone.adapter3kt.data.DataWarp
-import com.zone.adapter3kt.holder.Holder
+import com.zone.adapter3kt.holder.BaseHolder
 import com.zone.adapter3kt.sticky.StickyChildHolder
 import com.zone.adapter3kt.sticky.StickyHolder
 import com.zone.adapter3kt.sticky.StickyOnScrollListener
@@ -81,7 +81,7 @@ open class StickyAdapter<T>(context: Context) : LoadMoreAdapter<T>(context) {
         return super.getItemViewType(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RecyclerView.ViewHolder> {
         if (enableSticky && viewType <= STICKY_VALUE && viewType >= STICKY_VALUE_END) {
             //stickyViewTypeMap 获得对应的值 然后生成 delegete
             for (entry in stickyViewTypeMap.entries) {
@@ -98,20 +98,20 @@ open class StickyAdapter<T>(context: Context) : LoadMoreAdapter<T>(context) {
         return super.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int, payloads: MutableList<Any>?) {
+    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, payloads: MutableList<Any>?) {
         if (enableSticky) {
             // 如果bind的时候 发现 外面的posi与内部的pos一样,那么把占位拿过来  从而不用走BindViewHolder了
-            if (holder is StickyHolder && stickyScroller != null && stickyScroller!!.preShowStickyPosi == position) {
-                stickyScroller!!.adapterAddPlaceHolder(holder)
+            if (baseHolder is StickyHolder && stickyScroller != null && stickyScroller!!.preShowStickyPosi == position) {
+                stickyScroller!!.adapterAddPlaceHolder(baseHolder)
                 return
             }
-            if (holder is StickyHolder) { //绝对是先有 才会被站位的可能 那么先有就代表onBind的时候一定 不是站位view
-                val childIsPlaceHolder = stickyScroller != null && stickyScroller!!.childIsPlaceholderView(holder.itemView as FrameLayout)
+            if (baseHolder is StickyHolder) { //绝对是先有 才会被站位的可能 那么先有就代表onBind的时候一定 不是站位view
+                val childIsPlaceHolder = stickyScroller != null && stickyScroller!!.childIsPlaceholderView(baseHolder.itemView as FrameLayout)
                 //当内部不是占位的时候  进行bindViewHolder
-                if (!childIsPlaceHolder) super.onBindViewHolder(holder.stickyChildHolder, position, payloads)
-            } else if (holder is StickyChildHolder) { //scroller 里创建与绑定的
-                super.onBindViewHolder(holder, position, payloads)
-            } else super.onBindViewHolder(holder, position, payloads)
-        } else super.onBindViewHolder(holder, position, payloads)
+                if (!childIsPlaceHolder) super.onBindViewHolder(baseHolder.stickyChildHolder, position, payloads)
+            } else if (baseHolder is StickyChildHolder) { //scroller 里创建与绑定的
+                super.onBindViewHolder(baseHolder, position, payloads)
+            } else super.onBindViewHolder(baseHolder, position, payloads)
+        } else super.onBindViewHolder(baseHolder, position, payloads)
     }
 }

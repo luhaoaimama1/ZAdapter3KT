@@ -7,7 +7,7 @@ import com.zone.adapter3kt.ViewStyle
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.data.HFListHistory
 import com.zone.adapter3kt.divder.BaseDivder
-import com.zone.adapter3kt.holder.Holder
+import com.zone.adapter3kt.holder.BaseHolder
 
 /**
  *[2018] by Zone
@@ -93,17 +93,17 @@ open class ContentAdapter<T>(context: Context) : DelegatesAdapter<T>(context) {
 
     override fun getItemCount(): Int = mHFList.mListCollection.count()
     override fun getItemViewType(position: Int): Int = mHFList.getItemViewType(position)
-    override fun onBindViewHolder(holder: Holder, position: Int, payloads: MutableList<Any>?) {
+    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, payloads: MutableList<Any>?) {
         //测试 sticky  如果bind的时候 发现 外面的posi与内部的pos一样,那么把占位拿过来  从而不用走BindViewHolder了
         QuickConfig.e("onBindViewHolder ->posi${position}")
 
         val item = mHFList.mListCollection.getItem(position) ?: return
-        onBindViewHolderWithData(holder, position, item, payloads)
+        onBindViewHolderWithData(baseHolder, position, item, payloads)
         if (item.data == null) return
-        delegatesManager.onBindViewHolder(position, item, holder, payloads)
+        delegatesManager.onBindViewHolder(position, item, baseHolder, payloads)
     }
 
-    protected open fun onBindViewHolderWithData(holder: Holder, position: Int, item: DataWarp<T>, payloads: MutableList<Any>?) {}
+    protected open fun onBindViewHolderWithData(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>?) {}
     protected open fun checkAddEmptyData() {}
     protected open fun checkRemoveEmptyData() {}
     protected open fun dataWithConfigChanged() {}

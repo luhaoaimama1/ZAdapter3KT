@@ -1,9 +1,10 @@
 package com.zone.adapter3kt
 
 import android.content.Context
+import android.support.v7.widget.RecyclerView
 import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.data.DataWarp
-import com.zone.adapter3kt.holder.Holder
+import com.zone.adapter3kt.holder.BaseHolder
 import com.zone.adapter3kt.section.Section
 import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView
 
@@ -35,13 +36,13 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
      * 返回过滤tags后的位置 如果是tags点击的话会返回-1
      */
     fun filterTagsPosi(item: T, vararg tags: String): Int =
-        filterTagsCommon(tags) { index, it -> it.data == item }
+        filterTagsCommon(tags) { _, it -> it.data == item }
 
     /**
      * 返回过滤tags后的位置 如果是tags点击的话会返回-1
      */
     fun filterTagsPosi(posi: Int, vararg tags: String): Int =
-        filterTagsCommon(tags) { index, it -> index == posi }
+        filterTagsCommon(tags) { index, _ -> index == posi }
 
     private fun filterTagsCommon(tags: Array<out String>, method: (index: Int, it: DataWarp<T>) -> Boolean): Int {
         var posiResult = -1
@@ -135,16 +136,16 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
      * 什么叫做显示？
      * 当前显示的sectionList没有。既为 显示
      */
-    override fun onViewAttachedToWindow(holder: Holder) {
-        super.onViewAttachedToWindow(holder)
+    override fun onViewAttachedToWindow(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+        super.onViewAttachedToWindow(baseHolder)
         if (!isMonitorSection) return
-        val section = getRealItem(holder.layoutPosition)?.extraConfig?.section
+        val section = getRealItem(baseHolder.layoutPosition)?.extraConfig?.section
         //section可空 只要和后面不等  因为有些卡片我不想赋section
         section?.apply {
             if (visiSectionList.indexOf(section) == -1) {
                 visiSectionList.add(section)
                 findSection(section) {
-                    onViewAttachedToWindowForSection(holder, section, it)
+                    onViewAttachedToWindowForSection(baseHolder, section, it)
                 }
             }
         }
@@ -155,10 +156,10 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
      * 通过holder找到section  通过section找到内部第一个和最后一个在列表的位置 然后找到列表中第一个可见和最后一个可见 作对比
      */
     @Suppress("UNCHECKED_CAST")
-    override fun onViewDetachedFromWindow(holder: Holder) {
-        super.onViewDetachedFromWindow(holder)
+    override fun onViewDetachedFromWindow(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+        super.onViewDetachedFromWindow(baseHolder)
         if (!isMonitorSection) return
-        val detachSectionPosition = holder.layoutPosition
+        val detachSectionPosition = baseHolder.layoutPosition
         val section = getRealItem(detachSectionPosition)?.extraConfig?.section
         section?.apply {
             val pair = recyclerView!!.getFirstLastPosrecyclerView()
@@ -183,7 +184,7 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
             if (thisSectionLastPosi < first || thisSectionFirstPosi > second) {
                 visiSectionList.remove(section)
                 findSection(section) {
-                    onViewDetachedFromWindowForSection(holder, section, it)
+                    onViewDetachedFromWindowForSection(baseHolder, section, it)
                 }
             }
         }
@@ -191,7 +192,7 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
 
     open fun findSection(section: Section, method: (sectionPosi: Int) -> Unit) {
         var sectionPosi = 0
-        mHFList.mListCollection.loop { index: Int, item: DataWarp<T> ->
+        mHFList.mListCollection.loop { _ , item: DataWarp<T> ->
             item.extraConfig.section?.apply {
                 if (this == section) {
                     method(sectionPosi)
@@ -203,10 +204,10 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
         }
     }
 
-    open fun onViewAttachedToWindowForSection(holder: Holder, section: Section, sectionPosi: Int) {
+    open fun onViewAttachedToWindowForSection(baseHolder: BaseHolder<RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
     }
 
-    open fun onViewDetachedFromWindowForSection(holder: Holder, section: Section, sectionPosi: Int) {
+    open fun onViewDetachedFromWindowForSection(baseHolder: BaseHolder<RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
     }
 
 }

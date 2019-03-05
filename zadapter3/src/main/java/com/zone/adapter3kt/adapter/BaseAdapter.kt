@@ -2,13 +2,13 @@ package com.zone.adapter3kt.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import com.zone.adapter3kt.holder.Holder
+import com.zone.adapter3kt.holder.BaseHolder
 
 /**
  *[2018] by Zone
  */
 abstract class BaseAdapter<T>(protected var context: Context)
-    : RecyclerView.Adapter<Holder>() {
+    : RecyclerView.Adapter<BaseHolder<RecyclerView.ViewHolder>>() {
 
     companion object {
         @JvmField

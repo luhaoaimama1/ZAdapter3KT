@@ -1,22 +1,22 @@
 package zone.com.zadapter3kt.adapter
 
 import com.zone.adapter3kt.data.DataWarp
-import com.zone.adapter3kt.delegate.ViewDelegate
-import com.zone.adapter3kt.holder.Holder
 
 import zone.com.zadapter3.R
+import zone.com.zadapter3kt.adapterimpl.HolderExDemoImpl
+import zone.com.zadapter3kt.adapterimpl.ViewDelegatesDemo
 
 /**
  * [2017] by Zone
  */
 
-class RightDiffDelegates : ViewDelegate<String>() {
+class RightDiffDelegates : ViewDelegatesDemo<String>() {
     override var layoutId: Int = R.layout.item_right
 
 
-    override fun onBindViewHolder(position: Int, item: DataWarp<String>, holder: Holder, payloads: List<*>) {
+    override fun onBindViewHolder(position: Int, item: DataWarp<String>, baseHolder: HolderExDemoImpl, payloads: List<*>) {
         if (payloads.firstOrNull()?.equals("ChangePayload") ?: false)
-            holder.setText(R.id.tv, item.data!!)
+            baseHolder.setText(R.id.tv, item.data!!)
     }
 
 }

@@ -16,6 +16,7 @@ abstract class ScrollToAdapter<T>(context: Context) : EventAdapter<T>(context) {
 
     fun scrollTo(item: T) {
         val posi = mHFList.indexOfItem(item)
+        //zone todo 检测posi 列表范围内
         if (posi != -1) recyclerView?.scrollToPosition(posi)
     }
 }

@@ -1,5 +1,8 @@
 package com.zone.adapter3kt.delegate
 
+import android.support.v7.widget.RecyclerView
+import com.zone.adapter3kt.holder.BaseHolder
+
 
 /**
  * [2018] by Zone
@@ -8,7 +11,7 @@ package com.zone.adapter3kt.delegate
  * [.fail]
  * [.end]
  */
-abstract class LoadMoreViewDelegate : ViewDelegate<Any>() {
+abstract class LoadMoreViewDelegate : ViewDelegate<Any, BaseHolder<RecyclerView.ViewHolder>>() {
     //移除
     open fun complete() {}
 

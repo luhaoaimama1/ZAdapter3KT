@@ -2,14 +2,14 @@ package com.zone.adapter3kt.adapter
 
 import android.content.Context
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.zone.adapter3kt.holder.Holder
+import com.zone.adapter3kt.holder.BaseHolder
 import com.zone.adapter3kt.delegate.DelegatesManager
 import com.zone.adapter3kt.delegate.LoadMoreViewDelegate
 import com.zone.adapter3kt.delegate.ResDelegate
 import com.zone.adapter3kt.delegate.ViewDelegate
 import com.zone.adapter3kt.loadmore.LoadingSetting
-import com.zone.adapter3kt.section.Section
 
 
 /**
@@ -21,9 +21,9 @@ abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
 
     val delegatesManager = DelegatesManager(this)
 
-    fun registerDelegate(viewType: Int, delegate: ViewDelegate<*>) {
+    fun registerDelegate(viewType: Int, delegate: ViewDelegate<*,*>) {
         if (viewType < 0 && viewType >= -100) throw IllegalStateException("view type -1 to -100 use by inner！")
-        delegatesManager.registerDelegate(viewType, delegate)
+        delegatesManager.registerDelegate(viewType, delegate as ViewDelegate<*, BaseHolder<RecyclerView.ViewHolder>>)
     }
 
     fun registerDelegate(viewType: Int, @LayoutRes layoutId: Int) {
@@ -31,8 +31,8 @@ abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
     }
 
     //default
-    fun registerDelegate(delegate: ViewDelegate<*>) {
-        delegatesManager.registerDelegate(DEFAULT_VALUE, delegate)
+    fun registerDelegate(delegate: ViewDelegate<*, *>) {
+        delegatesManager.registerDelegate(DEFAULT_VALUE, delegate as ViewDelegate<*, BaseHolder<RecyclerView.ViewHolder>>)
     }
 
     fun registerDelegate(@LayoutRes layoutId: Int) {
@@ -40,8 +40,8 @@ abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
     }
 
     //empty
-    fun registerEmpytDelegate(delegate: ViewDelegate<*>) {
-        delegatesManager.registerDelegate(EMPTY_VALUE, delegate)
+    fun registerEmpytDelegate(delegate: ViewDelegate<*,*>) {
+        delegatesManager.registerDelegate(EMPTY_VALUE, delegate as ViewDelegate<*, BaseHolder<RecyclerView.ViewHolder>>)
     }
 
     fun registerEmpytDelegate(@LayoutRes layoutId: Int) {
@@ -57,29 +57,29 @@ abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
 
     // =======================================分割线=====================================
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RecyclerView.ViewHolder> {
         return delegatesManager.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: Holder?, position: Int) {}
+    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>?, position: Int) {}
 
     // =======================================分割线=====================================
-    override fun onFailedToRecycleView(holder: Holder): Boolean =
-        delegatesManager.onFailedToRecycleView(holder)
+    override fun onFailedToRecycleView(baseHolder: BaseHolder<RecyclerView.ViewHolder>): Boolean =
+        delegatesManager.onFailedToRecycleView(baseHolder)
 
-    override fun onViewDetachedFromWindow(holder: Holder) {
-        super.onViewDetachedFromWindow(holder)
-        delegatesManager.onViewDetachedFromWindow(holder)
+    override fun onViewDetachedFromWindow(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+        super.onViewDetachedFromWindow(baseHolder)
+        delegatesManager.onViewDetachedFromWindow(baseHolder)
     }
 
-    override fun onViewAttachedToWindow(holder: Holder) {
-        super.onViewAttachedToWindow(holder)
-        delegatesManager.onViewAttachedToWindow(holder)
+    override fun onViewAttachedToWindow(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+        super.onViewAttachedToWindow(baseHolder)
+        delegatesManager.onViewAttachedToWindow(baseHolder)
     }
 
-    override fun onViewRecycled(holder: Holder) {
-        super.onViewRecycled(holder)
-        delegatesManager.onViewRecycled(holder)
+    override fun onViewRecycled(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+        super.onViewRecycled(baseHolder)
+        delegatesManager.onViewRecycled(baseHolder)
     }
 
 }
