@@ -36,8 +36,6 @@ Step 2. Add the dependency
 
 # 设计思路
 
-![](http://assets.processon.com/chart_image/5b755300e4b08d3622b16d4d.png)
-
 https://www.processon.com/view/link/5b755300e4b025cf49492260
 
 # demo解释：
