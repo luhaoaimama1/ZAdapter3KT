@@ -20,7 +20,7 @@
 
 - [x]   Support for subdivision reuse, overall visible and invisible listening
 
-- [ ] Extensibility of Holder classes
+- [x] Extensibility of Holder classes,please read zone.com.zadapter3kt.adapterimpl's files
 
 # Usage
 
@@ -181,7 +181,6 @@ class ViewStyleOBJ {
   * Support for unofficial divder (automatically updated by entity class)
   * Support and ZRefresh linkage
   * Support for subdivision reuse, overall visible and invisible listening
-
 
 
 # Reference&Thanks：

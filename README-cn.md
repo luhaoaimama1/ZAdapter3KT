@@ -18,7 +18,7 @@
 
 - [x]  支持细分复用 ,整体可见与不可以见的监听
 
-- [ ] Holder类的 可扩展
+- [x] Holder类的 可扩展 参考zone.com.zadapter3kt.adapterimpl文件夹下
 
 # Usage
 

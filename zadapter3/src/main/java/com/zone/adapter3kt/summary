@@ -49,8 +49,6 @@ recyclerview在屏幕上显示不出来 但是他的高度 却还是那么高.
 
 # Todo===>> demo测试
 * 细分复用碰到 appbar 的那种 可见性；
-
-
 * 吸附问题  给一些回调？
     *  onattch ondetch 头部（index）
 * 刷新框架 接入 嵌套滑动
