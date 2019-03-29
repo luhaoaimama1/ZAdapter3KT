@@ -44,7 +44,7 @@ https://www.processon.com/view/link/5b755300e4b025cf49492260
 * 多布局参考  RecyclerKTActivity（这里写的很多 其实没那么麻烦,但是为了验证很多功能所以写的...）
 * NineRecyclerKTActivity 类似最多添加9张发布图片
 * ViewStyleOBJ扩展类中的divderRect、isHideBeforeDivder 参考 DivderKTActivity
-* ViewStyleOBJ扩展类中的section 参考 PartitionActivity
+* ViewStyleOBJ扩展类中的section(细分复用) 参考 PartitionActivity
 * ViewStyleOBJ扩展类中的isSticky 参考 StickyKTActivity
 * 类似最多添加9张发布图片  参考 NineRecyclerKTActivity
 * ZRefresh库上拉下拉的联动  参考 ZRefreshKTActivity
