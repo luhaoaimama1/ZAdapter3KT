@@ -1,9 +1,9 @@
 package com.zone.adapter3kt.sticky
 
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -13,18 +13,19 @@ import com.zone.adapter3kt.adapter.StickyAdapter
 /**
  * [2018] by Zone
  */
-class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: StickyAdapter<T>, @ColorInt val placeColor: Int = Color.TRANSPARENT) : RecyclerView.OnScrollListener() {
+class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: StickyAdapter<T>, @ColorInt val placeColor: Int = Color.TRANSPARENT) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+    private val FULLUPDATE_PAYLOADS = ArrayList<Any>()
     internal var preShowStickyPosi = -1
     private var placeholderView: View? = null
     internal var mNowStickyViewHolder: StickyChildHolder? = null
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+    override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         if (recyclerView == null) return
     }
 
     @Synchronized
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         if (recyclerView == null) return
         //为了 变换的时候不影响这次计算 
@@ -32,7 +33,7 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
         var pos = 0
         try {
             //GridLayoutManager 继承LinearLayoutManager 所以也支持GridLayoutManager
-            pos = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            pos = (recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
             QuickConfig.e("吸附-> findFirstVisibleItemPosition：$pos")
         } catch (e: Exception) {
             e.printStackTrace()
@@ -75,7 +76,7 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
                             placeholderView!!.layoutParams = stickyChildHolderItemView.layoutParams
                             mNowStickyViewHolder = viewHolder
                             //viewHolder 是StickyChildHolder  而不是StickHolder所以不会被移除parent 仅仅是进行绑定
-                            adapter.onBindViewHolder(viewHolder, shouldShowStickyPos, null)
+                            adapter.onBindViewHolder(viewHolder, shouldShowStickyPos, FULLUPDATE_PAYLOADS)
                             break
                         }
                     }
@@ -102,10 +103,11 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
                 val nextStickyView = stickyList[nextStickyIndex].posi
                 val stickyView = mNowStickyViewHolder!!.itemView
                 if (stickyView != null) {
-                    if (recyclerView.findViewHolderForLayoutPosition(nextStickyView) == null)
+                    val findViewHolderForLayoutPosition = recyclerView.findViewHolderForLayoutPosition(nextStickyView)
+                    if (findViewHolderForLayoutPosition == null)
                         stickyView.translationY = 0f
                     else {
-                        val targetView = recyclerView.findViewHolderForLayoutPosition(nextStickyView).itemView
+                        val targetView = findViewHolderForLayoutPosition.itemView
                         if (targetView.top <= stickyView.height) stickyView.translationY = (targetView.top - stickyView.height).toFloat()
                         else stickyView.translationY = 0f
                     }
@@ -114,7 +116,7 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
         }
     }
 
-    private fun releaseNowShowSticky(recyclerView: RecyclerView) {
+    private fun releaseNowShowSticky(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         //release释放的时候 如果在 对应position位置找到的话 ,替换 . 找不到 制空不管即可
 
         val shouldViewHolder = recyclerView.findViewHolderForLayoutPosition(preShowStickyPosi)
@@ -160,7 +162,7 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
     }
 
     // 3,6,9为例  [0,3)show 无 ,[3,6)show 3,[6,9)show 6,>=9 show 9
-    private fun findShowPos(pos: Int, recyclerView: RecyclerView, stickyList: ArrayList<StickyAdapter.StickyEntity<T>>): ShowPos {
+    private fun findShowPos(pos: Int, recyclerView: androidx.recyclerview.widget.RecyclerView, stickyList: ArrayList<StickyAdapter.StickyEntity<T>>): ShowPos {
         // if (itemViews[i - 1].getTop() <= 0) {//注意:getTop不包括 dector
         for (i in 0 until stickyList.size) {
             if (pos < stickyList[i].posi) {

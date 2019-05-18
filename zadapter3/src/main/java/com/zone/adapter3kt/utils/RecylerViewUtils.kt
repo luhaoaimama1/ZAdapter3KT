@@ -1,32 +1,32 @@
 package com.zone.adapter3kt.utils
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 /**
  *[2018/11/15] by Zone
  */
 
-fun RecyclerView.getFirstLastPosrecyclerView(): Pair<Int, Int> {
+fun androidx.recyclerview.widget.RecyclerView.getFirstLastPosrecyclerView(): Pair<Int, Int> {
     var firstVisiblePos = -1
     var lastVisiblePos = -1
     val recyclerView = this
     when (recyclerView.layoutManager) {
-        is LinearLayoutManager -> {
-            firstVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-            lastVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+        is androidx.recyclerview.widget.LinearLayoutManager -> {
+            firstVisiblePos = (recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
+            lastVisiblePos = (recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findLastVisibleItemPosition()
         }
-        is GridLayoutManager -> {
-            firstVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
-            lastVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
+        is androidx.recyclerview.widget.GridLayoutManager -> {
+            firstVisiblePos = (recyclerView.layoutManager as androidx.recyclerview.widget.GridLayoutManager).findFirstVisibleItemPosition()
+            lastVisiblePos = (recyclerView.layoutManager as androidx.recyclerview.widget.GridLayoutManager).findLastVisibleItemPosition()
         }
-        is StaggeredGridLayoutManager -> {
+        is androidx.recyclerview.widget.StaggeredGridLayoutManager -> {
             var firstVisibleItems: IntArray? = null
             var lastVisibleItems: IntArray? = null
-            firstVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findFirstVisibleItemPositions(firstVisibleItems)
-            lastVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findLastVisibleItemPositions(lastVisibleItems)
+            firstVisibleItems = (recyclerView.layoutManager as androidx.recyclerview.widget.StaggeredGridLayoutManager).findFirstVisibleItemPositions(firstVisibleItems)
+            lastVisibleItems = (recyclerView.layoutManager as androidx.recyclerview.widget.StaggeredGridLayoutManager).findLastVisibleItemPositions(lastVisibleItems)
             if (firstVisibleItems != null && firstVisibleItems.size > 0) {
                 firstVisiblePos = firstVisibleItems[0]
             }

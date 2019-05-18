@@ -1,7 +1,7 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.*
 import com.zone.adapter3kt.ViewStyle
 import com.zone.adapter3kt.data.DataWarp
@@ -18,7 +18,7 @@ import com.zone.adapter3kt.holder.BaseHolder
 open class ContentAdapter<T>(context: Context) : DelegatesAdapter<T>(context) {
 
     var divderManager: BaseDivder<T>? = null
-    protected var recyclerView: RecyclerView? = null
+    protected var recyclerView: androidx.recyclerview.widget.RecyclerView? = null
     var dataChangeHasAnimator = true
 
     internal var mHFList = object : HFListHistory<T>() {
@@ -93,7 +93,7 @@ open class ContentAdapter<T>(context: Context) : DelegatesAdapter<T>(context) {
 
     override fun getItemCount(): Int = mHFList.mListCollection.count()
     override fun getItemViewType(position: Int): Int = mHFList.getItemViewType(position)
-    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, payloads: MutableList<Any>?) {
+    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, payloads: MutableList<Any>) {
         //测试 sticky  如果bind的时候 发现 外面的posi与内部的pos一样,那么把占位拿过来  从而不用走BindViewHolder了
         QuickConfig.e("onBindViewHolder ->posi${position}")
 
@@ -103,7 +103,7 @@ open class ContentAdapter<T>(context: Context) : DelegatesAdapter<T>(context) {
         delegatesManager.onBindViewHolder(position, item, baseHolder, payloads)
     }
 
-    protected open fun onBindViewHolderWithData(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>?) {}
+    protected open fun onBindViewHolderWithData(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>) {}
     protected open fun checkAddEmptyData() {}
     protected open fun checkRemoveEmptyData() {}
     protected open fun dataWithConfigChanged() {}

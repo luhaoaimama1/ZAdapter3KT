@@ -1,9 +1,9 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.ViewGroup
 import com.zone.adapter3kt.*
 import com.zone.adapter3kt.data.DataWarp
@@ -30,7 +30,7 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
         mHFList.addFooterEnable = true
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RecyclerView.ViewHolder> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder> {
         if (viewType == EMPTY_VALUE || viewType == LOADING_VALUE ||
             mHFList.footerViewStyleOrder.indexOf(viewType) != -1 ||
             mHFList.headerViewStyleOrder.indexOf(viewType) != -1) {
@@ -39,10 +39,10 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
         return super.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolderWithData(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>?) {
+    override fun onBindViewHolderWithData(baseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>) {
         super.onBindViewHolderWithData(baseHolder, position, item, payloads)
-        if (recyclerView!!.layoutManager is StaggeredGridLayoutManager) {
-            val params = StaggeredGridLayoutManager.LayoutParams(baseHolder.itemView.layoutParams)
+        if (recyclerView!!.layoutManager is androidx.recyclerview.widget.StaggeredGridLayoutManager) {
+            val params = androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams(baseHolder.itemView.layoutParams)
             if (params.isFullSpan != item.extraConfig.isFullspan) {
                 params.isFullSpan = item.extraConfig.isFullspan
                 baseHolder.itemView.layoutParams = params
@@ -69,13 +69,13 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
         }
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerView = recyclerView
         val manager = recyclerView.getLayoutManager()
-        if (manager is GridLayoutManager) {
+        if (manager is androidx.recyclerview.widget.GridLayoutManager) {
             val oldSpanSizeLookup = manager.spanSizeLookup;
-            manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            manager.spanSizeLookup = object : androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     val item = mHFList.mListCollection.getItem(position)
                     if (item == null) return 0

@@ -1,7 +1,7 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.data.DataWarp
@@ -60,16 +60,18 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
             }
         }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         addLoadMoreScrollListener(recyclerView)
     }
 
-    private fun addLoadMoreScrollListener(recyclerView: RecyclerView) {
+    private fun addLoadMoreScrollListener(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         if (enableLoadMore && delegatesManager.getDelegateNoMap(LOADING_VALUE) != null && !hasLoadScrollListener) {
             if (loadOnScrollListener == null) loadOnScrollListener = OnScrollRcvListener()
-            loadOnScrollListener!!.setting = loadingSetting
-            recyclerView.addOnScrollListener(loadOnScrollListener)
+            loadOnScrollListener?.apply {
+                this.setting = loadingSetting
+                recyclerView.addOnScrollListener(this)
+            }
             hasLoadScrollListener = true
         }
     }

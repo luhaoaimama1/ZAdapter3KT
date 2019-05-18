@@ -1,7 +1,7 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.zone.adapter3kt.QuickConfig
@@ -25,13 +25,13 @@ open class EventAdapter<T>(context: Context) : EHFAdapter<T>(context) {
     var onItemLongClickListener: OnItemLongClickListener? = null
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RecyclerView.ViewHolder> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder> {
         val createViewHolder = super.onCreateViewHolder(parent, viewType)
         initOnItemClickListener(createViewHolder)
         return createViewHolder
     }
 
-    private fun initOnItemClickListener(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+    private fun initOnItemClickListener(baseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>) {
         if (onItemClickListener != null)
             baseHolder.itemView.setOnClickListener { v ->
                 if (onItemClickListener != null) {

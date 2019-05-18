@@ -7,28 +7,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="zone.com.zadapter3kt.MainKTActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="zone.com.zadapter3kt.FastRecyclerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="zone.com.zadapter3kt.RecyclerKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.NineRecyclerKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.ZRefreshKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.ChangeLayoutNestRecyclerActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.FullyRecyclerKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.StickyKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.DivderKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.PartitionActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.HexoLayoutKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.LayoutKTActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.RecyclerActivityAnimator"></activity>
-        <activity android:name="zone.com.zadapter3kt.RecyclerActivityScroll"></activity>
-        <activity android:name="zone.com.zadapter3kt.FastRecyclerActivity"></activity>
-        <activity android:name="zone.com.zadapter3kt.OnclickRecyclerActivity"></activity>
     </application>
 
 </manifest>

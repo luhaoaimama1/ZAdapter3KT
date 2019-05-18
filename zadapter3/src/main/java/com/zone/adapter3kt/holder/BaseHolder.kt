@@ -6,11 +6,11 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.recyclerview.widget.RecyclerView
 import android.text.Html
 import android.util.SparseArray
 import android.view.View
@@ -30,7 +30,7 @@ import com.zone.adapter.R
  * .setText(R.id.tvNumbers, contact.getNumbers().toString())
  * .getView();
  */
-abstract class BaseHolder<out T : RecyclerView.ViewHolder> : RecyclerView.ViewHolder {
+abstract class BaseHolder<out T : androidx.recyclerview.widget.RecyclerView.ViewHolder> : androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
     abstract fun getReturnValue(): T
     // =======================================
@@ -40,6 +40,7 @@ abstract class BaseHolder<out T : RecyclerView.ViewHolder> : RecyclerView.ViewHo
     //Views indexed with their IDs
     private val views: SparseArray<View> by lazy { SparseArray<View>() }
     protected var mContext :Context
+    val tagMaps: HashMap<Any, Any> by lazy { HashMap<Any, Any>() }
 
     constructor(view: View) : super(view) {
         mContext = view.context
@@ -258,7 +259,7 @@ abstract class BaseHolder<out T : RecyclerView.ViewHolder> : RecyclerView.ViewHo
     fun setOnHolderClickListener(l: HolderClickListener, @IdRes vararg ids: Int): T {
         for (id in ids)
             getView<View>(id).setOnClickListener {
-                l.onClick(it, getReturnValue() as BaseHolder<RecyclerView.ViewHolder>)
+                l.onClick(it, getReturnValue() as BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>)
             }
         return getReturnValue()
     }

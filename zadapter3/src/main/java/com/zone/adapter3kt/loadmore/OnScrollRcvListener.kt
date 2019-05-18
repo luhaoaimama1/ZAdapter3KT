@@ -1,6 +1,6 @@
 package com.zone.adapter3kt.loadmore
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.LoadMoreAdapter
 import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView
@@ -29,20 +29,20 @@ interface OnLoadingListener {
  * 继承此类关注 这个方法
  * [.isCanLoadMore2isRest]
  */
-open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingListener {
+open class OnScrollRcvListener() : androidx.recyclerview.widget.RecyclerView.OnScrollListener(), OnLoadingListener {
 
     internal var loadingStateInner = LoadingState.NO_SHOW
     var setting: LoadingSetting = LoadingSetting()
     var firstVisiblePos = -1
     var lastVisiblePos = -1
-    var recyclerView: RecyclerView? = null
+    var recyclerView: androidx.recyclerview.widget.RecyclerView? = null
 
     // ===========================滚动原生方法========================================
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+    override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         this@OnScrollRcvListener.recyclerView = recyclerView
-        if(newState == RecyclerView.SCROLL_STATE_IDLE){
+        if(newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE){
             loadMoreCheck(recyclerView,0)
         }
 
@@ -58,7 +58,7 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
 //            loadMoreCheck(recyclerView,0)
     }
 
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         // 只有在闲置状态情况下检查
         if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_DRAGGING)
@@ -66,7 +66,7 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
     }
 
 
-    private fun loadMoreCheck(recyclerView: RecyclerView, dy: Int) {
+    private fun loadMoreCheck(recyclerView: androidx.recyclerview.widget.RecyclerView, dy: Int) {
         //<0 刷新动作  0是onScrollStateChanged 传过来所以包括0
         if(dy<0) return
         val adapter = if (recyclerView.adapter is LoadMoreAdapter<*>) {
@@ -130,10 +130,10 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
 //    }
 
     //能加载更多 并且处于rest状态  主要是为了兼容其他的刷新控件
-    protected open fun isCanLoadMore2isRest(recyclerView: RecyclerView): Boolean = true
+    protected open fun isCanLoadMore2isRest(recyclerView: androidx.recyclerview.widget.RecyclerView): Boolean = true
 
     //加载状态 已经帮你滚动好了
-    open fun loadMore(recyclerView: RecyclerView) {
+    open fun loadMore(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         if (recyclerView.adapter is LoadMoreAdapter<*>) {
             (recyclerView.adapter as LoadMoreAdapter<*>).loading()
         }

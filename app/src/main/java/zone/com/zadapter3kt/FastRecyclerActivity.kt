@@ -5,11 +5,11 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.QuickConfig
@@ -22,31 +22,29 @@ import kotlin.collections.ArrayList
 class FastRecyclerActivity : Activity() {
 
 
-    private lateinit var rv: RecyclerView
+    private lateinit var rv: androidx.recyclerview.widget.RecyclerView
     private val mDatas = ArrayList<String>()
     private lateinit var muliAdapter: QuickAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_fast_recycler)
-        rv = findViewById<RecyclerView>(R.id.rv)
+        rv = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv)
         for (i in 1..30) {
             mDatas.add("" + i)
         }
         //base test
-        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rv.itemAnimator = DefaultItemAnimator()
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rv.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         muliAdapter = QuickAdapter<String>(this@FastRecyclerActivity).apply {
             registerDelegate(LeftDelegates())
             add(mDatas)
         }
         rv.adapter = muliAdapter
-        rv.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+        rv.addItemDecoration(object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
-                outRect?.apply {
-                    outRect.bottom = 10
-                }
+                outRect.bottom = 10
             }
         })
     }
