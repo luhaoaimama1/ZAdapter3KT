@@ -4,9 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.recyclerview.widget.LinearLayoutManager
 import java.util.ArrayList
-import butterknife.ButterKnife
 import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.ViewStyleDefault
@@ -30,7 +28,6 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
         super.onCreate(savedInstanceState)
         handler = Handler(this)
         setContentView(R.layout.a_recycler_zrefresh)
-        ButterKnife.bind(this)
 
         //没铺满 测试成功不触发loading
 //        for (i in 0..5) {
@@ -99,9 +96,6 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
                 }, 2000)
             }
 
-            override fun loadMoreAnimationComplete(zRefreshLayout: ZRefreshLayout) {
-
-            }
         })
         refresh.pullListener = object : ZRefreshLayout.PullListener {
             override fun refresh(zRefreshLayout: ZRefreshLayout) {
@@ -113,7 +107,6 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
                 }, 2000)
             }
 
-            override fun refreshAnimationComplete(zRefreshLayout: ZRefreshLayout) {}
         }
     }
 

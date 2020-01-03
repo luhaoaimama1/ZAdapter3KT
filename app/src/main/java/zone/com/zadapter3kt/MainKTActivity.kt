@@ -8,6 +8,7 @@ import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.loadmore.LoadingSetting
 import zone.com.zadapter3.R
 import zone.com.zrefreshlayout.Config
+import zone.com.zrefreshlayout.ZRefreshLayout
 import zone.com.zrefreshlayout.footer.MeterialFooter
 import zone.com.zrefreshlayout.header.MeterialHead
 import zone.com.zrefreshlayout.resistance.DampingHalf
@@ -25,7 +26,7 @@ class MainKTActivity : AppCompatActivity(), View.OnClickListener {
             perform()
         }
         Config.build()
-                .setPinContent(true)
+                .setHeadPin(ZRefreshLayout.HeadPin.PIN)
                 .setHeader(MeterialHead())
                 .setFooter(MeterialFooter())
                 .setResistance(DampingHalf())

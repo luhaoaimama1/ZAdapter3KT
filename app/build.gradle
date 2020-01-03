@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'me.tatarka.retrolambda'
-
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -13,13 +11,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        jackOptions {
-//            //支持lambda
-//            enabled true
-//        }
-//        jackOptions {
-//            enabled false
-//        }
     }
     buildTypes {
         release {
@@ -39,21 +30,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
-    api 'androidx.appcompat:appcompat:1.0.0'
+    api 'androidx.appcompat:appcompat:1.1.0'
     api 'com.google.android.material:material:1.0.0'
 //    compile project(path: ':zadapter3')
-//    compile 'com.jakewharton:butterknife:7.0.1'
-
     api 'com.google.code.gson:gson:2.5'
-    api('com.github.luhaoaimama1:ZRefreshLayout:1.0.15')
+    api('com.github.luhaoaimama1:ZRefreshLayout:2.0.4')
+    api 'com.github.luhaoaimama1:zone-sdk:2.2.1'
     api project(':zadapter3')
-    api 'com.github.luhaoaimama1:ZView:1.0.35'
+    api 'com.github.luhaoaimama1:ZView:2.0.0'
     api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
-    api ('com.jakewharton:butterknife:8.8.1'){
-        exclude  module: 'support-compat'
-    }
-    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 repositories {
     mavenCentral()
@@ -67,10 +52,15 @@ configurations {
     all {
         resolutionStrategy {
             eachDependency { DependencyResolveDetails details ->
-                //把所有的zview 为1.0.36
                 if (details.requested.name == 'recyclerview') {
                     details.useVersion '1.0.0'
                 }
+                if (details.requested.name == 'vectordrawable-animated') {
+                    details.useVersion '1.1.0'
+                }
+//                if (details.requested.name == 'kotlin-stdlib-jdk7'||details.requested.name == 'kotlin-stdlib') {
+//                    details.useVersion '1.2.71'
+//                }
             }
         }
     }
