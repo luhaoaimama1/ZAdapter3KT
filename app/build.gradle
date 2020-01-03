@@ -39,6 +39,7 @@ dependencies {
     api project(':zadapter3')
     api 'com.github.luhaoaimama1:ZView:2.0.0'
     api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    api 'androidx.recyclerview:recyclerview:1.0.0'
 }
 repositories {
     mavenCentral()

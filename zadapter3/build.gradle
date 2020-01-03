@@ -31,7 +31,7 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    api 'androidx.recyclerview:recyclerview:1.0.0'
+    compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 //    compile 'com.android.support:recyclerview-v7:23.2.1'
 }

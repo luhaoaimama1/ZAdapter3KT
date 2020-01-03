@@ -36,7 +36,11 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 > implementation 'com.github.luhaoaimama1:ZAdapter3KT:[Latest release](https://github.com/luhaoaimama1/ZAdapter3KT/releases)'
 
+> not anroidX version implementation 'com.github.luhaoaimama1:ZAdapter3KT:1.0.03' branch:notAndroidx
 
+Step 3: you need provide
+
+because compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
 # design thought
 
 https://www.processon.com/view/link/5b755300e4b025cf49492260
