@@ -29,6 +29,7 @@
         <activity android:name="zone.com.zadapter3kt.RecyclerActivityScroll"></activity>
         <activity android:name="zone.com.zadapter3kt.FastRecyclerActivity"></activity>
         <activity android:name="zone.com.zadapter3kt.OnclickRecyclerActivity"></activity>
+        <activity android:name="zone.com.zadapter3kt.LoadmoreKTActivity"></activity>
     </application>
 
 </manifest>

@@ -27,7 +27,7 @@ class OnScrollRcvListenerExZRefresh(val zRefreshLayout: ZRefreshLayout) : OnScro
     override fun isCanLoadMore2isRest(recyclerView: androidx.recyclerview.widget.RecyclerView): Boolean =
         zRefreshLayout.isCanLoadMore && AUtils.isRest(zRefreshLayout)
 
-    override fun loadMore(recyclerView: androidx.recyclerview.widget.RecyclerView) {
+    override fun loadMore(recyclerView:RecyclerView) {
         super.loadMore(recyclerView)
         AUtils.notityLoadMoreListener(zRefreshLayout)
     }

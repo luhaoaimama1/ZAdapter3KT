@@ -57,7 +57,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="ZRefresh联动" />
-
+        <Button
+            android:id="@+id/bt_Loadmore"
+            android:onClick="onClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="加载更多普通方式" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

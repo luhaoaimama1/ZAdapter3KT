@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import androidx.recyclerview.widget.LinearLayoutManager
 import java.util.ArrayList
 import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.QuickAdapter
@@ -42,10 +43,9 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
 //        }
 
         //base test
-        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager =LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
 //        rv.layoutManager = GridLayoutManager(this, 3)
         mAdapter = QuickAdapter<String>(this@ZRefreshKTActivity).apply {
-            enableLoadMore = true
             setStyleExtra(object : ViewStyleDefault<String>() {
                 override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
                     super.getItemViewType(position, itemConfig)

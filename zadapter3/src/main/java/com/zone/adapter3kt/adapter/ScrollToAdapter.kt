@@ -13,6 +13,7 @@ abstract class ScrollToAdapter<T>(context: Context) : EventAdapter<T>(context) {
     // ============scroll 系列 ==============
     // =======================================
     fun scrollToLast() = recyclerView?.scrollToPosition(itemCount - 1)
+    fun scrollToFirst() = recyclerView?.scrollToPosition(0)
 
     fun scrollTo(item: T) {
         val posi = mHFList.indexOfItem(item)

@@ -61,6 +61,7 @@ class MainKTActivity : AppCompatActivity(), View.OnClickListener {
             R.id.bt_changeLayout -> startActivity(Intent(this, ChangeLayoutNestRecyclerActivity::class.java))
             R.id.bt_fast -> startActivity(Intent(this, FastRecyclerActivity::class.java))
             R.id.bt_onclick -> startActivity(Intent(this, OnclickRecyclerActivity::class.java))
+            R.id.bt_Loadmore -> startActivity(Intent(this, LoadmoreKTActivity::class.java))
             else->{}
         }
 

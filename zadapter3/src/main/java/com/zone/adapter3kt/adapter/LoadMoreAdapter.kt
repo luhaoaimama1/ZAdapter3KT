@@ -6,19 +6,12 @@ import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.delegate.LoadMoreViewDelegate
-import com.zone.adapter3kt.loadmore.OnLoadingListener
 import com.zone.adapter3kt.loadmore.OnScrollRcvListener
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  *[2018] by Zone
- */
-abstract class OnLoadingAdapterListener : OnLoadingListener {
-    override fun end() {}
-    override fun fail() {}
-    override fun complete() {}
-}
-
-/**
+ *
  * 这个与数据 独立出来。 这里的加载更多 与 empty一样用占位控制
  */
 open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
@@ -35,7 +28,6 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
     private var hasLoadScrollListener: Boolean = false
     var loadDelegate: LoadMoreViewDelegate? = null
 
-    internal var onLoadingListener: OnLoadingAdapterListener? = null
 
     private fun getLoadDelegate(method: (LoadMoreViewDelegate) -> Unit) {
         if (loadDelegate != null) method(loadDelegate!!)
@@ -49,11 +41,9 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
     }
 
     var loadOnScrollListener: OnScrollRcvListener? = null
-    //如果想要开启 必须刚开始
-    var enableLoadMore = false
         set(value) {
             field = value
-            if(value){
+            if (value != null) {
                 recyclerView?.apply {
                     addLoadMoreScrollListener(this)
                 }
@@ -66,8 +56,7 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
     }
 
     private fun addLoadMoreScrollListener(recyclerView: RecyclerView) {
-        if (enableLoadMore && delegatesManager.getDelegateNoMap(LOADING_VALUE) != null && !hasLoadScrollListener) {
-            if (loadOnScrollListener == null) loadOnScrollListener = OnScrollRcvListener()
+        if (loadOnScrollListener != null && delegatesManager.getDelegateNoMap(LOADING_VALUE) != null && !hasLoadScrollListener) {
             loadOnScrollListener?.let {
                 it.setting = loadingSetting
                 recyclerView.addOnScrollListener(it)
@@ -92,42 +81,41 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
     }
 
     //加载更多是 触发的 所以是滚动来触发  剩下的都是主动通知的
-    var isLoading = false
+    internal var isLoading = AtomicBoolean(false)
 
     internal fun loading() {
+        isLoading.set(true)
         addLoadData()
         loadOnScrollListener?.onLoading()
-        onLoadingListener?.onLoading()
-        isLoading = true
         getLoadDelegate { it.loading() }
     }
 
+    /**
+     * 同时也是 reset状态
+     */
     fun loadMoreComplete() {
-        if (isLoading) {
+        if (isLoading.get()) {
             removeLoadData()
-            isLoading = false
             loadOnScrollListener?.complete()
-            onLoadingListener?.complete()
+            isLoading.set(false)
             getLoadDelegate { it.complete() }
         } else QuickConfig.d("非loading状态")
     }
 
     fun loadMoreFail() {
-        if (isLoading) {
+        if (isLoading.get()) {
             addLoadData()
-            isLoading = false
             loadOnScrollListener?.fail()
-            onLoadingListener?.fail()
+            isLoading.set(false)
             getLoadDelegate { it.fail() }
         } else QuickConfig.d("非loading状态")
     }
 
     fun loadMoreEnd() {
-        if (isLoading) {
+        if (isLoading.get()) {
             addLoadData()
-            isLoading = false
             loadOnScrollListener?.end()
-            onLoadingListener?.end()
+            isLoading.set(false)
             getLoadDelegate { it.end() }
         } else QuickConfig.d("非loading状态")
     }

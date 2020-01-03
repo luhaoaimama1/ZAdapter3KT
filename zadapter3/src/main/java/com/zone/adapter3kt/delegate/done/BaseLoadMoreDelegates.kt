@@ -23,7 +23,7 @@ class BaseLoadMoreDelegates : LoadMoreViewDelegate() {
     private var failView: View? = null
     private var endView: View? = null
 
-    override fun onBindViewHolder(position: Int, item: DataWarp<Any>, baseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>, payloads: List<*>) {}
+    override fun onBindViewHolder(position: Int, item: DataWarp<Any>, baseHolder: BaseHolder<RecyclerView.ViewHolder>, payloads: List<*>) {}
 
 
     override fun loading() {
@@ -57,7 +57,7 @@ class BaseLoadMoreDelegates : LoadMoreViewDelegate() {
         failView = LayoutInflater.from(convertView.getContext())
             .inflate(R.layout.sample_common_list_footer_network_error, rv, false)
         failView?.setOnClickListener {
-            if (rv is androidx.recyclerview.widget.RecyclerView && rv.adapter is LoadMoreAdapter<*>) {
+            if (rv is RecyclerView && rv.adapter is LoadMoreAdapter<*>) {
                 (rv.adapter as LoadMoreAdapter<*>).loadOnScrollListener?.loadMore(rv)
             }
         }

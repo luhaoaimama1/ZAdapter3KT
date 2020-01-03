@@ -42,10 +42,9 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         this@OnScrollRcvListener.recyclerView = recyclerView
-        if(newState == RecyclerView.SCROLL_STATE_IDLE){
-            loadMoreCheck(recyclerView,0)
+        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+            loadMoreCheck(recyclerView, 0)
         }
-
 
 //        if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_IDLE &&
 //            newState == RecyclerView.SCROLL_STATE_IDLE
@@ -62,16 +61,16 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
         super.onScrolled(recyclerView, dx, dy)
         // 只有在闲置状态情况下检查
         if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_DRAGGING)
-            loadMoreCheck(recyclerView,dy)
+            loadMoreCheck(recyclerView, dy)
     }
 
 
     private fun loadMoreCheck(recyclerView: RecyclerView, dy: Int) {
         //<0 刷新动作  0是onScrollStateChanged 传过来所以包括0
-        if(dy<0) return
+        if (dy < 0) return
         val adapter = if (recyclerView.adapter is LoadMoreAdapter<*>) {
             recyclerView.adapter as LoadMoreAdapter<*>
-        }else null
+        } else null
 
         // 如果未设置Adapter或者Adapter没有数据可以下拉刷新
         if (adapter == null || adapter.itemCount == 0) return
@@ -82,7 +81,7 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
         // isCanLoadMore2isRest 能加载更多 并且 状态是处于休息的时候
         // 如果总共个数-浏览过的数据 小于 阈值的量 。就去加载更多
         //代表adapter.itemCount-1 ：是因为 itemCount从1开始 应该和Pos都从0开始才好
-        if (adapter.enableLoadMore && isCanLoadMore2isRest(recyclerView)) {
+        if (adapter.loadOnScrollListener != null && isCanLoadMore2isRest(recyclerView)) {
             //Tips: 为啥要分开写 因为SCROLL_STATE_IDLE 还有非线性 grid那种模式的时候 可能会跨过等于 直接小于的问题
             if (adapter.itemCount - 1 - lastVisiblePos == setting.threshold) { //等于的时候必须贴底
                 //这么写  debug好测~
@@ -103,34 +102,10 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
         }
     }
 
-//    private fun getFirstLastPos(recyclerView: RecyclerView) {
-//        when (recyclerView.layoutManager) {
-//            is LinearLayoutManager -> {
-//                firstVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-//                lastVisiblePos = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-//            }
-//            is GridLayoutManager -> {
-//                firstVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
-//                lastVisiblePos = (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
-//            }
-//            is StaggeredGridLayoutManager -> {
-//                var firstVisibleItems: IntArray? = null
-//                var lastVisibleItems: IntArray? = null
-//                firstVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findFirstVisibleItemPositions(firstVisibleItems)
-//                lastVisibleItems = (recyclerView.layoutManager as StaggeredGridLayoutManager).findLastVisibleItemPositions(lastVisibleItems)
-//                if (firstVisibleItems != null && firstVisibleItems.size > 0) {
-//                    firstVisiblePos = firstVisibleItems[0]
-//                }
-//                if (lastVisibleItems != null && lastVisibleItems.size > 0) {
-//                    lastVisiblePos = lastVisibleItems[0]
-//                }
-//            }
-//            else -> throw IllegalStateException("不支持其他布局")
-//        }
-//    }
-
     //能加载更多 并且处于rest状态  主要是为了兼容其他的刷新控件
-    protected open fun isCanLoadMore2isRest(recyclerView: RecyclerView): Boolean = true
+    protected open fun isCanLoadMore2isRest(recyclerView: RecyclerView): Boolean = loadingStateInner == LoadingState.NO_SHOW ||
+                    loadingStateInner == LoadingState.COMPLETE ||
+                    loadingStateInner == LoadingState.FAIL
 
     //加载状态 已经帮你滚动好了
     open fun loadMore(recyclerView: RecyclerView) {
@@ -138,6 +113,8 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
             (recyclerView.adapter as LoadMoreAdapter<*>).loading()
         }
     }
+
+    fun getLoadingState() = loadingStateInner
 
     override fun onLoading() {
         loadingStateInner = LoadingState.LOADING
