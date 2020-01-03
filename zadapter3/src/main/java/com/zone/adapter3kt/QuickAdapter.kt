@@ -1,7 +1,7 @@
 package com.zone.adapter3kt
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.holder.BaseHolder
@@ -13,6 +13,7 @@ import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView
  * 过滤  查找等 方法
  */
 open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
+
     companion object {
         internal var quickConfig: QuickConfig? = null
     }
@@ -136,7 +137,7 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
      * 什么叫做显示？
      * 当前显示的sectionList没有。既为 显示
      */
-    override fun onViewAttachedToWindow(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+    override fun onViewAttachedToWindow(baseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>) {
         super.onViewAttachedToWindow(baseHolder)
         if (!isMonitorSection) return
         val section = getRealItem(baseHolder.layoutPosition)?.extraConfig?.section
@@ -156,7 +157,7 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
      * 通过holder找到section  通过section找到内部第一个和最后一个在列表的位置 然后找到列表中第一个可见和最后一个可见 作对比
      */
     @Suppress("UNCHECKED_CAST")
-    override fun onViewDetachedFromWindow(baseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+    override fun onViewDetachedFromWindow(baseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>) {
         super.onViewDetachedFromWindow(baseHolder)
         if (!isMonitorSection) return
         val detachSectionPosition = baseHolder.layoutPosition
@@ -204,10 +205,10 @@ open class QuickAdapter<T>(context: Context) : StickyAdapter<T>(context) {
         }
     }
 
-    open fun onViewAttachedToWindowForSection(baseHolder: BaseHolder<RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
+    open fun onViewAttachedToWindowForSection(baseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
     }
 
-    open fun onViewDetachedFromWindowForSection(baseHolder: BaseHolder<RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
+    open fun onViewDetachedFromWindowForSection(baseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
     }
 
 }

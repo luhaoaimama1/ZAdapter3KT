@@ -4,8 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.a_recycler.*
@@ -26,13 +26,13 @@ class RecyclerActivityAnimator : Activity(), Handler.Callback, View.OnClickListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_recycler)
-        rv.layoutManager = GridLayoutManager(this, 3)
+        rv.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
         for (i in 0..15) {
             mDatas.add("" + i);
         }
         //base test
         val type = intent.getStringExtra("type")
-        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
         val animator = DefaultItemAnimator()
         animator.addDuration = 2000
         animator.changeDuration = 2000

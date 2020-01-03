@@ -4,19 +4,13 @@ import android.app.Activity
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
-import android.os.Message
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.QuickAdapter
-import com.zone.adapter3kt.QuickConfig
-import com.zone.adapter3kt.adapter.StickyAdapter
 import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.LeftDelegates
-import zone.com.zadapter3kt.common.CommonAdapter
 import kotlin.collections.ArrayList
 
 class FastRecyclerActivity : Activity() {
@@ -42,13 +36,11 @@ class FastRecyclerActivity : Activity() {
         }
         rv.adapter = muliAdapter
         rv.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
-                outRect?.apply {
-                    outRect.bottom = 10
-                }
+               outRect.bottom = 10
             }
+
         })
     }
-
 }

@@ -1,6 +1,6 @@
 package com.zone.adapter3kt.loadmore
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.LoadMoreAdapter
 import com.zone.adapter3kt.utils.getFirstLastPosrecyclerView

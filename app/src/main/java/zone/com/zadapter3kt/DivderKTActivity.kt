@@ -5,7 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.widget.CheckBox
 import android.widget.Toast
@@ -27,7 +27,7 @@ class DivderKTActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_recycler_absorb)
-        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         for (i in 1..40) mDatas.add("" + i)
 
         muliAdapter = DivdersAdapter(this)

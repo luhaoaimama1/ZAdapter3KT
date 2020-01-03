@@ -19,6 +19,7 @@
 
 
         <Button
+            android:onClick="onClick"
             android:id="@+id/bt_Linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,18 +31,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
+            android:onClick="onClick"
             android:text="Grid" />
 
         <Button
             android:id="@+id/bt_Staggered"
             android:layout_width="wrap_content"
+            android:onClick="onClick"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Staggered" />
 
         <Button
             android:id="@+id/bt_NineGrid"
+            android:onClick="onClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -49,6 +52,7 @@
 
         <Button
             android:id="@+id/bt_Link"
+            android:onClick="onClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -64,6 +68,7 @@
 
         <Button
             android:id="@+id/bt_layoutManager"
+            android:onClick="onClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -72,6 +77,7 @@
         <Button
             android:id="@+id/bt_HexolayoutManager"
             android:layout_width="wrap_content"
+            android:onClick="onClick"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="HexoLayoutManager" />
@@ -80,6 +86,7 @@
         <Button
             android:id="@+id/bt_Fully"
             android:layout_width="wrap_content"
+            android:onClick="onClick"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="满布局测试" />
@@ -96,12 +103,14 @@
         <Button
             android:id="@+id/bt_Sticky"
             android:layout_width="wrap_content"
+            android:onClick="onClick"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Sticky吸附效果" />
 
         <Button
             android:id="@+id/bt_Divder"
+            android:onClick="onClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -109,6 +118,7 @@
 
         <Button
             android:id="@+id/bt_animator"
+            android:onClick="onClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -116,6 +126,7 @@
 
         <Button
             android:id="@+id/bt_scroll2"
+            android:onClick="onClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -124,11 +135,13 @@
         <Button
             android:id="@+id/bt_partition"
             android:layout_width="wrap_content"
+            android:onClick="onClick"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="细分复用" />
 
         <Button
+            android:onClick="onClick"
             android:id="@+id/bt_changeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,6 +149,7 @@
             android:text="嵌套更换布局" />
         <Button
             android:id="@+id/bt_fast"
+            android:onClick="onClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -145,6 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:onClick="onClick"
             android:text="onclick" />
 
     </com.zone.view.FlowLayout>

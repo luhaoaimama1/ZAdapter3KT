@@ -1,7 +1,7 @@
 package zone.com.zadapter3kt.common
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.zone.adapter3kt.QuickAdapter
@@ -63,12 +63,12 @@ class PartitionAdapter(context: Context) : QuickAdapter<String>(context) {
         })
     }
 
-    override fun onViewAttachedToWindowForSection(baseHolder: BaseHolder< RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
+    override fun onViewAttachedToWindowForSection(baseHolder: BaseHolder< androidx.recyclerview.widget.RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
         super.onViewAttachedToWindowForSection(baseHolder, section, sectionPosi)
         println("ForSection---onViewAttached----sectionPosi:${sectionPosi}----sectionObj:${section.obj}")
     }
 
-    override fun onViewDetachedFromWindowForSection(baseHolder: BaseHolder< RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
+    override fun onViewDetachedFromWindowForSection(baseHolder: BaseHolder< androidx.recyclerview.widget.RecyclerView.ViewHolder>, section: Section, sectionPosi: Int) {
         super.onViewDetachedFromWindowForSection(baseHolder, section, sectionPosi)
         println("ForSection---onViewDetached----sectionPosi:${sectionPosi}----sectionObj:${section.obj}")
     }

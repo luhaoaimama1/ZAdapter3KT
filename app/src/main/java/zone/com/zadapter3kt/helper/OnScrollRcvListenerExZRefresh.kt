@@ -1,6 +1,6 @@
 package zone.com.zadapter3kt.helper
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.loadmore.OnScrollRcvListener
 import zone.com.zrefreshlayout.AUtils
 import zone.com.zrefreshlayout.ZRefreshLayout
@@ -24,10 +24,10 @@ class OnScrollRcvListenerExZRefresh(val zRefreshLayout: ZRefreshLayout) : OnScro
         }
     }
 
-    override fun isCanLoadMore2isRest(recyclerView: RecyclerView): Boolean =
+    override fun isCanLoadMore2isRest(recyclerView: androidx.recyclerview.widget.RecyclerView): Boolean =
         zRefreshLayout.isCanLoadMore && AUtils.isRest(zRefreshLayout)
 
-    override fun loadMore(recyclerView: RecyclerView) {
+    override fun loadMore(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.loadMore(recyclerView)
         AUtils.notityLoadMoreListener(zRefreshLayout)
     }

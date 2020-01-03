@@ -1,6 +1,6 @@
 package zone.com.zadapter3kt.common
 
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ

@@ -15,13 +15,15 @@
  */
 package zone.com.zadapter3kt.animator;
 
-import android.support.annotation.NonNull;
-import android.support.v4.animation.AnimatorCompatHelper;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorCompat;
-import android.support.v4.view.ViewPropertyAnimatorListener;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.support.v7.widget.SimpleItemAnimator;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorCompat;
+import androidx.core.view.ViewPropertyAnimatorListener;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+import androidx.recyclerview.widget.SimpleItemAnimator;
+
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.util.Log;
 import android.view.View;
 
@@ -522,9 +524,12 @@ public class DefaultItemAnimator extends SimpleItemAnimator {
         }
         dispatchFinishedWhenDone();
     }
-
+    private static TimeInterpolator sDefaultInterpolator;
     private void resetAnimation(ViewHolder holder) {
-        AnimatorCompatHelper.clearInterpolator(holder.itemView);
+        if (sDefaultInterpolator == null) {
+            sDefaultInterpolator = new ValueAnimator().getInterpolator();
+        }
+        holder.itemView.animate().setInterpolator(sDefaultInterpolator);
         endAnimation(holder);
     }
 

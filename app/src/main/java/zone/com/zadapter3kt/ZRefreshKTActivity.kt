@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import java.util.ArrayList
 import butterknife.ButterKnife
 import com.zone.adapter3kt.Part
@@ -45,7 +45,7 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
 //        }
 
         //base test
-        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
 //        rv.layoutManager = GridLayoutManager(this, 3)
         mAdapter = QuickAdapter<String>(this@ZRefreshKTActivity).apply {
             enableLoadMore = true

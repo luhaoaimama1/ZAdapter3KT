@@ -4,11 +4,11 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.StickyAdapter
@@ -22,23 +22,23 @@ class RecyclerKTActivity : Activity(), Handler.Callback, View.OnClickListener {
         var addIndex = 0
     }
 
-    private lateinit var rv: RecyclerView
+    private lateinit var rv: androidx.recyclerview.widget.RecyclerView
     private val mDatas = ArrayList<String>()
     private lateinit var muliAdapter: StickyAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_recycler_kt)
-        rv = findViewById(R.id.rv) as RecyclerView
+        rv = findViewById(R.id.rv) as androidx.recyclerview.widget.RecyclerView
         //base test
         val type = intent.getStringExtra("type")
         rv.layoutManager = when (type) {
-            "Linear" -> LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            "Grid" -> GridLayoutManager(this, 3)
-            "StaggeredGrid" -> StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-            else -> LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            "Linear" -> androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+            "Grid" -> androidx.recyclerview.widget.GridLayoutManager(this, 3)
+            "StaggeredGrid" -> androidx.recyclerview.widget.StaggeredGridLayoutManager(3, androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL)
+            else -> androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
         }
-        rv.itemAnimator = DefaultItemAnimator()
+        rv.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         muliAdapter = CommonAdapter(this@RecyclerKTActivity).apply {
             add(mDatas)
         }

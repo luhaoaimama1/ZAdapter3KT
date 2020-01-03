@@ -5,10 +5,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
@@ -66,14 +66,13 @@ class StickyKTActivity : Activity() {
         muliAdapter.add(mDatas)
         rv.adapter = muliAdapter
         rv.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
-                outRect?.left = 10
-                outRect?.right = 10
-                outRect?.bottom = 10
+                outRect.left = 10
+                outRect.right = 10
+                outRect.bottom = 10
             }
         })
-
         cb = findViewById<View>(R.id.cb) as CheckBox
         if ("debug" == intent.getStringExtra("type")) {
 //            muliAdapter.setSticky(Color.BLUE, vp, 13, 16, 19)

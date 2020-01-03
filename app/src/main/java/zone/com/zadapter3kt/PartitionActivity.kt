@@ -3,8 +3,8 @@ package zone.com.zadapter3kt
 import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.section.Section
@@ -18,14 +18,14 @@ import zone.com.zadapter3kt.common.PartitionAdapter
 class PartitionActivity : Activity() {
 
 
-    private var rv: RecyclerView? = null
+    private var rv: androidx.recyclerview.widget.RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(zone.com.zadapter3.R.layout.a_rt_recycler)
-        rv = findViewById<View>(R.id.rv) as RecyclerView
+        rv = findViewById<View>(R.id.rv) as androidx.recyclerview.widget.RecyclerView
         rv!!.setBackgroundColor(Color.YELLOW)
-        rv!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv!!.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
 
         rv!!.adapter = PartitionAdapter(this).apply {
             for (i in 0..10) {

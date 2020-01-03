@@ -1,6 +1,6 @@
 package com.zone.adapter3kt.delegate
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.holder.BaseHolder
 
 
@@ -11,7 +11,7 @@ import com.zone.adapter3kt.holder.BaseHolder
  * [.fail]
  * [.end]
  */
-abstract class LoadMoreViewDelegate : ViewDelegate<Any, BaseHolder<RecyclerView.ViewHolder>>() {
+abstract class LoadMoreViewDelegate : ViewDelegate<Any, BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>>() {
     //移除
     open fun complete() {}
 

@@ -1,8 +1,8 @@
 package zone.com.zadapter3kt
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import zone.com.zadapter3kt.layoutmanager.ZLayoutManager
 
 class HexoLayoutKTActivity : AppCompatActivity() {
     private val COLORS = intArrayOf(-0x5657, -0x481901, -0xbf7f)
-    private var mRecyclerView: RecyclerView? = null
+    private var mRecyclerView: androidx.recyclerview.widget.RecyclerView? = null
     private val mAdapter = Adapter()
 
     private var mCount = 7
@@ -22,8 +22,8 @@ class HexoLayoutKTActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById(R.id.bt).visibility = View.GONE
-        mRecyclerView = findViewById(R.id.list) as RecyclerView
+        findViewById<View>(R.id.bt).visibility = View.GONE
+        mRecyclerView = findViewById(R.id.list) as androidx.recyclerview.widget.RecyclerView
         init()
     }
 
@@ -41,7 +41,7 @@ class HexoLayoutKTActivity : AppCompatActivity() {
         init()
     }
 
-    internal inner class Adapter : RecyclerView.Adapter<Adapter.Holder>() {
+    internal inner class Adapter : androidx.recyclerview.widget.RecyclerView.Adapter<Adapter.Holder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
             val item = LayoutInflater.from(parent.context)
@@ -59,7 +59,7 @@ class HexoLayoutKTActivity : AppCompatActivity() {
             return mCount
         }
 
-        internal inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        internal inner class Holder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
             var item: HexoItemView
             var text: TextView
 

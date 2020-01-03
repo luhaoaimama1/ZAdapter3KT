@@ -5,9 +5,9 @@ import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.zone.adapter3kt.adapter.StickyAdapter
 import kotlinx.android.synthetic.main.a_scroll_recycler.*
 import zone.com.zadapter3.R
@@ -57,7 +57,7 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
                     }
                     R.id.scrollToPositionWithOffset -> {
                         println("scollType:scrollToPositionWithOffset")
-                        (rv.getLayoutManager() as LinearLayoutManager)
+                        (rv.getLayoutManager() as androidx.recyclerview.widget.LinearLayoutManager)
                                 .scrollToPositionWithOffset(scollValue, 0)
                     }
                     R.id.scrollCustomMethodFirst -> {
@@ -70,12 +70,12 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
             }
         })
 
-        rv.layoutManager = GridLayoutManager(this, 3)
+        rv.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
         for (i in 0..50) {
             mDatas.add("" + i);
         }
         //base test
-        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
         muliAdapter = CommonAdapter(this@RecyclerActivityScroll).apply {
             add(mDatas)
         }
@@ -84,8 +84,8 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
 
     private fun moveToPosition(n: Int) {
         //先从RecyclerView的LayoutManager中获取第一项和最后一项的Position
-        val firstItem = (rv.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-        val lastItem =(rv.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+        val firstItem = (rv.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
+        val lastItem =(rv.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findLastVisibleItemPosition()
         //然后区分情况
         if (n <= firstItem) {
             //当要置顶的项在当前显示的第一个项的前面时

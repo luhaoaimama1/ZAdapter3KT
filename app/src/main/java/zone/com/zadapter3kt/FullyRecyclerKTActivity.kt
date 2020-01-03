@@ -4,10 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.DefaultItemAnimator
+import android.view.View
 import java.util.ArrayList
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
@@ -18,20 +16,19 @@ import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.LeftDelegates
 import zone.com.zadapter3kt.adapter.RightDelegates
 
-class FullyRecyclerKTActivity : Activity(), Handler.Callback {
+class FullyRecyclerKTActivity : Activity(), Handler.Callback,View.OnClickListener {
 
     private lateinit var muliAdapter: QuickAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_fully_recycler)
-        ButterKnife.bind(this)
         //        rv.setLayoutManager(new WrapHeightGridLayoutManager(this, 3));
         //        rv.setLayoutManager(new GridLayoutManager(this, 3));
         rv.layoutManager = FullyLinearLayoutManager(this)
         //        rv.setLayoutManager(new NFullyLinearLayoutManager(this));
         //        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.itemAnimator = DefaultItemAnimator()
+        rv.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         //        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
         //            @Override
         //            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -97,15 +94,21 @@ class FullyRecyclerKTActivity : Activity(), Handler.Callback {
         var addIndex = 0
     }
 
-    @OnClick(R.id.bt_add)
-    fun onClick2() {
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.bt_add  -> btAdd()
+            R.id.bt_addFooter  -> btAddFooter()
+            else -> {
+            }
+        }
+    }
+    fun btAdd() {
         val content = "insert one item!+${addIndex++}"
         muliAdapter.add(content)
         muliAdapter.scrollTo(content)
     }
 
-    @OnClick(R.id.bt_addFooter)
-    fun onClick3() {
+    fun btAddFooter() {
         val mode2 = (Math.random() * 100 % 3).toInt()
         muliAdapter.add("footer${mode2 + 1}")
         muliAdapter.scrollToLast()

@@ -1,9 +1,9 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.LayoutRes
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.holder.BaseHolder
 import com.zone.adapter3kt.delegate.DelegatesManager
 import com.zone.adapter3kt.delegate.LoadMoreViewDelegate
@@ -60,8 +60,7 @@ abstract class DelegatesAdapter<T>(context: Context) : BaseAdapter<T>(context) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RecyclerView.ViewHolder> {
         return delegatesManager.onCreateViewHolder(parent, viewType)
     }
-
-    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>?, position: Int) {}
+    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int) {}
 
     // =======================================分割线=====================================
     override fun onFailedToRecycleView(baseHolder: BaseHolder<RecyclerView.ViewHolder>): Boolean =

@@ -2,7 +2,7 @@ package zone.com.zadapter3kt.layoutmanager;
 
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import zone.com.zadapter3kt.core.Pool;

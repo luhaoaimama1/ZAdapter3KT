@@ -1,14 +1,17 @@
 package com.zone.adapter3kt.sticky
 
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorInt
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.QuickConfig
+import com.zone.adapter3kt.adapter.BaseAdapter
 import com.zone.adapter3kt.adapter.StickyAdapter
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * [2018] by Zone
@@ -18,13 +21,13 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
     private var placeholderView: View? = null
     internal var mNowStickyViewHolder: StickyChildHolder? = null
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         if (recyclerView == null) return
     }
 
     @Synchronized
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         if (recyclerView == null) return
         //为了 变换的时候不影响这次计算 
@@ -75,7 +78,7 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
                             placeholderView!!.layoutParams = stickyChildHolderItemView.layoutParams
                             mNowStickyViewHolder = viewHolder
                             //viewHolder 是StickyChildHolder  而不是StickHolder所以不会被移除parent 仅仅是进行绑定
-                            adapter.onBindViewHolder(viewHolder, shouldShowStickyPos, null)
+                            adapter.onBindViewHolder(viewHolder, shouldShowStickyPos,  BaseAdapter.FULLUPDATE_PAYLOADS)
                             break
                         }
                     }
@@ -102,10 +105,11 @@ class StickyOnScrollListener<T>(private val vpShow: FrameLayout, val adapter: St
                 val nextStickyView = stickyList[nextStickyIndex].posi
                 val stickyView = mNowStickyViewHolder!!.itemView
                 if (stickyView != null) {
-                    if (recyclerView.findViewHolderForLayoutPosition(nextStickyView) == null)
+                    val findViewHolderForLayoutPosition = recyclerView.findViewHolderForLayoutPosition(nextStickyView)
+                    if (findViewHolderForLayoutPosition == null)
                         stickyView.translationY = 0f
                     else {
-                        val targetView = recyclerView.findViewHolderForLayoutPosition(nextStickyView).itemView
+                        val targetView = findViewHolderForLayoutPosition.itemView
                         if (targetView.top <= stickyView.height) stickyView.translationY = (targetView.top - stickyView.height).toFloat()
                         else stickyView.translationY = 0f
                     }

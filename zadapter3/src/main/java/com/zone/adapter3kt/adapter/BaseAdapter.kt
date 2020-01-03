@@ -1,14 +1,14 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.holder.BaseHolder
+import java.util.*
 
 /**
  *[2018] by Zone
  */
-abstract class BaseAdapter<T>(protected var context: Context)
-    : RecyclerView.Adapter<BaseHolder<RecyclerView.ViewHolder>>() {
+abstract class BaseAdapter<T>(protected var context: Context) : RecyclerView.Adapter<BaseHolder<RecyclerView.ViewHolder>>() {
 
     companion object {
         @JvmField
@@ -26,5 +26,8 @@ abstract class BaseAdapter<T>(protected var context: Context)
 
         @JvmField
         val PAYLOADS_DIVDER_INVALIDATE = -101
+
+        @JvmField
+        val  FULLUPDATE_PAYLOADS: MutableList<Any> = Collections.emptyList()
     }
 }

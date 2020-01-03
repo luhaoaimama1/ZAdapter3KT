@@ -1,8 +1,8 @@
 package com.zone.adapter3kt.delegate
 
 import android.graphics.Rect
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +21,7 @@ import com.zone.adapter3kt.holder.HolderClickListener
  * [2018] by Zone
  */
 
-abstract class ViewDelegate<T, H : BaseHolder<RecyclerView.ViewHolder>> {
+abstract class ViewDelegate<T, H : BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>> {
     // =======================================
     // ============ 公开方法  ==============
     // =======================================
@@ -112,7 +112,7 @@ abstract class ViewDelegate<T, H : BaseHolder<RecyclerView.ViewHolder>> {
     fun setOnClickListener(clickIds: Array<Int>?, baseHolder: H) {
         clickIds?.forEach {
             baseHolder.setOnHolderClickListener(object : HolderClickListener {
-                override fun onClick(v: View?, viewBaseHolder: BaseHolder<RecyclerView.ViewHolder>) {
+                override fun onClick(v: View?, viewBaseHolder: BaseHolder<androidx.recyclerview.widget.RecyclerView.ViewHolder>) {
                     val (pos, item) = getItemByHolder(viewBaseHolder as H)
                     item?.apply { onClick(v, viewBaseHolder, pos, this as DataWarp<T>) }
                 }

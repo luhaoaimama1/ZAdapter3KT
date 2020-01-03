@@ -2,8 +2,8 @@ package com.zone.adapter3kt.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -53,7 +53,9 @@ open class StickyAdapter<T>(context: Context) : LoadMoreAdapter<T>(context) {
             }
             false
         }
-        stickyScroller?.onScrolled(recyclerView, 0, 0)
+        recyclerView?.let {
+            stickyScroller?.onScrolled(it, 0, 0)
+        }
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -63,9 +65,9 @@ open class StickyAdapter<T>(context: Context) : LoadMoreAdapter<T>(context) {
     }
 
     fun addScrollerListener(recyclerView: RecyclerView?) {
-        if (stickyScroller != null) { //安全使用
-            recyclerView?.removeOnScrollListener(stickyScroller)
-            recyclerView?.addOnScrollListener(stickyScroller)
+        stickyScroller?.let {
+            recyclerView?.removeOnScrollListener(it)
+            recyclerView?.addOnScrollListener(it)
         }
     }
 
@@ -98,7 +100,7 @@ open class StickyAdapter<T>(context: Context) : LoadMoreAdapter<T>(context) {
         return super.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, payloads: MutableList<Any>?) {
+    override fun onBindViewHolder(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, payloads: MutableList<Any>) {
         if (enableSticky) {
             // 如果bind的时候 发现 外面的posi与内部的pos一样,那么把占位拿过来  从而不用走BindViewHolder了
             if (baseHolder is StickyHolder && stickyScroller != null && stickyScroller!!.preShowStickyPosi == position) {

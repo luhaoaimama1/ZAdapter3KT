@@ -1,10 +1,10 @@
 package com.zone.adapter3kt.adapter
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zone.adapter3kt.*
 import com.zone.adapter3kt.data.DataWarp
 import com.zone.adapter3kt.data.HFMode
@@ -39,7 +39,7 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
         return super.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolderWithData(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>?) {
+    override fun onBindViewHolderWithData(baseHolder: BaseHolder<RecyclerView.ViewHolder>, position: Int, item: DataWarp<T>, payloads: MutableList<Any>) {
         super.onBindViewHolderWithData(baseHolder, position, item, payloads)
         if (recyclerView!!.layoutManager is StaggeredGridLayoutManager) {
             val params = StaggeredGridLayoutManager.LayoutParams(baseHolder.itemView.layoutParams)
