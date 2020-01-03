@@ -1,5 +1,6 @@
 package com.zone.adapter3kt.loadmore
 
+import android.graphics.Rect
 import androidx.recyclerview.widget.RecyclerView
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.LoadMoreAdapter
@@ -64,7 +65,7 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
             loadMoreCheck(recyclerView, dy)
     }
 
-
+    private val outRect = Rect()
     private fun loadMoreCheck(recyclerView: RecyclerView, dy: Int) {
         //<0 刷新动作  0是onScrollStateChanged 传过来所以包括0
         if (dy < 0) return
@@ -86,15 +87,15 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
             if (adapter.itemCount - 1 - lastVisiblePos == setting.threshold) { //等于的时候必须贴底
                 //这么写  debug好测~
                 // 没铺满或者 最后一项可见并不是贴底的话 都不算 贴底代表 itemView.bottom==recyclerView.bottom
-                val viewHolder = recyclerView.findViewHolderForLayoutPosition(lastVisiblePos)
-                if (viewHolder != null && viewHolder.itemView.bottom == recyclerView.bottom) {
+                val viewHolder = viewHolder2ItemDecoration(recyclerView)
+                if (viewHolder != null && viewHolder.itemView.bottom == recyclerView.bottom - outRect.bottom) {
                     QuickConfig.e("OnScrollRcvListener---->loadMore")
                     loadMore(recyclerView)
                 }
             } else if (adapter.itemCount - 1 - lastVisiblePos < setting.threshold) {
                 //这么写  debug好测~
-                val viewHolder = recyclerView.findViewHolderForLayoutPosition(lastVisiblePos)
-                if (viewHolder != null && viewHolder.itemView.bottom >= recyclerView.bottom) {
+                val viewHolder = viewHolder2ItemDecoration(recyclerView)
+                if (viewHolder != null && viewHolder.itemView.bottom >= recyclerView.bottom - outRect.bottom) {
                     QuickConfig.e("OnScrollRcvListener---->loadMore")
                     loadMore(recyclerView)
                 }
@@ -102,10 +103,19 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
         }
     }
 
+    private fun viewHolder2ItemDecoration(recyclerView: RecyclerView): RecyclerView.ViewHolder? {
+        val viewHolder = recyclerView.findViewHolderForLayoutPosition(lastVisiblePos)
+        outRect.set(0, 0, 0, 0)
+        if (viewHolder != null) {
+            recyclerView.layoutManager?.calculateItemDecorationsForChild(viewHolder.itemView, outRect)
+        }
+        return viewHolder
+    }
+
     //能加载更多 并且处于rest状态  主要是为了兼容其他的刷新控件
     protected open fun isCanLoadMore2isRest(recyclerView: RecyclerView): Boolean = loadingStateInner == LoadingState.NO_SHOW ||
-                    loadingStateInner == LoadingState.COMPLETE ||
-                    loadingStateInner == LoadingState.FAIL
+            loadingStateInner == LoadingState.COMPLETE ||
+            loadingStateInner == LoadingState.FAIL
 
     //加载状态 已经帮你滚动好了
     open fun loadMore(recyclerView: RecyclerView) {

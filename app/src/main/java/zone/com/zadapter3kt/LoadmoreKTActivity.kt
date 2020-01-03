@@ -1,15 +1,19 @@
 package zone.com.zadapter3kt
 
 import android.app.Activity
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
+import com.zone.adapter3kt.adapter.BaseAdapter
 import com.zone.adapter3kt.loadmore.OnScrollRcvListener
 import kotlinx.android.synthetic.main.a_recycler_loadmore.*
 import zone.com.zadapter3.R
@@ -69,6 +73,13 @@ class LoadmoreKTActivity : Activity(), Handler.Callback {
             }
             add(mDatas)
         }
+        rv.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                super.getItemOffsets(outRect, view, parent, state)
+                outRect.bottom = 10
+            }
+
+        })
         rv.adapter = mAdapter
     }
     var newDataCount = 0
