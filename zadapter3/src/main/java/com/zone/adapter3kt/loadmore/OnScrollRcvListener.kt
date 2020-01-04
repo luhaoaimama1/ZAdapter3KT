@@ -52,7 +52,7 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
 //        ) {
 //            loadMoreCheck(recyclerView,0)
 //        }
-        // todo 有bug:下拉到底 在刷新  结果到底部了！
+//        有bug:下拉到底 在刷新  结果到底部了！
 //        if (setting.checkLoadMoreMode == CheckLoadMoreMode.SCROLL_STATE_DRAGGING&&
 //            newState == RecyclerView.SCROLL_STATE_IDLE)
 //            loadMoreCheck(recyclerView,0)

@@ -1,15 +1,11 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
-import com.zone.adapter3kt.adapter.StickyAdapter
 import com.zone.adapter3kt.section.Section
 import zone.com.zadapter3.R
-import zone.com.zadapter3kt.adapter.ImgDelegates
 import zone.com.zadapter3kt.common.PartitionAdapter
 
 /**

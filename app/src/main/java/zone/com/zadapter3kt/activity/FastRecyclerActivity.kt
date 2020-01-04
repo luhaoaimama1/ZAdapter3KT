@@ -1,9 +1,8 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
 import android.graphics.Rect
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager

@@ -1,14 +1,14 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
-import android.graphics.PointF
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.appcompat.widget.*
 import android.view.View
-import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zone.adapter3kt.adapter.StickyAdapter
 import kotlinx.android.synthetic.main.a_scroll_recycler.*
 import zone.com.zadapter3.R
@@ -45,24 +45,24 @@ class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
         }
     }
 
-    val value = object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
+    val value = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
 //            if (recyclerView!!.layoutManager is StaggeredGridLayoutManager)
 //                (recyclerView.layoutManager as StaggeredGridLayoutManager).invalidateSpanAssignments()
         }
 
-        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
         }
     }
-    val value1 = object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+    val value1 = object : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             super.getItemOffsets(outRect, view, parent, state)
             val position = parent.getChildAdapterPosition(view)
             val divider = 30
-            if(rv.layoutManager is androidx.recyclerview.widget.StaggeredGridLayoutManager){
-                val lp = view.layoutParams as androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams
+            if(rv.layoutManager is StaggeredGridLayoutManager){
+                val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
                 outRect.top = divider
                 if (lp.spanIndex == 0) {
                     // left
@@ -73,7 +73,7 @@ class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
                     outRect.left = divider / 2;
                 }
             }
-            if(rv.layoutManager is androidx.recyclerview.widget.LinearLayoutManager){
+            if(rv.layoutManager is LinearLayoutManager){
                 outRect.bottom = divider;
             }
         }
@@ -84,9 +84,9 @@ class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
 //        muliAdapter.clearContentDatas()
         isLinear = !isLinear
         if (isLinear) {
-            rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+            rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         } else {
-            rv.layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(2, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL)
+            rv.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         }
         addDatas()
         muliAdapter.add(mDatas)

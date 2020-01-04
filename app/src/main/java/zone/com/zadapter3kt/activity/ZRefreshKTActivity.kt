@@ -1,4 +1,4 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
 import android.os.Bundle
@@ -84,9 +84,9 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
                             for (i in 0..2) {
                                 items.add("new Data${newDataCount++}")
                             }
-                            mAdapter.add(items)
-                            mAdapter.scrollTo(items[0])
-                            mAdapter.loadMoreComplete()
+                            mAdapter.fastLoadData(items) {
+                                loadMoreComplete()
+                            }
                         }
                         else -> {
                             mAdapter.loadMoreEnd()

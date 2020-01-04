@@ -1,4 +1,4 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
 import android.graphics.Rect
@@ -12,7 +12,7 @@ import zone.com.zadapter3.R
 import zone.com.zadapter3kt.adapter.LeftOnclickDelegates
 import kotlin.collections.ArrayList
 
-class OnclickRecyclerActivity : Activity() {
+class OnClickRecyclerActivity : Activity() {
 
     private lateinit var rv: RecyclerView
     private val mDatas = ArrayList<String>()
@@ -28,7 +28,7 @@ class OnclickRecyclerActivity : Activity() {
         //base test
         rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv.itemAnimator = DefaultItemAnimator()
-        muliAdapter = QuickAdapter<String>(this@OnclickRecyclerActivity).apply {
+        muliAdapter = QuickAdapter<String>(this@OnClickRecyclerActivity).apply {
             registerDelegate(LeftOnclickDelegates())
             add(mDatas)
         }

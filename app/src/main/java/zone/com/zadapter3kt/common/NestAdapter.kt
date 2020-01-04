@@ -1,12 +1,11 @@
 package zone.com.zadapter3kt.common
 
-import androidx.recyclerview.widget.GridLayoutManager
 import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
 import com.zone.adapter3kt.data.HFMode
 import zone.com.zadapter3.R
-import zone.com.zadapter3kt.ChangeLayoutNestRecyclerActivity
+import zone.com.zadapter3kt.activity.ChangeLayoutNestRecyclerActivity
 import zone.com.zadapter3kt.adapter.SquareDelegates
 import zone.com.zadapter3kt.adapter.SquareHeaderDelegates
 

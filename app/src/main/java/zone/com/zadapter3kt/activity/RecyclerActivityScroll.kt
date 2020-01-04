@@ -1,13 +1,9 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
-import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import com.zone.adapter3kt.adapter.StickyAdapter
 import kotlinx.android.synthetic.main.a_scroll_recycler.*
 import zone.com.zadapter3.R

@@ -1,4 +1,4 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
 import android.graphics.Rect
@@ -13,7 +13,6 @@ import com.zone.adapter3kt.Part
 import com.zone.adapter3kt.QuickAdapter
 import com.zone.adapter3kt.ViewStyleDefault
 import com.zone.adapter3kt.ViewStyleOBJ
-import com.zone.adapter3kt.adapter.BaseAdapter
 import com.zone.adapter3kt.loadmore.OnScrollRcvListener
 import kotlinx.android.synthetic.main.a_recycler_loadmore.*
 import zone.com.zadapter3.R
@@ -46,7 +45,7 @@ class LoadmoreKTActivity : Activity(), Handler.Callback {
 //        }
 
         //base test
-        rv.layoutManager =LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 //        rv.layoutManager = GridLayoutManager(this, 3)
         mAdapter = QuickAdapter<String>(this@LoadmoreKTActivity).apply {
             setStyleExtra(object : ViewStyleDefault<String>() {
@@ -64,7 +63,7 @@ class LoadmoreKTActivity : Activity(), Handler.Callback {
 //                isScrollToLoadData = true
 //            })
 
-            loadOnScrollListener = object :OnScrollRcvListener(){
+            loadOnScrollListener = object : OnScrollRcvListener() {
 
                 override fun onLoading() {
                     super.onLoading()
@@ -82,6 +81,7 @@ class LoadmoreKTActivity : Activity(), Handler.Callback {
         })
         rv.adapter = mAdapter
     }
+
     var newDataCount = 0
 
     private fun loadMoreData() {
@@ -96,9 +96,9 @@ class LoadmoreKTActivity : Activity(), Handler.Callback {
                     for (i in 0..2) {
                         items.add("new Data${newDataCount++}")
                     }
-                    mAdapter.add(items)
-                    mAdapter.scrollTo(items[0])
-                    mAdapter.loadMoreComplete()
+                    mAdapter.fastLoadData(items) {
+                        loadMoreComplete()
+                    }
                 }
                 else -> {
                     mAdapter.loadMoreEnd()

@@ -1,14 +1,9 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.adapter.StickyAdapter

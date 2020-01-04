@@ -1,4 +1,4 @@
-package zone.com.zadapter3kt
+package zone.com.zadapter3kt.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -27,7 +27,7 @@ class DivderKTActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_recycler_absorb)
-        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        rv.layoutManager = LinearLayoutManager(this)
         for (i in 1..40) mDatas.add("" + i)
 
         muliAdapter = DivdersAdapter(this)

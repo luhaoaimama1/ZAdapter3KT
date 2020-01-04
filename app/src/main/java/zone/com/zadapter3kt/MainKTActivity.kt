@@ -7,6 +7,7 @@ import android.view.View
 import com.zone.adapter3kt.QuickConfig
 import com.zone.adapter3kt.loadmore.LoadingSetting
 import zone.com.zadapter3.R
+import zone.com.zadapter3kt.activity.*
 import zone.com.zrefreshlayout.Config
 import zone.com.zrefreshlayout.ZRefreshLayout
 import zone.com.zrefreshlayout.footer.MeterialFooter
@@ -60,7 +61,7 @@ class MainKTActivity : AppCompatActivity(), View.OnClickListener {
             R.id.bt_partition -> startActivity(Intent(this, PartitionActivity::class.java))
             R.id.bt_changeLayout -> startActivity(Intent(this, ChangeLayoutNestRecyclerActivity::class.java))
             R.id.bt_fast -> startActivity(Intent(this, FastRecyclerActivity::class.java))
-            R.id.bt_onclick -> startActivity(Intent(this, OnclickRecyclerActivity::class.java))
+            R.id.bt_onclick -> startActivity(Intent(this, OnClickRecyclerActivity::class.java))
             R.id.bt_Loadmore -> startActivity(Intent(this, LoadmoreKTActivity::class.java))
             else->{}
         }
