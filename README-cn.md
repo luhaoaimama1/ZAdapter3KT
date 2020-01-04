@@ -44,9 +44,7 @@ Step 3. Step 3: you need provide
 # 设计思路
 
 https://www.processon.com/view/link/5b755300e4b025cf49492260
-
-![](https://tva1.sinaimg.cn/large/006tNbRwgy1gakk3gep33j30lc0rewll.jpg)
-![](https://tva1.sinaimg.cn/large/006tNbRwgy1gakk3tn036j30m80qmdmt.jpg)
+![](https://tva1.sinaimg.cn/large/006tNbRwgy1gakk8cb7w3j31cx0u0h65.jpg)
 
 # demo解释：
 
