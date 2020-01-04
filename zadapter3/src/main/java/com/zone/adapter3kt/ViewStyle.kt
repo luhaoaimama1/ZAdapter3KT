@@ -25,17 +25,25 @@ open class ViewStyleDefault<T> : ViewStyle<T> {
 enum class Part { HEADER, FOOTER, CONTENT, OTHER }
 
 class ViewStyleOBJ {
-    var viewStyle: Int = -1
-    var isFullspan = false
+    var viewStyle: Int = -1 //布局类型
+    var isFullspan = false  //是不是满行 一般用于grid布局和瀑布流布局
+    //配置tags 到时候点击或者浏览的时候可以通过tags是否上报之类的。或者在列表中瞬间找到一中tag的一些item
     val tags: HashSet<String> by lazy { HashSet<String>() }
+    // 用于存一些obj的,可以到时候通过key取出来用
     val otherMaps:HashMap<String,Any> by lazy { HashMap<String,Any>() }
+    // 是否吸顶
     var isSticky: Boolean = false
+    // 用与快速更新Rv某部分的数据
     var quickUpdateSection: QuickUpdateSection? = null
+    // 用于细分复用
     var section: Section? = null
+    // 用于区分 是头部 还是底部 还是内容的
     var part: Part = Part.CONTENT
+    // item 的 根部局FrameLayout 的上下左右间隔  就是divderRect。
     var divderRect: Rect? = null
     //控制前面的是否隐藏
     var isHideBeforeDivder = false
+    // 内部属性。 是否生成过。如果生成过 则不生成了
     internal var isGenerate = false
 
     fun part(part: Part): ViewStyleOBJ {

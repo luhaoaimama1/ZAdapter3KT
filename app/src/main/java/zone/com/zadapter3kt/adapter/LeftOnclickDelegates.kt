@@ -19,10 +19,10 @@ class LeftOnclickDelegates : ViewDelegatesDemo<String>() {
     override fun registerClickListener(): Array<Int>? = arrayOf(R.id.ll_main, R.id.tv)
 
     override fun onBindViewHolder(position: Int, item: DataWarp<String>, baseHolder: HolderExDemoImpl, payloads: List<*>) {
-        baseHolder.setText(R.id.tv, item.data!!)
-        baseHolder.itemView.post { QuickConfig.e("height" + baseHolder.itemView.height) }
-        //需要泛型补全 holder<holder> 不然里面的泛型会出问题！ 既这行出错
-        baseHolder.setText(R.id.tv, item.data!!)
+        item.data?.let {
+            baseHolder.itemView.post { QuickConfig.e("height" + baseHolder.itemView.height) }
+            baseHolder.setText(R.id.tv, it)
+        }
     }
 
     override fun onClick(v: View?, viewBaseHolder: HolderExDemoImpl, posi: Int, item: DataWarp<String>) {

@@ -45,6 +45,9 @@ Step 3. Step 3: you need provide
 
 https://www.processon.com/view/link/5b755300e4b025cf49492260
 
+![](https://tva1.sinaimg.cn/large/006tNbRwgy1gakk3gep33j30lc0rewll.jpg)
+![](https://tva1.sinaimg.cn/large/006tNbRwgy1gakk3tn036j30m80qmdmt.jpg)
+
 # demo解释：
 
 * 简单实用参考FastRecyclerActivity
@@ -61,7 +64,7 @@ https://www.processon.com/view/link/5b755300e4b025cf49492260
 
 # 简要概述:
 
-1.简单使用
+####简单使用
 
 ```
     for (i in 1..30) {
@@ -69,31 +72,38 @@ https://www.processon.com/view/link/5b755300e4b025cf49492260
     }
     //base test
     rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    rv.itemAnimator = DefaultItemAnimator()
-    muliAdapter = QuickAdapter<String>(this@FastRecyclerActivity).apply {
+    rv.adapter = QuickAdapter<String>(this@FastRecyclerActivity).apply {
        registerDelegate(LeftDelegates())
        add(mDatas)
     }
-    rv.adapter = muliAdapter
 ```
 
-2.多布局  涉及 ViewDelegate,CommonAdapter配置与ViewStyleOBJ配置扩展类
+####多布局:
+
+1.声明一个布局模式
 
 ```
-class LeftDelegates : ViewDelegate<String>() {
-    override val layoutId: Int= R.layout.item_left
+class LeftOnclickDelegates : ViewDelegatesDemo<String>() {
+    override val layoutId: Int = R.layout.item_left_onclick
 
-    override fun onBindViewHolder(position: Int, item: DataWarp<String>, holder: Holder, payloads: List<*>) {
-        holder.setText(R.id.tv, item.data!!)
-        holder.itemView.post { QuickConfig.e("height" + holder.itemView.height) }
-        //需要泛型补全 holder<holder> 不然里面的泛型会出问题！ 既这行出错
+    override fun registerClickListener(): Array<Int>? = arrayOf(R.id.ll_main, R.id.tv)
 
-        holder.setText(R.id.tv, item.data!!)
-                .setOnClickListener(View.OnClickListener { println("holder click测试 ") })
+    override fun onBindViewHolder(position: Int, item: DataWarp<String>, baseHolder: HolderExDemoImpl, payloads: List<*>) {
+        item.data?.let {
+            baseHolder.itemView.post { QuickConfig.e("height" + baseHolder.itemView.height) }
+            baseHolder.setText(R.id.tv, it)
+        }
+    }
+
+    override fun onClick(v: View?, viewBaseHolder: HolderExDemoImpl, posi: Int, item: DataWarp<String>) {
+        super.onClick(v, viewBaseHolder, posi, item)
+        ToastUtils.showShort(viewBaseHolder.itemView.context, "click 位置：$posi, 点击 ${if (v!!.id == R.id.ll_main) "非文字" else "文字"}")
     }
 
 }
 ```
+
+2.在adapter配置 多布局模式 与 监听
 
 ```
 class CommonAdapter(context: Context) : QuickAdapter<String>(context) {
@@ -141,47 +151,24 @@ class CommonAdapter(context: Context) : QuickAdapter<String>(context) {
             override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
             }
         })
+
+        //加载跟多功能参考类：LoadmoreKTActivity  需要QuickConfig设置好全局loadingSetting
+        loadOnScrollListener = object : OnScrollRcvListener() {
+
+                override fun onLoading() {
+                    super.onLoading()
+                    //加载数据
+                }
+            }
     }
 }
-
-```
-
-配置扩展类
-
-```
-//实际RV中的数据是DataWarp
-class DataWarp<T>(var data: T?, var extraConfig: ViewStyleOBJ = ViewStyleOBJ())
-// 配置扩展类
-class ViewStyleOBJ {
-    var viewStyle: Int = -1 //布局类型
-    var isFullspan = false //是不是满行 一般用于grid布局和瀑布流布局
-    //配置tags 到时候点击或者浏览的时候可以通过tags是否上报之类的。或者在列表中瞬间找到一中tag的一些item
-    val tags: HashSet<String> by lazy { HashSet<String>() }
-    // 用于存一些obj的,可以到时候通过key取出来用
-    val otherMaps:HashMap<String,Any> by lazy { HashMap<String,Any>() }
-    // 是否吸顶
-    var isSticky: Boolean = false
-    // 用与快速更新Rv某部分的数据
-    var quickUpdateSection: QuickUpdateSection? = null
-    // 用于细分复用
-    var section: Section? = null
-    // 用于区分 是头部 还是底部 还是内容的
-    var part: Part = Part.CONTENT
-    // item 的 根部局FrameLayout 的上下左右间隔  就是divderRect。
-    //并且修改数据的时候都会把上一个item的divder通知变更下
-    var divderRect: Rect? = null
-    //控制前一个item divderRect的bottom强制为0 一般用于当前item上下没有间隔
-    var isHideBeforeDivder = false
-    // 内部属性。 是否生成过。如果生成过 则不生成了
-    internal var isGenerate = false
-```
-
-
 
 # Update log
 
 >由于每个版本更新的东西较多，所以从现在开始每个版本都会贴上更新日志.
 
+## 2.0.2
+  * androidX
 
 ## 1.0.01
 

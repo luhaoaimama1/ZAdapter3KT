@@ -63,6 +63,7 @@ class LoadmoreKTActivity : Activity(), Handler.Callback {
 //                isScrollToLoadData = true
 //            })
 
+            //需要QuickConfig设置好全局loadingSetting
             loadOnScrollListener = object : OnScrollRcvListener() {
 
                 override fun onLoading() {

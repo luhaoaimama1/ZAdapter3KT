@@ -45,6 +45,9 @@ because compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
 
 https://www.processon.com/view/link/5b755300e4b025cf49492260
 
+![](https://tva1.sinaimg.cn/large/006tNbRwgy1gakk3gep33j30lc0rewll.jpg)
+![](https://tva1.sinaimg.cn/large/006tNbRwgy1gakk3tn036j30m80qmdmt.jpg)
+
 # demo explain：
 
 * easy use 's ,  Example  -> FastRecyclerActivity
@@ -76,21 +79,32 @@ https://www.processon.com/view/link/5b755300e4b025cf49492260
     rv.adapter = muliAdapter
 ```
 
-2.Multiple Layout involves ViewDelegate,CommonAdapter configuration and ViewStyleOBJ configuration extension classes
+#### Multiple Layout:
+
+1.Declare a layout pattern
 
 ```
-class LeftDelegates : ViewDelegate<String>() {
-    override val layoutId: Int= R.layout.item_left
+class LeftOnclickDelegates : ViewDelegatesDemo<String>() {
+    override val layoutId: Int = R.layout.item_left_onclick
 
-    override fun onBindViewHolder(position: Int, item: DataWarp<String>, holder: Holder, payloads: List<*>) {
-        holder.setText(R.id.tv, item.data!!)
-        holder.itemView.post { QuickConfig.e("height" + holder.itemView.height) }
-        holder.setText(R.id.tv, item.data!!)
-                .setOnClickListener(View.OnClickListener { println("holder click test ") })
+    override fun registerClickListener(): Array<Int>? = arrayOf(R.id.ll_main, R.id.tv)
+
+    override fun onBindViewHolder(position: Int, item: DataWarp<String>, baseHolder: HolderExDemoImpl, payloads: List<*>) {
+        item.data?.let {
+            baseHolder.itemView.post { QuickConfig.e("height" + baseHolder.itemView.height) }
+            baseHolder.setText(R.id.tv, it)
+        }
+    }
+
+    override fun onClick(v: View?, viewBaseHolder: HolderExDemoImpl, posi: Int, item: DataWarp<String>) {
+        super.onClick(v, viewBaseHolder, posi, item)
+        ToastUtils.showShort(viewBaseHolder.itemView.context, "click 位置：$posi, 点击 ${if (v!!.id == R.id.ll_main) "非文字" else "文字"}")
     }
 
 }
 ```
+
+2.Configuration in adapter Multi-layout mode And listening
 
 ```
 class CommonAdapter(context: Context) : QuickAdapter<String>(context) {
@@ -138,47 +152,25 @@ class CommonAdapter(context: Context) : QuickAdapter<String>(context) {
             override fun getItemViewType(position: Int, itemConfig: ViewStyleOBJ) {
             }
         })
+
+
+        //loadmore Function reference class: LoadmoreKTActivity requires QuickConfig to set global loading Settings
+        loadOnScrollListener = object : OnScrollRcvListener() {
+
+                override fun onLoading() {
+                    super.onLoading()
+                    //加载数据
+                }
+            }
     }
 }
-
-```
-
-Configure extension classes
-
-```
-//The data in the actual RV is DataWarp
-class DataWarp<T>(var data: T?, var extraConfig: ViewStyleOBJ = ViewStyleOBJ())
-// Configure extension classes
-class ViewStyleOBJ {
-    var viewStyle: Int = -1 //Layout type
-    var isFullspan = false //Whether full rows are generally used for grid layouts and waterfall layouts
-    //configure tags, Click or browse when the time can be reported through the tags or so. Or find some of the item of a tag in the list in a split second
-    val tags: HashSet<String> by lazy { HashSet<String>() }
-    //For storing some obj, you can then use the key to use
-    val otherMaps:HashMap<String,Any> by lazy { HashMap<String,Any>() }
-    // Whether to absorb the top
-    var isSticky: Boolean = false
-    // Using and quickly updating data in some part of Rv
-    var quickUpdateSection: QuickUpdateSection? = null
-    //For subdivision multiplexing
-    var section: Section? = null
-    // Used to distinguish between the head and the bottom or the content
-    var part: Part = Part.CONTENT
-    // The root of the item FrameLayout is left and right between the top and the left is the divderRect.
-    //And when the data is modified, the divder notification of the previous item is changed.
-    var divderRect: Rect? = null
-    //Control of the previous item divderRect with a bottom force of 0 is generally used for the current item with no up-and-down intervals
-    var isHideBeforeDivder = false
-    // Internal attribute. Has been generated. If it has been generated, it will not be generated
-    internal var isGenerate = false
-```
-
-
 
 # Update log
 
 >Since there are more updates per version, update logs are posted on each version from now on.
 
+## 2.0.2
+  * androidX
 
 ##  1.0.01
 

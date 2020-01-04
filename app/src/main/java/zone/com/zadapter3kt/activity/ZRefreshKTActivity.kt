@@ -61,6 +61,7 @@ class ZRefreshKTActivity : Activity(), Handler.Callback {
 //                isScrollToLoadData = true
 //            })
 
+            //需要QuickConfig设置好全局loadingSetting
             loadOnScrollListener = OnScrollRcvListenerExZRefresh(refresh)
             add(mDatas)
         }
