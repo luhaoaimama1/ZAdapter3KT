@@ -160,6 +160,7 @@ class CommonAdapter(context: Context) : QuickAdapter<String>(context) {
             }
     }
 }
+```
 
 # Update log
 
