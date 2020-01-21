@@ -62,7 +62,7 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
 
     override fun checkRemoveEmptyData() {
         super.checkRemoveEmptyData()
-        if (!mHFList.hcfDataIsEmpty() && mHFList.otherDatas.contains(emptyData)) {
+        if (mHFList.otherDatas.contains(emptyData)) {
             mHFList.otherDatas.remove(emptyData)
             dataWithConfigChanged()
             notifyItemRemoved(0)
