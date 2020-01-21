@@ -169,7 +169,6 @@ open class HFList<T>() {
     fun remove(positionStart: Int, itemCount: Int) {
         if (mListCollection.remove(positionStart, itemCount) { _ -> })
             notifyItemRangeRemovedInner(positionStart, itemCount)
-        checkAddEmptyData()
     }
 
     fun changedOBJ(item: T, payload: Any? = null) {
@@ -265,7 +264,6 @@ open class HFList<T>() {
         if (beginIndex == -1 || itemCount == 0) return
         item.clear()
         notifyItemRangeRemovedInner(beginIndex, itemCount)
-        checkAddEmptyData()
     }
 
     // ======================================= notify系列=====================================

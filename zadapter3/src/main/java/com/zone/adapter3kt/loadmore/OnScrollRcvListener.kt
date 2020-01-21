@@ -68,7 +68,7 @@ open class OnScrollRcvListener() : RecyclerView.OnScrollListener(), OnLoadingLis
     private val outRect = Rect()
     private fun loadMoreCheck(recyclerView: RecyclerView, dy: Int) {
         //<0 刷新动作  0是onScrollStateChanged 传过来所以包括0
-        if (dy < 0) return
+        if (dy <= 0) return
         val adapter = if (recyclerView.adapter is LoadMoreAdapter<*>) {
             recyclerView.adapter as LoadMoreAdapter<*>
         } else null

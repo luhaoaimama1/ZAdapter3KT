@@ -63,6 +63,7 @@ open class ContentAdapter<T>(context: Context) : DelegatesAdapter<T>(context) {
             dataWithConfigChanged()
             notifyItemRangeRemovedInnerMonitor(positionStart,itemCount)
             if (dataChangeHasAnimator) notifyItemRangeRemoved(positionStart, itemCount) else notifyDataSetChanged()
+            checkAddEmptyData()
         }
 
         override fun notifyItemInsertedInner(position: Int) {
