@@ -45,6 +45,8 @@ open class HFList<T>() {
         mListCollection.list.add(otherDatas)
     }
 
+    fun hcfDataIsEmpty() = headerDatas.count() == 0 && footerDatas.count() == 0 && contentDatas.count() == 0
+
     // ======================================= Config系列=====================================
 
     protected open fun generateConfig(item: DataWarp<T>): ViewStyleOBJ =

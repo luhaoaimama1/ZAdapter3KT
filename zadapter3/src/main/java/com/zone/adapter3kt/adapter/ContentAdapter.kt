@@ -156,6 +156,7 @@ open class ContentAdapter<T>(context: Context) : DelegatesAdapter<T>(context) {
     }
     open fun remove(positionStart: Int, itemCount: Int) = mHFList.remove(positionStart, itemCount)
 
+    //todo zone clear(Part.HEADER  ...)
     open fun clearAll() = mHFList.clearAll()
     open fun clearHeaderDatas() = mHFList.clearHeaderDatas()
     open fun clearContentDatas() = mHFList.clearContentDatas()
