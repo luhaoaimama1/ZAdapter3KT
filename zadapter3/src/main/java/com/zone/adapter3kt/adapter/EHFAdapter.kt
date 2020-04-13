@@ -52,7 +52,11 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
 
     override fun checkAddEmptyData() {
         super.checkAddEmptyData()
-        if (mHFList.mListCollection.count() == 0) {
+
+        if (delegatesManager.getDelegateNoMap(EMPTY_VALUE) != null &&
+                mHFList.hcfDataIsEmpty() &&
+                !mHFList.otherDatas.contains(emptyData)) {
+            QuickConfig.d("add empty data")
             mHFList.otherDatas.add(emptyData)
             dataWithConfigChanged()
             notifyItemInserted(0)
@@ -61,8 +65,8 @@ open class EHFAdapter<T>(context: Context) : ContentAdapter<T>(context) {
 
     override fun checkRemoveEmptyData() {
         super.checkRemoveEmptyData()
-        if (mHFList.mListCollection.count() == 1 &&
-            mHFList.otherDatas.indexOf(emptyData) != -1) {
+        if (delegatesManager.getDelegateNoMap(EMPTY_VALUE) != null && mHFList.otherDatas.contains(emptyData)) {
+            QuickConfig.d("remove empty data")
             mHFList.otherDatas.remove(emptyData)
             dataWithConfigChanged()
             notifyItemRemoved(0)

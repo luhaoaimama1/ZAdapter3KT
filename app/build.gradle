@@ -34,7 +34,7 @@ dependencies {
     api 'com.google.android.material:material:1.0.0'
 //    compile project(path: ':zadapter3')
     api 'com.google.code.gson:gson:2.5'
-    api('com.github.luhaoaimama1:ZRefreshLayout:2.0.4')
+    api('com.github.luhaoaimama1:ZRefreshLayout:2.0.5')
     api 'com.github.luhaoaimama1:zone-sdk:2.2.1'
     api project(':zadapter3')
     api 'com.github.luhaoaimama1:ZView:2.0.0'

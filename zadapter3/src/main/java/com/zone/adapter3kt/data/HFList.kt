@@ -45,6 +45,8 @@ open class HFList<T>() {
         mListCollection.list.add(otherDatas)
     }
 
+    fun hcfDataIsEmpty() = headerDatas.count() == 0 && footerDatas.count() == 0 && contentDatas.count() == 0
+
     // ======================================= Config系列=====================================
 
     protected open fun generateConfig(item: DataWarp<T>): ViewStyleOBJ =
@@ -167,7 +169,6 @@ open class HFList<T>() {
     fun remove(positionStart: Int, itemCount: Int) {
         if (mListCollection.remove(positionStart, itemCount) { _ -> })
             notifyItemRangeRemovedInner(positionStart, itemCount)
-        checkAddEmptyData()
     }
 
     fun changedOBJ(item: T, payload: Any? = null) {
@@ -263,7 +264,6 @@ open class HFList<T>() {
         if (beginIndex == -1 || itemCount == 0) return
         item.clear()
         notifyItemRangeRemovedInner(beginIndex, itemCount)
-        checkAddEmptyData()
     }
 
     // ======================================= notify系列=====================================
