@@ -87,7 +87,7 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
         loadingForce()
     }
 
-    private fun loadingForce() {
+    fun loadingForce() {
         isLoading.set(true)
         addLoadData()
         loadOnScrollListener?.onLoading()
@@ -103,7 +103,7 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
         } else QuickConfig.d("非loading状态")
     }
 
-    private fun loadMoreCompleteForce() {
+    fun loadMoreCompleteForce() {
         removeLoadData()
         loadOnScrollListener?.complete()
         isLoading.set(false)
@@ -116,7 +116,7 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
         } else QuickConfig.d("非loading状态")
     }
 
-    private fun loadMoreFailForce() {
+    fun loadMoreFailForce() {
         addLoadData()
         loadOnScrollListener?.fail()
         isLoading.set(false)
