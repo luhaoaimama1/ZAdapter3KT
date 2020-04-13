@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.appbar.AppBarLayout
+import com.zone.adapter3kt.adapter.OnItemClickListener
 import com.zone.adapter3kt.adapter.StickyAdapter
-import kotlinx.android.synthetic.main.a_scroll_recycler.*
+import kotlinx.android.synthetic.main.a_scroll_recycler.rv
+import kotlinx.android.synthetic.main.a_scroll_recycler_nest.*
 import zone.com.zadapter3.R
 import java.util.ArrayList
 import zone.com.zadapter3kt.common.NestAdapter
@@ -18,6 +22,7 @@ import zone.com.zadapter3kt.common.NestAdapter
 class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
 
     var isLinear = true
+    var isExpanded = false
     private val mDatas = ArrayList<Int>()
     private lateinit var muliAdapter: StickyAdapter<Int>
 
@@ -32,7 +37,20 @@ class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
         muliAdapter = NestAdapter(this@ChangeLayoutNestRecyclerActivity).apply {
             add(Int.MAX_VALUE)
             add(mDatas)
+
         }
+        muliAdapter.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(parent: ViewGroup, view: View, position: Int) {
+                println("rv onclick !")
+                isExpanded = !isExpanded
+                appbar.setExpanded(isExpanded, true)
+            }
+        }
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { p0, p1 ->
+            println("offset:${p1}  appheight:${appbar.height}   totalScrollRange:${appbar.totalScrollRange}")
+            isExpanded = if (Math.abs(p1) > (appbar.totalScrollRange / 2)) false
+            else true
+        })
         changeLayout()
         rv.addOnScrollListener(value)
         rv.adapter = muliAdapter
@@ -61,7 +79,7 @@ class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
             super.getItemOffsets(outRect, view, parent, state)
             val position = parent.getChildAdapterPosition(view)
             val divider = 30
-            if(rv.layoutManager is StaggeredGridLayoutManager){
+            if (rv.layoutManager is StaggeredGridLayoutManager) {
                 val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
                 outRect.top = divider
                 if (lp.spanIndex == 0) {
@@ -73,7 +91,7 @@ class ChangeLayoutNestRecyclerActivity : Activity(), Handler.Callback {
                     outRect.left = divider / 2;
                 }
             }
-            if(rv.layoutManager is LinearLayoutManager){
+            if (rv.layoutManager is LinearLayoutManager) {
                 outRect.bottom = divider;
             }
         }

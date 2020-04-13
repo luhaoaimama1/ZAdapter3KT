@@ -84,6 +84,10 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
     internal var isLoading = AtomicBoolean(false)
 
     internal fun loading() {
+        loadingForce()
+    }
+
+    private fun loadingForce() {
         isLoading.set(true)
         addLoadData()
         loadOnScrollListener?.onLoading()
@@ -95,29 +99,41 @@ open class LoadMoreAdapter<T>(context: Context) : ScrollToAdapter<T>(context) {
      */
     fun loadMoreComplete() {
         if (isLoading.get()) {
-            removeLoadData()
-            loadOnScrollListener?.complete()
-            isLoading.set(false)
-            getLoadDelegate { it.complete() }
+            loadMoreCompleteForce()
         } else QuickConfig.d("非loading状态")
+    }
+
+    private fun loadMoreCompleteForce() {
+        removeLoadData()
+        loadOnScrollListener?.complete()
+        isLoading.set(false)
+        getLoadDelegate { it.complete() }
     }
 
     fun loadMoreFail() {
         if (isLoading.get()) {
-            addLoadData()
-            loadOnScrollListener?.fail()
-            isLoading.set(false)
-            getLoadDelegate { it.fail() }
+            loadMoreFailForce()
         } else QuickConfig.d("非loading状态")
+    }
+
+    private fun loadMoreFailForce() {
+        addLoadData()
+        loadOnScrollListener?.fail()
+        isLoading.set(false)
+        getLoadDelegate { it.fail() }
     }
 
     fun loadMoreEnd() {
         if (isLoading.get()) {
-            addLoadData()
-            loadOnScrollListener?.end()
-            isLoading.set(false)
-            getLoadDelegate { it.end() }
+            loadMoreEndForce()
         } else QuickConfig.d("非loading状态")
+    }
+
+    fun loadMoreEndForce() {
+        addLoadData()
+        loadOnScrollListener?.end()
+        isLoading.set(false)
+        getLoadDelegate { it.end() }
     }
 
 }
