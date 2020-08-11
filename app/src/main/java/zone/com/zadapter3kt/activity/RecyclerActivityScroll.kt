@@ -1,9 +1,11 @@
 package zone.com.zadapter3kt.activity
 
 import android.app.Activity
+import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.zone.adapter3kt.adapter.StickyAdapter
 import kotlinx.android.synthetic.main.a_scroll_recycler.*
 import zone.com.zadapter3.R
@@ -19,7 +21,7 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.a_scroll_recycler)
 
-        go.setOnClickListener({
+        go.setOnClickListener {
             try {
                 val scollValue = editValue.text.toString().toInt()
                 when (rg.checkedRadioButtonId) {
@@ -41,20 +43,21 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
                     }
                     R.id.smoothScrollerScroll -> {
                         println("scollType:smoothScrollerScroll")
-//                        var smoothScroller = object : LinearSmoothScroller(this@RecyclerActivityScroll) {
-//                            override fun computeScrollVectorForPosition(targetPosition: Int): PointF {
-//
-//                            }
-//
-//                            override fun getVerticalSnapPreference(): Int = LinearSmoothScroller.SNAP_TO_START
-//                        }
-//                        smoothScroller.setTargetPosition(scollValue)
-//                        rv.getLayoutManager().startSmoothScroll(smoothScroller);
+                        val smoothScroller = object : LinearSmoothScroller(this@RecyclerActivityScroll) {
+                            override fun calculateDtToFit(viewStart: Int, viewEnd: Int, boxStart: Int, boxEnd: Int, snapPreference: Int): Int {
+                                if (snapPreference == SNAP_TO_START) return boxStart - (viewStart - 100)
+                                return super.calculateDtToFit(viewStart, viewEnd, boxStart, boxEnd, snapPreference)
+                            }
+
+                            override fun getVerticalSnapPreference(): Int = LinearSmoothScroller.SNAP_TO_START
+                        }
+                        smoothScroller.setTargetPosition(scollValue)
+                        rv.getLayoutManager()?.startSmoothScroll(smoothScroller);
                     }
                     R.id.scrollToPositionWithOffset -> {
                         println("scollType:scrollToPositionWithOffset")
                         (rv.getLayoutManager() as androidx.recyclerview.widget.LinearLayoutManager)
-                                .scrollToPositionWithOffset(scollValue, 0)
+                                .scrollToPositionWithOffset(scollValue, 50)
                     }
                     R.id.scrollCustomMethodFirst -> {
                         println("scollType:scrollCustomMethodFirst")
@@ -62,9 +65,9 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
                     }
                 }
 
-            } catch(e: Exception) {
+            } catch (e: Exception) {
             }
-        })
+        }
 
         rv.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
         for (i in 0..50) {
@@ -81,7 +84,7 @@ class RecyclerActivityScroll : Activity(), Handler.Callback {
     private fun moveToPosition(n: Int) {
         //先从RecyclerView的LayoutManager中获取第一项和最后一项的Position
         val firstItem = (rv.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
-        val lastItem =(rv.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findLastVisibleItemPosition()
+        val lastItem = (rv.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findLastVisibleItemPosition()
         //然后区分情况
         if (n <= firstItem) {
             //当要置顶的项在当前显示的第一个项的前面时

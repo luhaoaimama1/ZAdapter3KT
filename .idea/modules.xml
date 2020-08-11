@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-ZAdapter3KT.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-ZAdapter3KT.iml" group="ZAdapter3KT" />
       <module fileurl="file://$PROJECT_DIR$/ZAdapter3.iml" filepath="$PROJECT_DIR$/ZAdapter3.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ZAdapter3KT.iml" filepath="$PROJECT_DIR$/.idea/ZAdapter3KT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ZAdapter3KT-app.iml" filepath="$PROJECT_DIR$/app/ZAdapter3KT-app.iml" group="ZAdapter3KT/app" />
+      <module fileurl="file://$PROJECT_DIR$/zadapter3/ZAdapter3KT-zadapter3.iml" filepath="$PROJECT_DIR$/zadapter3/ZAdapter3KT-zadapter3.iml" group="ZAdapter3KT/zadapter3" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/zadapter3/zadapter3.iml" filepath="$PROJECT_DIR$/zadapter3/zadapter3.iml" />
     </modules>

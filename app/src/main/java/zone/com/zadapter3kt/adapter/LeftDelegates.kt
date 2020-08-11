@@ -22,6 +22,7 @@ class LeftDelegates : ViewDelegatesDemo<String>() {
 
         baseHolder.setText(R.id.tv, item.data!!)
                 .setOnClickListener(View.OnClickListener { println("holder click测试 ") })
+        println("onBindViewHolder position:${position}")
     }
 
 }
